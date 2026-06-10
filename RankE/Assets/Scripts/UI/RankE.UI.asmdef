@@ -1,0 +1,17 @@
+{
+    "name": "RankE.UI",
+    "rootNamespace": "RankE.UI",
+    "references": [
+        "RankE.Sim",
+        "RankE.Game"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

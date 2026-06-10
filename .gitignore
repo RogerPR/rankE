@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Python (functional_POC is reference-only)
+functional_POC/__pycache__/
+*.pyc
+
+# Unity project (RankE/) — generated folders
+RankE/[Ll]ibrary/
+RankE/[Tt]emp/
+RankE/[Oo]bj/
+RankE/[Bb]uild/
+RankE/[Bb]uilds/
+RankE/[Ll]ogs/
+RankE/[Uu]ser[Ss]ettings/
+
+# Unity generated IDE files
+RankE/*.csproj
+RankE/*.sln
+RankE/*.user
+RankE/*.userprefs
+RankE/.vsconfig
+RankE/.idea/
+RankE/.vs/
+
+# Unity crash reports / misc
+RankE/[Mm]emoryCaptures/
+RankE/[Rr]ecordings/
+RankE/sysinfo.txt
+RankE/*.stackdump
+RankE/*.pidb.meta
+RankE/crashlytics-build.properties
+
+# Test results
+*.TestResults.xml

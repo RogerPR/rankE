@@ -1,0 +1,16 @@
+{
+    "name": "RankE.Game",
+    "rootNamespace": "RankE.Game",
+    "references": [
+        "RankE.Sim"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

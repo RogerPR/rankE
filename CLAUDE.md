@@ -51,7 +51,25 @@ Real-time 1v1 dueling roguelite in Unity. Controller-first, PC now, mobile-feasi
 
 ## Commands
 
-(Fill these in during Phase 0 and keep them accurate.)
+- Run sim tests headless (Unity editor must be **closed** — the project is locked while open):
 
-- Run sim tests headless: `TODO — Unity CLI -runTests command`
-- Run balance sweep: `TODO — BattleRunner invocation`
+  ```sh
+  /Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/MacOS/Unity \
+    -batchmode -projectPath "$(pwd)/RankE" \
+    -runTests -testPlatform EditMode \
+    -testResults /tmp/ranke-test-results.xml -logFile /tmp/ranke-test-run.log
+  ```
+
+  Exit code 0 = all passed. Details in the results XML (`test-run` attributes
+  `total`/`passed`/`failed`). Do not pass `-quit` together with `-runTests`.
+
+- Run balance sweep: `TODO — BattleRunner invocation (Phase 1)`
+
+- Unity MCP bridge: registered with Claude Code as `UnityMCP` (HTTP,
+  `http://127.0.0.1:8080/mcp`). The Unity editor must be open and focused once for the
+  bridge to connect. If `claude mcp list` shows "Failed to connect", start the server
+  manually:
+
+  ```sh
+  uvx --from "mcpforunityserver==9.7.1" mcp-for-unity --transport http --http-url http://127.0.0.1:8080
+  ```

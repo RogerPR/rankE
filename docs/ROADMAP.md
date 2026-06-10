@@ -16,17 +16,19 @@ Status legend: `[ ]` todo · `[~]` in progress · `[x]` done
 
 Goal: empty but correctly structured Unity project where sim tests run headless.
 
-- [ ] Create fresh Unity project `RankE/` at repo root (Unity 6.x, URP, 3D template).
-      Nothing carried over from `abandoned_try/` (reference only).
-- [ ] Folder layout: `Assets/Scripts/Sim` (asmdef, **noEngineReferences=true**),
+- [x] Create fresh Unity project `RankE/` at repo root (Unity 6000.1.10f1, URP
+      "Universal 3D" template).
+- [x] Folder layout: `Assets/Scripts/Sim` (asmdef, **noEngineReferences=true**),
       `Assets/Scripts/Game` (view/presentation), `Assets/Scripts/UI`,
       `Assets/Tests/Sim` (edit-mode test asmdef), `Assets/Data`, `Assets/Art`.
-- [ ] Unity Test Framework set up; one trivial sim test passes via Unity CLI batchmode
+- [x] Unity Test Framework set up; one trivial sim test passes via Unity CLI batchmode
       (`-runTests`) — document the exact command in CLAUDE.md.
-- [ ] Install + verify Unity MCP bridge (CoplayDev/unity-mcp): Claude can create a
+- [x] Install + verify Unity MCP bridge (CoplayDev/unity-mcp): Claude can create a
       GameObject and read the console.
-- [ ] Git hygiene: Unity .gitignore, decide on Git LFS for art, first commit.
-- [ ] Combat scene stub: orthographic camera, two placeholder capsules, ground plane.
+- [x] Git hygiene: Unity .gitignore, decide on Git LFS for art, first commit.
+      (LFS decision: **deferred** — no binary art until Phase 3; see Phase 3 note.)
+- [x] Combat scene stub: orthographic camera, two placeholder capsules, ground plane
+      (`Assets/Scenes/CombatScene.unity`).
 
 **DoD:** `Sim` asmdef compiles with no UnityEngine refs; headless test run passes from
 the command line; MCP round-trip works; scene shows two capsules facing each other.
@@ -75,6 +77,8 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
 - [ ] Parry juice: hitstop, flash, screen shake, SFX. Iterate until it feels right.
 - [ ] Break bar + BROKEN state with big audiovisual payoff; riposte cinematic moment.
 - [ ] Combo tracker UI + empowered finisher feedback.
+- [ ] Set up Git LFS **before** importing art packs (deferred from Phase 0: `brew
+      install git-lfs`, track fbx/textures/audio via `.gitattributes`).
 - [ ] Buy/import 2 character packs with animations (player knight + bandit); map
       ability timings (pre/post locks) to animation clips; hit/stagger/cast/parry anims.
 - [ ] Tune timings by playing (GCD, parry window, locks) — sim stays data-driven.

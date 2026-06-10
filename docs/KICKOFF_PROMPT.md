@@ -6,9 +6,9 @@
 Read CLAUDE.md, docs/GAME_DESIGN.md and docs/ROADMAP.md, then start Phase 0
 (Foundation) from the roadmap.
 
-Context: I have Unity 6 installed (abandoned_try used 6000.1.9f1 — check what's
-available with `Unity Hub` or ask me). Create the fresh project at RankE/ — nothing
-is carried over from abandoned_try or functional_POC; they are reference only.
+Context: I have Unity 6 installed check what's
+available with `Unity Hub` or ask me. Create the fresh project at RankE/ — nothing
+is carried over from  functional_POC; they are reference only.
 
 Work through the Phase 0 checklist in order. For the Unity MCP bridge
 (CoplayDev/unity-mcp), guide me through any installation steps you can't do

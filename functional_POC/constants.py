@@ -1,0 +1,64 @@
+# GLOBAL
+TICK_DURATION = 0.05  # seconds (changed from 0.1 to 0.05 for 20 ticks per second)
+GLOBAL_COOLDOWN_TICKS = 10 * 2  # 20 ticks
+GLOBAL_COOLDOWN_TICKS_QUICK_ACTION = 3 * 2  # 6 ticks
+MAX_HP = 500
+MAX_HP_OPPONENT = 500
+SPELL_GEMS = 3
+SPELL_GEMS_OPPONENT = 8
+
+# CONDITIONS
+CONDITIONS = ["stun", "poison", "regen", "parry"]
+POISON_DOT = 3
+REGEN_HEAL = 2
+APPLICATION_INTERVAL = 10 * 2  # 20 ticks
+
+# STANCES
+STANCES = ["rock", "wind", "water"]
+STANCE_SWITCH_COOLDOWN = 40 * 2  # 80 ticks
+STANCE_ACTION = {"rock": "kick", "wind": "parry", "water": "interrupt_cast"}
+
+# QUICK ACTIONS
+QUICK_ACTION_COOLDOWN = 60 * 2  # 120 ticks
+QUICK_ACTIONS = ["parry", "kick", "interrupt_cast", "riposte"]
+ACTIONS_WHILE_CAST = ["interrupt_cast"]
+
+KICK_DAMAGE = 2
+KICK_ACTION = "kick"
+KICK_CONDITION = "stun"
+KICK_DURATION = 30 * 2  # 60 ticks
+KICK_COOLDOWN = 120 * 2  # 240 ticks
+
+PARRY_CONDITION = "parry"
+PARRY_DURATION = 6 * 2  # 12 ticks
+PARRY_COOLDOWN = 60 * 2  # 120 ticks
+
+RIPOSTE_DAMAGE = 40
+RIPOSTE_CONDITION = "stun"
+RIPOSTE_DURATION = 50 * 2  # 100 ticks
+
+INTERRUP_CAST_ACTION = "stop_casting"
+
+# ABILITIES
+SLASH_COOLDOWN = 40 * 2  # 80 ticks
+SLASH_DAMAGE = 10
+
+STUN_COOLDOWN = 300 * 2  # 600 ticks
+STUN_DAMAGE = 5
+STUN_DURATION = 40 * 2  # 100 ticks
+STUN_CONDITION = "stun"
+
+FIREBALL_COOLDOWN = 80 * 2  # 160 ticks
+FIREBALL_DAMAGE = 40
+FIREBALL_CAST_TIME = 20 * 2  # 40 ticks
+
+VAMPIRO_COOLDOWN = 120 * 2  # 240 ticks
+VAMPIRO_CAST_TIME = 30 * 2  # 60 ticks
+VAMPIRO_SELF_CONDITION = "regen"
+VAMPIRO_CONDITION = "poison"
+VAMPIRO_SELF_DURATION = 60 * 2  # 120 ticks
+VAMPIRO_DURATION = 80 * 2  # 160 ticks
+
+# AUTO ATTACK
+AUTO_ATTACK_DAMAGE = 5
+AUTO_ATTACK_INTERVAL = 20 * 2  # 40 ticks

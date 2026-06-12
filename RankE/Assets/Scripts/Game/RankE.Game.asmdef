@@ -2,7 +2,8 @@
     "name": "RankE.Game",
     "rootNamespace": "RankE.Game",
     "references": [
-        "RankE.Sim"
+        "RankE.Sim",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

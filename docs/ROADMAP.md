@@ -57,18 +57,25 @@ green; zero UnityEngine usage in `Sim`.
 
 Goal: a human can play a full fight vs AI in Unity with the sketch UI. Placeholder art.
 
-- [ ] Sim↔View binding: sim emits events (AbilityUsed, Parried, Damaged, Broken…);
+- [x] Sim↔View binding: sim emits events (AbilityUsed, Parried, Damaged, Broken…);
       view layer consumes, never reaches into sim internals.
-- [ ] 2D UI per sketch: HP bars, cast bars, ability bar with radial cooldowns, status
+      (`BattleDriver` fixed-timestep accumulator + event cursor; enemy intent via new
+      sim-side `TelegraphBehavior` decorator, tested.)
+- [x] 2D UI per sketch: HP bars, cast bars, ability bar with radial cooldowns, status
       icon columns, enemy intent display, floating combat text.
-- [ ] Input System: gamepad + keyboard action maps per GAME_DESIGN §2.
-- [ ] Debug loadout picker (set stance/weapon/armor/abilities for testing — real
+      (Built 100% programmatically — `UiFactory`/`HudRoot`, no scene-authored UI.)
+- [x] Input System: gamepad + keyboard action maps per GAME_DESIGN §2.
+      (Action maps in code, `CombatInputActions`; sticky `PlayerIntentBuffer` with
+      event ack + 0.3s expiry; potions deferred to Phase 4 — no item mechanic yet.)
+- [x] Debug loadout picker (set stance/weapon/armor/abilities for testing — real
       acquisition comes via run rewards in Phase 4), countdown, victory/defeat
-      → restart loop.
-- [ ] Capsules animate crudely (lunge on attack, flash on hit) — enough to read the fight.
+      → restart loop. (`MatchController` state machine.)
+- [x] Capsules animate crudely (lunge on attack, flash on hit) — enough to read the fight.
 
 **DoD:** you can play and win/lose a complete duel with controller or keyboard; every
 sim mechanic is visible in the UI; no sim logic in MonoBehaviours.
+*(Code-complete, 71 headless tests green incl. scene smoke test — pending user
+play-test to confirm the DoD before Phase 3.)*
 
 ## Phase 3 — Combat feel & 3D (2–4 sessions) ⭐ critical gate
 

@@ -3,7 +3,8 @@
     "rootNamespace": "RankE.UI",
     "references": [
         "RankE.Sim",
-        "RankE.Game"
+        "RankE.Game",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

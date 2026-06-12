@@ -37,18 +37,18 @@ the command line; MCP round-trip works; scene shows two capsules facing each oth
 
 Goal: the Python PoC fully ported to the pure C# sim, verified by tests, no visuals.
 
-- [ ] Tick engine: 20 ticks/s, seeded RNG, deterministic.
-- [ ] Data-driven ability definitions (plain C# data; ScriptableObject wrappers later).
-- [ ] Port all PoC mechanics: GCD + quick GCD, cooldowns, casting + interrupts
+- [x] Tick engine: 20 ticks/s, seeded RNG, deterministic.
+- [x] Data-driven ability definitions (plain C# data; ScriptableObject wrappers later).
+- [x] Port all PoC mechanics: GCD + quick GCD, cooldowns, casting + interrupts
       (interruptible flag), auto-attack, parry window → riposte counter, statuses
       (stun/poison/regen), spell gems, stance/weapon/armor build modifiers (as build
       state set by run rewards, not pre-fight picks — GAME_DESIGN §1/§3).
-- [ ] New since PoC: break bar, combo tags (O/L/F), animation locks, delayed abilities,
+- [x] New since PoC: break bar, combo tags (O/L/F), animation locks, delayed abilities,
       `Distance` status — per GAME_DESIGN §1.
-- [ ] Port PoC enemy AI as `BehaviorProfile` v1.
-- [ ] `BattleRunner`: headless AI-vs-AI fights with stats output (winner, duration,
+- [x] Port PoC enemy AI as `BehaviorProfile` v1.
+- [x] `BattleRunner`: headless AI-vs-AI fights with stats output (winner, duration,
       ability usage) — the balance tool for every later phase.
-- [ ] Unit tests per mechanic + integration test running full seeded fights.
+- [x] Unit tests per mechanic + integration test running full seeded fights.
 
 **DoD:** 1000 headless AI-vs-AI fights run in seconds with summary stats; all tests
 green; zero UnityEngine usage in `Sim`.

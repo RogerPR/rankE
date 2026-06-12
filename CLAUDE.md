@@ -62,7 +62,21 @@ Real-time 1v1 dueling roguelite in Unity. Controller-first, PC now, mobile-feasi
   Exit code 0 = all passed. Details in the results XML (`test-run` attributes
   `total`/`passed`/`failed`). Do not pass `-quit` together with `-runTests`.
 
-- Run balance sweep: `TODO — BattleRunner invocation (Phase 1)`
+- Run balance sweep (headless AI-vs-AI fights; editor must be **closed**, like tests):
+
+  ```sh
+  /Applications/Unity/Hub/Editor/6000.1.10f1/Unity.app/Contents/MacOS/Unity \
+    -batchmode -projectPath "$(pwd)/RankE" \
+    -executeMethod RankE.Editor.BalanceSweepRunner.Run \
+    -fights 1000 -seed 42 -logFile /tmp/ranke-sweep.log
+  ```
+
+  Exits by itself (do not pass `-quit`); summary in the log under `[BalanceSweep]`.
+  From code/tests, the same sweep is `BattleRunner.RunDefault(fights, seed)`.
+
+- If the editor is open (project locked for batchmode), compile + tests can run through
+  the MCP bridge instead: `refresh_unity`, then `run_tests` (mode `EditMode`) and poll
+  `get_test_job`; `read_console` shows compile errors.
 
 - Unity MCP bridge: registered with Claude Code as `UnityMCP` (HTTP,
   `http://127.0.0.1:8080/mcp`). The Unity editor must be open and focused once for the

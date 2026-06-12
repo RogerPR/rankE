@@ -78,6 +78,8 @@ Three interacting systems. Quick actions live *outside* the combo system.
 - Parry opens a 0.6s window. Parrying a `parriable` attack negates it.
 - Each successful parry adds **+2 to the riposte counter (max 8)**; at 8 you unleash an
   automatic **Riposte**: heavy damage + stun **(PROPOSED: also +30 break)**. Counter resets.
+  **(PROPOSED:** the riposte fires automatically the instant the counter fills; the PoC
+  instead replaced the next pressed ability.**)**
 - Parry feedback: hitstop (~80 ms), white flash, distinct SFX — non-negotiable polish.
 
 **b) Break bar (Sekiro/Exp33) (PROPOSED numbers)**
@@ -92,6 +94,8 @@ Three interacting systems. Quick actions live *outside* the combo system.
 - Using tags in order O → L → F, each within 4s of the previous, completes a combo:
   the Finisher is empowered (+50% effect, +10 break) and refunds 1 spell gem.
 - Wrong-tag use resets the chain. Parry/Kick (quick actions) neither advance nor reset it.
+- **(PROPOSED** tag assignment for the dev kit: Slash = Opener, Bash = Linker,
+  Fireball = Finisher; Vampiro untagged (support casts are combo-neutral).**)**
 - UI: 3-slot combo tracker (bottom-left in sketch) for both fighters — you can read the
   enemy's chain and decide when you *must* parry.
 
@@ -101,6 +105,10 @@ Three interacting systems. Quick actions live *outside* the combo system.
 stacks) · `Slow` / `Haste` (±cooldown & cast speed) · `Guard` (damage reduction) ·
 **`Distance`** — fighters separated; melee abilities whiff, ranged unaffected; ends on
 timer or gap-closer ability. Statuses show as icons in the side columns (per sketch).
+
+**(PROPOSED** dev content exercising the new mechanics, numbers tunable: *Falling Star*
+— delayed ability, 30 dmg landing 3s after use, 10s CD, 1 gem; *Lunge* — gap-closer,
+clears `Distance` from both fighters, 5s CD.**)**
 
 ### Build base: class at run start, everything else earned
 

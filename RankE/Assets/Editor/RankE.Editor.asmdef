@@ -1,0 +1,18 @@
+{
+    "name": "RankE.Editor",
+    "rootNamespace": "RankE.Editor",
+    "references": [
+        "RankE.Sim"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -37,6 +37,12 @@ namespace RankE.Sim
         public int SpellGems;
         public int MaxSpellGems;
 
+        /// <summary>Resolved stat sheet (base config + gear deltas), fixed for the battle.</summary>
+        public StatSheet Stats;
+
+        /// <summary>Ticks until the next gem is regenerated (Stats.GemRegenIntervalTicks &gt; 0).</summary>
+        public int GemRegenRemaining;
+
         /// <summary>PoC armor extra_cooldown_mult: applied to cooldowns at use time.</summary>
         public double CooldownUseMult = 1.0;
 
@@ -89,6 +95,8 @@ namespace RankE.Sim
             int aaDamage = FirstDamageAmount(cfg.AutoAttack);
             int aaInterval = cfg.AutoAttack != null ? cfg.AutoAttack.CooldownTicks : 0;
 
+            Stats = cfg.Stats != null ? cfg.Stats.Clone() : new StatSheet();
+
             var gear = cfg.Build != null ? cfg.Build.Gear : null;
             if (gear != null)
             {
@@ -107,6 +115,9 @@ namespace RankE.Sim
                         foreach (var kv in g.AbilityCooldownMults)
                             cdMults[kv.Key] = (cdMults.TryGetValue(kv.Key, out var m) ? m : 1.0) * kv.Value;
                     }
+                    if (g.StatDeltas != null)
+                        foreach (var kv in g.StatDeltas)
+                            Stats.AddDelta(kv.Key, kv.Value);
                 }
             }
 
@@ -115,16 +126,20 @@ namespace RankE.Sim
             SpellGems = gems;
             MaxSpellGems = gems;
 
+            // Haste reduces cooldowns and cast times alike (neutral at Haste 0).
+            double hasteMult = (100 - Stats.Haste) / 100.0;
             foreach (var def in cfg.Abilities)
             {
                 double mult = cdMults.TryGetValue(def.Id, out var m) ? m : 1.0;
                 Abilities.Add(new AbilityState
                 {
                     Def = def,
-                    EffCooldownTicks = (int)(def.CooldownTicks * mult),
-                    EffCastTicks = (int)(def.CastTicks * castMult),
+                    EffCooldownTicks = (int)(def.CooldownTicks * mult * hasteMult),
+                    EffCastTicks = (int)(def.CastTicks * castMult * hasteMult),
                 });
             }
+
+            GemRegenRemaining = Stats.GemRegenIntervalTicks;
 
             if (cfg.AutoAttack != null)
             {
@@ -186,6 +201,7 @@ namespace RankE.Sim
                     Target = e.Target,
                     Kind = e.Kind,
                     Amount = e.Kind == EffectKinds.Damage ? damage : e.Amount,
+                    School = e.School,
                     StatusId = e.StatusId,
                     DurationTicks = e.DurationTicks,
                 });

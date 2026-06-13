@@ -89,10 +89,11 @@ the Phase 3 fun-gate. Decisions taken 2026-06-13.
 - [x] **Status library** v2 specced incl. the `StatusDef` fields each new status needs
       (GAME_DESIGN §1 "Statuses v2").
 - [x] **Ability catalogue v2** + gear-as-stat-deltas model (GAME_DESIGN Appendix A).
-- [ ] **Stat-sheet sim refactor** (add the stats to `Fighter`/`FighterConfig`, the damage
-      formula in `Battle`, `Effect.School`, generalize `GearDef` to stat deltas) — lands as
-      the **first code task of Phase 3**, then re-baseline BattleRunner. Until then the PoC
-      flat-damage numbers stand and the slice keeps working.
+- [x] **Stat-sheet sim refactor** (added `StatSheet` to `Fighter`/`FighterConfig`, the
+      derived damage formula + crit/Break Power/Haste/Gem Regen in `Battle`, `Effect.School`,
+      generalized `GearDef` to stat deltas with the PoC gear migrated to Appendix A). Neutral
+      stat defaults keep the slice working; 1000-fight seed-42 sweep is byte-identical to the
+      pre-refactor baseline (re-baselined 2026-06-13). 82 headless tests green.
 
 **DoD:** GAME_DESIGN reflects the agreed model; Phases 4/6 reference it; **no sim behavior
 changed yet** (paper + plan only).

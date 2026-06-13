@@ -53,6 +53,7 @@ namespace RankE.Sim
             if (IsOver) return;
 
             foreach (var f in Fighters) AdvanceTimers(f);
+            foreach (var f in Fighters) TickGemRegen(f);
             foreach (var f in Fighters) TickStatuses(f);
             foreach (var f in Fighters) TickBreakDecay(f);
 
@@ -139,6 +140,15 @@ namespace RankE.Sim
                 }
                 else s++;
             }
+        }
+
+        void TickGemRegen(Fighter f)
+        {
+            if (f.Stats.GemRegenIntervalTicks <= 0 || f.SpellGems >= f.MaxSpellGems) return;
+            if (--f.GemRegenRemaining > 0) return;
+            f.SpellGems = Math.Min(f.MaxSpellGems, f.SpellGems + 1);
+            f.GemRegenRemaining = f.Stats.GemRegenIntervalTicks;
+            Emit(SimEventType.GemRegenerated, f.Index, target: f.Index, amount: f.SpellGems);
         }
 
         void TickBreakDecay(Fighter f)
@@ -359,7 +369,16 @@ namespace RankE.Sim
             {
                 case EffectKinds.Damage:
                 {
-                    int dmg = (int)(e.Amount * empMult * target.DamageTakenMult * target.StatusDamageTakenMult());
+                    // Derived damage (GAME_DESIGN §1): offense-scaled & crit core, then
+                    // defense and damage-taken mults. Neutral stats reproduce flat PoC numbers.
+                    var attacker = Fighters[src];
+                    int offense = OffenseFor(attacker, e.School);
+                    double crit = RollCrit(attacker) ? attacker.Stats.CritDamage : 1.0;
+                    double core = Math.Round(
+                        e.Amount * empMult * (1 + offense / 100.0) * crit,
+                        MidpointRounding.AwayFromZero);
+                    double defMult = 100.0 / Math.Max(1, 100 + target.Stats.Defense);
+                    int dmg = (int)(core * defMult * target.DamageTakenMult * target.StatusDamageTakenMult());
                     target.Hp -= dmg;
                     Emit(SimEventType.Damaged, src, target: target.Index, ability: def.Id, amount: dmg);
                     break;
@@ -419,8 +438,33 @@ namespace RankE.Sim
             }
         }
 
+        /// <summary>Offense stat that scales an effect's damage by its school.</summary>
+        static int OffenseFor(Fighter attacker, string school)
+        {
+            switch (school)
+            {
+                case Schools.Magic:
+                case Schools.Support:
+                    return attacker.Stats.Magic;
+                case Schools.True:
+                    return 0;
+                default: // physical
+                    return attacker.Stats.Attack;
+            }
+        }
+
+        /// <summary>Seeded crit roll. Draws no RNG when CritChance is 0, so fights without
+        /// crit stay byte-identical to the pre-stat-sheet sim.</summary>
+        bool RollCrit(Fighter attacker)
+        {
+            int c = attacker.Stats.CritChance;
+            return c > 0 && Rng.Next(100) < c;
+        }
+
         void ApplyBreak(Fighter target, int amount, int src)
         {
+            if (amount <= 0) return;
+            amount = (int)(amount * Fighters[src].Stats.BreakPower); // Break Power (×1.0 neutral)
             if (amount <= 0) return;
             target.BreakBar += amount;
             target.TicksSinceBreakDamage = 0;

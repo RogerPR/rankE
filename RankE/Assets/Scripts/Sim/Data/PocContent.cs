@@ -97,7 +97,7 @@ namespace RankE.Sim
             Interruptible = true,
             GemCost = 1,
             ComboTag = ComboTags.Finisher,
-            Effects = new List<EffectDef> { EffectDef.Damage(40) },
+            Effects = new List<EffectDef> { EffectDef.Damage(40, Schools.Magic) },
         };
 
         public static AbilityDef Vampiro() => new AbilityDef
@@ -182,7 +182,7 @@ namespace RankE.Sim
             CooldownTicks = 200,
             DelayTicks = 60,
             GemCost = 1,
-            Effects = new List<EffectDef> { EffectDef.Damage(30) },
+            Effects = new List<EffectDef> { EffectDef.Damage(30, Schools.Magic) },
         };
 
         /// <summary>PROPOSED gap-closer: ends Distance (GAME_DESIGN §1 statuses).</summary>
@@ -214,36 +214,76 @@ namespace RankE.Sim
             Abilities = DefaultLoadout(),
         };
 
-        // Gear (PoC stances/weapons/armor as build-state drops)
+        // Gear (PoC stances/weapons/armor as build-state drops). Per Appendix A, gear now
+        // grants stat-sheet deltas; structural shaping (auto-attack/cast/gems) stays on the
+        // dedicated fields. Numbers are tunable starting points — tune via BattleRunner.
 
+        // Stances — playstyle modifiers.
         public static GearDef StanceRock() => new GearDef
-        { Id = "stance_rock", Name = "Rock Stance", Slot = "stance", AutoAttackDamageOverride = 8 };
+        {
+            // Heavy hitter: +60% Attack makes the base-5 auto land for 8 (was a flat override).
+            Id = "stance_rock", Name = "Rock Stance", Slot = "stance",
+            StatDeltas = new Dictionary<string, double> { { StatIds.Attack, 60 } },
+        };
 
         public static GearDef StanceWind() => new GearDef
         {
+            // Nimble: trades HP for a much faster Parry (per-ability cd isn't a stat).
             Id = "stance_wind", Name = "Wind Stance", Slot = "stance", MaxHpMult = 0.9,
             AbilityCooldownMults = new Dictionary<string, double> { { ParryId, 0.5 } },
         };
 
         public static GearDef StanceWater() => new GearDef
-        { Id = "stance_water", Name = "Water Stance", Slot = "stance", MaxHpMult = 0.8, GemsOverride = 7 };
+        {
+            // Caster: trades HP for gems and Magic.
+            Id = "stance_water", Name = "Water Stance", Slot = "stance", MaxHpMult = 0.8, GemsOverride = 7,
+            StatDeltas = new Dictionary<string, double> { { StatIds.Magic, 20 } },
+        };
 
+        // Weapons — set offense and shape the auto-attack.
         public static GearDef WeaponSword() => new GearDef
-        { Id = "weapon_sword", Name = "Sword", Slot = "weapon" };
+        {
+            Id = "weapon_sword", Name = "Sword", Slot = "weapon",
+            StatDeltas = new Dictionary<string, double> { { StatIds.Attack, 20 } },
+        };
 
         public static GearDef WeaponDagger() => new GearDef
-        { Id = "weapon_dagger", Name = "Dagger", Slot = "weapon", AutoAttackIntervalMult = 0.8, AutoAttackDamageMult = 0.9 };
+        {
+            // Fast, weaker auto, crits more.
+            Id = "weapon_dagger", Name = "Dagger", Slot = "weapon",
+            AutoAttackIntervalMult = 0.8, AutoAttackDamageMult = 0.9,
+            StatDeltas = new Dictionary<string, double> { { StatIds.Attack, 10 }, { StatIds.CritChance, 15 } },
+        };
 
         public static GearDef WeaponWand() => new GearDef
-        { Id = "weapon_wand", Name = "Wand", Slot = "weapon", CastTimeMult = 0.8 };
+        {
+            Id = "weapon_wand", Name = "Wand", Slot = "weapon", CastTimeMult = 0.8,
+            StatDeltas = new Dictionary<string, double> { { StatIds.Magic, 30 } },
+        };
 
+        public static GearDef WeaponGreataxe() => new GearDef
+        {
+            // Big, breaks hard, swings slow.
+            Id = "weapon_greataxe", Name = "Greataxe", Slot = "weapon",
+            StatDeltas = new Dictionary<string, double>
+            { { StatIds.Attack, 40 }, { StatIds.BreakPower, 0.5 }, { StatIds.Haste, -20 } },
+        };
+
+        // Armor — trades defense for mobility (Defense/Haste stats, was damage/cooldown mults).
         public static GearDef ArmorLight() => new GearDef
-        { Id = "armor_light", Name = "Light Armor", Slot = "armor", DamageTakenMult = 0.9, CooldownMult = 0.9 };
+        {
+            Id = "armor_light", Name = "Light Armor", Slot = "armor",
+            StatDeltas = new Dictionary<string, double>
+            { { StatIds.Haste, 15 }, { StatIds.CritChance, 10 }, { StatIds.Defense, -20 } },
+        };
 
         public static GearDef ArmorMedium() => new GearDef
         { Id = "armor_medium", Name = "Medium Armor", Slot = "armor" };
 
         public static GearDef ArmorHeavy() => new GearDef
-        { Id = "armor_heavy", Name = "Heavy Armor", Slot = "armor", DamageTakenMult = 1.1, CooldownMult = 1.1 };
+        {
+            Id = "armor_heavy", Name = "Heavy Armor", Slot = "armor", MaxHpMult = 1.2,
+            StatDeltas = new Dictionary<string, double> { { StatIds.Defense, 30 }, { StatIds.Haste, -15 } },
+        };
     }
 }

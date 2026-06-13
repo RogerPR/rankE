@@ -21,11 +21,26 @@ namespace RankE.Sim
         public const string InterruptCast = "interrupt_cast";
     }
 
+    /// <summary>
+    /// Damage school: picks which offense stat scales a Damage effect (GAME_DESIGN §1).
+    /// physical→Attack, magic/support→Magic, true→unscaled. Open string ids.
+    /// </summary>
+    public static class Schools
+    {
+        public const string Physical = "physical";
+        public const string Magic = "magic";
+        public const string True = "true";
+        public const string Support = "support";
+    }
+
     public sealed class EffectDef
     {
         public EffectTarget Target = EffectTarget.Opponent;
         public string Kind = EffectKinds.Damage;
         public int Amount;
+
+        /// <summary>Which offense stat scales this effect (Damage only). Default physical.</summary>
+        public string School = Schools.Physical;
 
         /// <summary>Status id for ApplyStatus/ClearStatus; for InterruptCast, an
         /// optional status applied only when the interrupt succeeds (PoC kick stun).</summary>
@@ -33,8 +48,8 @@ namespace RankE.Sim
 
         public int DurationTicks;
 
-        public static EffectDef Damage(int amount) =>
-            new EffectDef { Kind = EffectKinds.Damage, Target = EffectTarget.Opponent, Amount = amount };
+        public static EffectDef Damage(int amount, string school = Schools.Physical) =>
+            new EffectDef { Kind = EffectKinds.Damage, Target = EffectTarget.Opponent, Amount = amount, School = school };
 
         public static EffectDef Break(int amount) =>
             new EffectDef { Kind = EffectKinds.BreakDamage, Target = EffectTarget.Opponent, Amount = amount };

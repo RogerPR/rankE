@@ -20,7 +20,7 @@ namespace RankE.Sim
         /// <summary>-1 = no override.</summary>
         public int GemsOverride = -1;
 
-        /// <summary>-1 = no override (PoC rock stance sets auto-attack damage to 8).</summary>
+        /// <summary>-1 = no override.</summary>
         public int AutoAttackDamageOverride = -1;
 
         public double AutoAttackDamageMult = 1.0;
@@ -29,14 +29,21 @@ namespace RankE.Sim
         /// <summary>Multiplies cast times of all cast abilities (PoC wand).</summary>
         public double CastTimeMult = 1.0;
 
-        /// <summary>Multiplies every cooldown at use time (PoC armor extra_cooldown_mult).</summary>
+        /// <summary>Multiplies every cooldown at use time (legacy; PoC armor used this —
+        /// armor now reduces cooldowns via the Haste stat instead).</summary>
         public double CooldownMult = 1.0;
 
-        /// <summary>Multiplies incoming damage (PoC armor: light 0.9, heavy 1.1).</summary>
+        /// <summary>Multiplies incoming damage (legacy; PoC armor used this — armor now
+        /// reduces incoming damage via the Defense stat instead).</summary>
         public double DamageTakenMult = 1.0;
 
         /// <summary>Per-ability base cooldown multipliers (PoC wind stance halves parry).</summary>
         public Dictionary<string, double> AbilityCooldownMults = new Dictionary<string, double>();
+
+        /// <summary>Stat-sheet deltas applied additively at battle start (Appendix A).
+        /// Keyed by <see cref="StatIds"/>. The general gear→stats channel; runes (future)
+        /// are pure stat shards that use only this.</summary>
+        public Dictionary<string, double> StatDeltas = new Dictionary<string, double>();
     }
 
     /// <summary>

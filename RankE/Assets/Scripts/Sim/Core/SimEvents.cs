@@ -13,6 +13,7 @@ namespace RankE.Sim
         RiposteTriggered,
         BreakDamaged,
         Broken,
+        GemRegenerated,
         StatusApplied,
         StatusExpired,
         ComboAdvanced,

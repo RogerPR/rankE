@@ -70,6 +70,37 @@ acquisition/upgrade system (see §3); higher levels improve numbers or add effec
 - **Spell gems (PROPOSED, from PoC):** spells consume a limited stock of gems; gems are a
   build resource (more gems / gem regen via rewards). Keeps casters from being spam-bots.
 
+### Character stats & resources (PROPOSED v2, locked 2026-06-13)
+
+Stats are an **RPG sheet** and damage is **derived**, not flat per-ability (user
+decision 2026-06-13). A fighter carries:
+
+| Stat | Effect | Notes |
+|---|---|---|
+| Max HP | health pool | death at 0 |
+| Attack | scales **physical** ability & auto-attack damage | offense stat A |
+| Magic | scales **magic** ability damage and support potency (heals/regen) | offense stat B |
+| Defense | reduces incoming damage | `defMult = 100 / (100 + DEF)` |
+| Crit Chance | % chance to crit, seeded RNG (stays deterministic) | |
+| Crit Damage | crit multiplier | default ×1.5 |
+| Haste | % reduction to cooldowns **and** cast times | folds the old two reward lines into one stat |
+| Break Power | multiplies break damage dealt | |
+| Spell Gems / Max | crystal stock for casts | |
+| Gem Regen | gems restored per N ticks | **new** — keeps casters from drying up |
+
+**Damage formula (PROPOSED):**
+`final = round( Base × (1 + Offense/100) × critMult ) × defMult × statusMults`
+— `Offense` = Attack or Magic per the effect's **school** (physical / magic / true);
+`critMult` = Crit Damage on a crit else 1; `defMult` = `100/(100+DEF)`; `statusMults`
+folds Broken (×1.5), Guard (<1), Vulnerable (>1), Weaken (attacker's outgoing <1).
+Effects gain a `School` field (physical default). Support effects scale off Magic via
+the same `(1 + Magic/100)` term.
+
+**Resources (locked 2026-06-13):** ability costs are **cooldowns + GCD + spell gems** —
+**no mana**. Gems *are* the consumable ("crystals"); they now **regen** (Gem Regen stat /
+reward) so casters aren't hard-capped. Quick actions stay gem-free, gated only by their
+own cooldown + the 0.3s quick-GCD.
+
 ### The dance: parry, break, combos (Option 3 — all of it)
 
 Three interacting systems. Quick actions live *outside* the combo system.
@@ -99,12 +130,21 @@ Three interacting systems. Quick actions live *outside* the combo system.
 - UI: 3-slot combo tracker (bottom-left in sketch) for both fighters — you can read the
   enemy's chain and decide when you *must* parry.
 
-### Statuses (PROPOSED list)
+### Statuses (PROPOSED v2)
 
-`Stun` (no actions, casts cancelled) · `Poison` (DoT) · `Regen` (HoT) · `Burn` (DoT,
-stacks) · `Slow` / `Haste` (±cooldown & cast speed) · `Guard` (damage reduction) ·
-**`Distance`** — fighters separated; melee abilities whiff, ranged unaffected; ends on
-timer or gap-closer ability. Statuses show as icons in the side columns (per sketch).
+**Built today** (`StatusDef` supports these): `Stun` (no actions, casts cancelled) ·
+`Poison` (DoT) · `Regen` (HoT) · `Parry` · `Broken` (×1.5 dmg taken) · **`Distance`**
+(fighters separated; melee whiffs, ranged unaffected; ends on timer or gap-closer).
+
+**To add** (each notes the `StatusDef` extension it needs):
+- `Burn` — stacking magic DoT → needs **stack support** on `StatusDef`.
+- `Bleed` — physical DoT → `Poison` clone tagged physical school.
+- `Slow` / `Haste` — ± cooldown & cast speed → needs a **`HasteMult`** field.
+- `Guard` — incoming-damage reduction window → uses existing `DamageTakenMult` < 1.
+- `Vulnerable` — +damage taken (a milder/shorter Broken) → `DamageTakenMult` > 1.
+- `Weaken` — −attacker outgoing damage → needs an **`OutgoingDamageMult`** field.
+
+Statuses show as icons in the side columns (per sketch).
 
 **(PROPOSED** dev content exercising the new mechanics, numbers tunable: *Falling Star*
 — delayed ability, 30 dmg landing 3s after use, 10s CD, 1 gem; *Lunge* — gap-closer,
@@ -224,3 +264,43 @@ chains you must parry) · Boss: **Bandit Captain** (all mechanics, 2 phases).
 
 Multiplayer · localization · Steam integration · mobile build (design for it, don't build
 it) · Maps 2–3 and rank S content · meta-currency shop between runs.
+
+---
+
+## Appendix A — Content catalogue, dev kit v2 (PROPOSED 2026-06-13)
+
+The goal of v2 is to fill **every category × school** so reward pools, combos and the
+enemy roster have material to draw from. **Numbers are starting points — tune via
+BattleRunner.** Combo tags: O = Opener, L = Linker, F = Finisher. Schools: P = physical,
+M = magic, S = support. All scale through the §1 damage formula.
+
+**Built kit (11):** Auto-attack, Slash (O/P), Bash (L/P), Fireball (F/M), Vampiro (S),
+Parry, Kick, Stop-Casting, Riposte (auto), Falling Star (delayed/M), Lunge (gap-closer).
+
+**Instant — physical:**
+- *Cleave* — O/P, solid hit + small break. The aggressive opener.
+- *Shield Bash* — L/P, break + short stun; the defensive linker.
+- *Execute* — F/P, bonus damage vs low-HP or Broken targets; cashes in pressure.
+
+**Cast — magic / support:**
+- *Ice Lance* — F/M, magic damage + apply `Slow`. Interruptible.
+- *Chain Lightning* — F/M, magic damage, **ignores `Distance`** (true ranged).
+- *Heal* — S, large self `Regen`, Magic-scaled, gem cost; the sustain caster.
+
+**Delayed:**
+- *Falling Star* (built). *Meteor* — heavy delayed magic, long CD/high gem cost; a
+  read-and-punish or combo finisher you set up in advance.
+
+**Quick actions:**
+- Parry, Kick, Stop-Casting (built).
+- *Sidestep* — applies `Distance` to self (dodge ranged / reposition), short CD.
+- *Guard* — apply `Guard` status (brief damage reduction); the "block" to Parry's "counter".
+- *Cleanse* — clear one debuff from self.
+
+**Gear — now grants stat-sheet deltas** (generalizes today's mult-only `GearDef`):
+- **Weapons** set Attack/Magic and shape the auto-attack: *Sword* (balanced ATK), *Dagger*
+  (fast/low auto, +Crit), *Wand* (+Magic, −cast time), *Greataxe* (+ATK, +Break Power, −Haste).
+- **Armor** trades defense for mobility: *Light* (+Haste, +Crit, −DEF), *Medium* (balanced),
+  *Heavy* (+DEF, +Max HP, −Haste).
+- **Stances** are playstyle modifiers (Rock/Wind/Water as today, re-expressed as stat deltas).
+- **Runes** (future) are pure stat shards — the open `Slot` already admits a new category.

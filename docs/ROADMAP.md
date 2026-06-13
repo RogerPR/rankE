@@ -74,8 +74,28 @@ Goal: a human can play a full fight vs AI in Unity with the sketch UI. Placehold
 
 **DoD:** you can play and win/lose a complete duel with controller or keyboard; every
 sim mechanic is visible in the UI; no sim logic in MonoBehaviours.
-*(Code-complete, 71 headless tests green incl. scene smoke test — pending user
-play-test to confirm the DoD before Phase 3.)*
+*(✅ DoD met — user play-tested 2026-06-13, "the playstyle is good". 71 headless tests green.)*
+
+## Phase 2.5 — Systems & content design pass (design only — NO feel/3D yet)
+
+Goal: lock the data model + content catalogue so Phases 4/6 have material to build from.
+Output is **design + scaffolding plans only** — building combat content still waits behind
+the Phase 3 fun-gate. Decisions taken 2026-06-13.
+
+- [x] Resource model **locked**: cooldowns + GCD + spell gems, *no mana*, gems regen
+      (GAME_DESIGN §1 "Character stats & resources").
+- [x] Character **stat sheet** defined: RPG sheet (Attack/Magic/Defense/Crit/Haste/
+      Break Power/Gem Regen) + derived damage formula (GAME_DESIGN §1).
+- [x] **Status library** v2 specced incl. the `StatusDef` fields each new status needs
+      (GAME_DESIGN §1 "Statuses v2").
+- [x] **Ability catalogue v2** + gear-as-stat-deltas model (GAME_DESIGN Appendix A).
+- [ ] **Stat-sheet sim refactor** (add the stats to `Fighter`/`FighterConfig`, the damage
+      formula in `Battle`, `Effect.School`, generalize `GearDef` to stat deltas) — lands as
+      the **first code task of Phase 3**, then re-baseline BattleRunner. Until then the PoC
+      flat-damage numbers stand and the slice keeps working.
+
+**DoD:** GAME_DESIGN reflects the agreed model; Phases 4/6 reference it; **no sim behavior
+changed yet** (paper + plan only).
 
 ## Phase 3 — Combat feel & 3D (2–4 sessions) ⭐ critical gate
 
@@ -100,8 +120,9 @@ Goal: battles chain into a run with build-changing choices.
 - [ ] Run state machine: map → node → battle → reward → map.
 - [ ] Node map UI (StS-style branching graph, ~12 nodes), node types: Battle, Elite,
       Event, Rest, Boss.
-- [ ] Reward screen: pick 1 of 3 (% level-ups, skills/gear with ability types &
-      levels, auto-cast slots/rules).
+- [ ] Reward screen: pick 1 of 3 — stat-sheet level-ups (per GAME_DESIGN §1 stats),
+      skills/gear from the dev-kit-v2 catalogue (Appendix A) with ability types & levels,
+      auto-cast slots/rules.
 - [ ] Build state: stats, skill bar management (swap when full), ability levels,
       equipped gear, gold. Class selection stub (single class in slice).
 - [ ] Run save/load (quit mid-run, resume).
@@ -127,7 +148,7 @@ Goal: the actual slice content, balanced.
 - [ ] Tutorial: scripted guild-exam fight teaching attack → parry → cast → interrupt;
       grants rank D.
 - [ ] Map 1 roster per GAME_DESIGN §4: 4 normals + elite + boss, each with its own
-      BehaviorProfile and telegraphs.
+      BehaviorProfile and telegraphs, built from the dev-kit-v2 catalogue (Appendix A).
 - [ ] Reward pools tuned for Map 1 length (~20–30 min run).
 - [ ] Balance pass driven by headless BattleRunner sweeps + manual play.
 

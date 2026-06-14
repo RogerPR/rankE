@@ -18,8 +18,8 @@ MonoBehaviour:
     Prefab: {fileID: 6898398503005989607, guid: ae219c58b20563e4db7142b3bb61e90d, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0987794
+    ModelYOffset: 0.06833918
     Actions:
     - Action: 0
       State: Idle
@@ -67,8 +67,8 @@ MonoBehaviour:
     Prefab: {fileID: 8745918608326849895, guid: c76d9cae93d289b41a3cf13c7ed44251, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.010956
+    ModelYOffset: 0.062876955
     Actions:
     - Action: 0
       State: Idle
@@ -116,8 +116,8 @@ MonoBehaviour:
     Prefab: {fileID: 8765302607068232473, guid: e59b1955737d0c345a26a6da656e1302, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0951967
+    ModelYOffset: 0.06811635
     Actions:
     - Action: 0
       State: Idle
@@ -165,8 +165,8 @@ MonoBehaviour:
     Prefab: {fileID: 3760659877356920, guid: 6d92ca1079bfa32449cee8bcb0671a62, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.8701027
+    ModelYOffset: 0.054117493
     Actions:
     - Action: 0
       State: Idle
@@ -214,8 +214,8 @@ MonoBehaviour:
     Prefab: {fileID: 5950813557001834863, guid: e55a1f8abda42fb4ead983a7c3cd753e, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0588784
+    ModelYOffset: 0.1252396
     Actions:
     - Action: 0
       State: Idle
@@ -263,8 +263,8 @@ MonoBehaviour:
     Prefab: {fileID: 5411246034088248515, guid: dfb495113fe42ec4ca48cd0741fa8180, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.1511314
+    ModelYOffset: 0.07159524
     Actions:
     - Action: 0
       State: Idle
@@ -312,8 +312,8 @@ MonoBehaviour:
     Prefab: {fileID: 6401012481589044880, guid: ca035e673ef79bb44b1f8bf11953c6ca, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0109552
+    ModelYOffset: 0.06287805
     Actions:
     - Action: 0
       State: Idle
@@ -361,8 +361,8 @@ MonoBehaviour:
     Prefab: {fileID: 4448025490638364912, guid: 1339aeecbc869314b86d856e2ded95da, type: 3}
     Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
     IsHumanoid: 1
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0542676
+    ModelYOffset: 0.06557074
     Actions:
     - Action: 0
       State: Idle
@@ -411,8 +411,8 @@ MonoBehaviour:
     Prefab: {fileID: 7120400216219614996, guid: 22bf763b1adc6d449a4a977b879ef390, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 2.9136348
+    ModelYOffset: -2.1262603
     Actions:
     - Action: 0
       State: Idle
@@ -456,8 +456,8 @@ MonoBehaviour:
     Prefab: {fileID: 3512226975218359816, guid: 99c95d5836d1b10479ae5535d0d204dc, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.67097783
+    ModelYOffset: 0.44379538
     Actions:
     - Action: 0
       State: Idle
@@ -501,8 +501,8 @@ MonoBehaviour:
     Prefab: {fileID: 9041234588153649531, guid: a00a1c68df610f843aed02240655bea2, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.0293568
+    ModelYOffset: 0.07668987
     Actions:
     - Action: 0
       State: Idle
@@ -546,8 +546,8 @@ MonoBehaviour:
     Prefab: {fileID: 7403445231042603841, guid: a510a891cea50f14bbe26430529d8e49, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.5623461
+    ModelYOffset: 0.4290753
     Actions:
     - Action: 0
       State: Idle
@@ -591,8 +591,8 @@ MonoBehaviour:
     Prefab: {fileID: 4124238425057026671, guid: 80a826a8aac47ac42ba6ce5585f294ef, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.7913752
+    ModelYOffset: 0.38378248
     Actions:
     - Action: 0
       State: Idle
@@ -636,8 +636,8 @@ MonoBehaviour:
     Prefab: {fileID: 8608373415205421460, guid: a91aa48d4e9278c4298d1083c73f509d, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.4942784
+    ModelYOffset: 0.3672445
     Actions:
     - Action: 0
       State: Idle
@@ -681,8 +681,8 @@ MonoBehaviour:
     Prefab: {fileID: 6182256961490819118, guid: c61dba1266c1fd049ad55afc0562d6a3, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.55495185
+    ModelYOffset: 0.082566656
     Actions:
     - Action: 0
       State: Idle
@@ -726,8 +726,8 @@ MonoBehaviour:
     Prefab: {fileID: 4162695792829326466, guid: 3616c8d031e272f44a85d15bca9de275, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.8017075
+    ModelYOffset: 0.11909094
     Actions:
     - Action: 0
       State: Idle
@@ -771,8 +771,8 @@ MonoBehaviour:
     Prefab: {fileID: 768083801442284221, guid: 1819f39e18359c84dba1d64815be12f6, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 0.43079147
+    ModelYOffset: 0.14806116
     Actions:
     - Action: 0
       State: Idle
@@ -816,8 +816,8 @@ MonoBehaviour:
     Prefab: {fileID: 8252848597702617735, guid: 4adb93d47b0833044a6059c73300d12f, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 2.0948787
+    ModelYOffset: 0.14186181
     Actions:
     - Action: 0
       State: Idle
@@ -861,8 +861,8 @@ MonoBehaviour:
     Prefab: {fileID: 800009091989957489, guid: f2c3b734326de9545a2a19484e8a00a0, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.1028302
+    ModelYOffset: 0.108410224
     Actions:
     - Action: 0
       State: Idle
@@ -906,8 +906,8 @@ MonoBehaviour:
     Prefab: {fileID: 8698390824579135309, guid: 04aabb43e39957c49931b5036a9f3e53, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 1.2773064
+    ModelYOffset: 0.33025837
     Actions:
     - Action: 0
       State: Idle
@@ -951,8 +951,8 @@ MonoBehaviour:
     Prefab: {fileID: 1943492618694287721, guid: 9e421f3b6200596438d38f4e1529ebb9, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 2.8309994
+    ModelYOffset: 0.24327762
     Actions:
     - Action: 0
       State: Idle
@@ -996,8 +996,8 @@ MonoBehaviour:
     Prefab: {fileID: 4631978361614701188, guid: fa9dcf49c872f8a40bd7941d5d5a93e4, type: 3}
     Controller: {fileID: 0}
     IsHumanoid: 0
-    ModelScale: 1
-    ModelYOffset: 0
+    ModelScale: 2.7664402
+    ModelYOffset: -0.023248466
     Actions:
     - Action: 0
       State: Idle

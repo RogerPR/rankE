@@ -4,13 +4,15 @@ Real-time 1v1 dueling roguelite in Unity. Controller-first, PC now, mobile-feasi
 
 **Read first, every session:** `docs/GAME_DESIGN.md` (what we're building) and
 `docs/ROADMAP.md` (current phase + DoD). Work on the current phase only.
+Doing 3D / animation / skill-VFX / character-picker work? Also read
+`docs/ART_PIPELINE.md` (how the sim drives rigged visuals).
 
 ## Repo layout
 
 - `RankE/` — the Unity project (Unity 6.x, URP). The only code that ships.
 - `functional_POC/` — Python/pygame PoC. **Reference implementation** for combat
   mechanics and constants. Never modify; never import from.
-- `docs/` — design doc, roadmap, kickoff prompt.
+- `docs/` — design doc, roadmap, kickoff prompt, art/presentation pipeline.
 
 ## Architecture rules (non-negotiable)
 

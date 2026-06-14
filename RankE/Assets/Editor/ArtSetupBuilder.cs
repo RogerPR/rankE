@@ -29,6 +29,11 @@ namespace RankE.Editor
         const string ControllerPath = OutDir + "/PlayerCombat.controller";
         const string RegistryPath = OutDir + "/FighterVisualRegistry.asset";
 
+        // Normalize every fighter to a sane on-screen height so a tiny slime and a
+        // huge dragon read at comparable scale in a 1v1 duel.
+        const float PlayerTargetHeight = 1.8f;
+        const float MonsterTargetHeight = 2.1f;
+
         [MenuItem("Tools/RANK E/Build Art Setup")]
         public static void Build()
         {
@@ -109,6 +114,7 @@ namespace RankE.Editor
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
                 if (prefab == null) continue;
                 string name = Path.GetFileNameWithoutExtension(path);
+                ComputeFit(prefab, PlayerTargetHeight, out float scale, out float yOff);
 
                 list.Add(new FighterVisualDef
                 {
@@ -117,7 +123,8 @@ namespace RankE.Editor
                     Prefab = prefab,
                     Controller = controller,
                     IsHumanoid = true,
-                    ModelScale = 1f,
+                    ModelScale = scale,
+                    ModelYOffset = yOff,
                     Actions = new List<ActionState>
                     {
                         A(AnimAction.Idle, "Idle"),
@@ -175,6 +182,7 @@ namespace RankE.Editor
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ToAssetPath(prefabFiles[0]));
                 if (prefab == null) continue;
                 string monName = Path.GetFileNameWithoutExtension(prefabFiles[0]);
+                ComputeFit(prefab, MonsterTargetHeight, out float scale, out float yOff);
 
                 var states = ControllerStates(folderAbs);
                 string idle = Pick(states, exact: "Idle", contains: new[] { "Idle" }) ?? "Idle";
@@ -193,7 +201,8 @@ namespace RankE.Editor
                     Prefab = prefab,
                     Controller = null, // keep the monster's own controller
                     IsHumanoid = false,
-                    ModelScale = 1f,
+                    ModelScale = scale,
+                    ModelYOffset = yOff,
                     Actions = new List<ActionState>
                     {
                         A(AnimAction.Idle, idle),
@@ -277,6 +286,35 @@ namespace RankE.Editor
         }
 
         // ---- small helpers ----
+
+        /// <summary>
+        /// Measure a prefab's renderer bounds and derive a uniform scale that makes it
+        /// <paramref name="targetHeight"/> tall, plus a Y offset that seats its lowest
+        /// point on the ground (y=0). Instantiates briefly in the editor to read bounds.
+        /// </summary>
+        static void ComputeFit(GameObject prefab, float targetHeight, out float scale, out float yOffset)
+        {
+            scale = 1f;
+            yOffset = 0f;
+            var inst = (GameObject)UnityEngine.Object.Instantiate(prefab);
+            inst.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            inst.transform.localScale = Vector3.one;
+
+            bool any = false;
+            Bounds b = new Bounds(Vector3.zero, Vector3.zero);
+            foreach (var r in inst.GetComponentsInChildren<Renderer>())
+            {
+                if (r is ParticleSystemRenderer) continue;
+                if (!any) { b = r.bounds; any = true; }
+                else b.Encapsulate(r.bounds);
+            }
+            if (any && b.size.y > 0.0001f)
+            {
+                scale = Mathf.Clamp(targetHeight / b.size.y, 0.1f, 8f);
+                yOffset = -scale * b.min.y;
+            }
+            UnityEngine.Object.DestroyImmediate(inst);
+        }
 
         static ActionState A(AnimAction action, string state) => new ActionState { Action = action, State = state };
         static AbilityAnim Ab(string id, string state) => new AbilityAnim { AbilityId = id, State = state };

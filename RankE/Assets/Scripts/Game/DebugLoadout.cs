@@ -33,17 +33,21 @@ namespace RankE.Game
         // Presentation-only model selection (player character + enemy monster). These
         // pick which prefab FighterStage spawns; they don't touch the sim FighterConfig,
         // except the enemy's display name is taken from the chosen monster.
-        readonly FighterVisualRegistry visuals = FighterVisualRegistry.Load();
+        // Lazy: Resources.Load can't run from a field initializer/constructor.
+        FighterVisualRegistry visualsCache;
+        FighterVisualRegistry Visuals =>
+            visualsCache != null ? visualsCache : (visualsCache = FighterVisualRegistry.Load());
+
         public int PlayerVisualIndex;
         public int EnemyVisualIndex;
 
-        public int PlayerVisualCount => visuals != null ? visuals.Players.Count : 0;
-        public int EnemyVisualCount => visuals != null ? visuals.Monsters.Count : 0;
+        public int PlayerVisualCount => Visuals != null ? Visuals.Players.Count : 0;
+        public int EnemyVisualCount => Visuals != null ? Visuals.Monsters.Count : 0;
 
         public string PlayerVisualName =>
-            PlayerVisualCount > 0 ? visuals.PlayerAt(PlayerVisualIndex).DisplayName : "(no art)";
+            PlayerVisualCount > 0 ? Visuals.PlayerAt(PlayerVisualIndex).DisplayName : "(no art)";
         public string EnemyVisualName =>
-            EnemyVisualCount > 0 ? visuals.MonsterAt(EnemyVisualIndex).DisplayName : "Bandit";
+            EnemyVisualCount > 0 ? Visuals.MonsterAt(EnemyVisualIndex).DisplayName : "Bandit";
 
         public string StanceName => Stances[StanceIndex]().Name;
         public string WeaponName => Weapons[WeaponIndex]().Name;

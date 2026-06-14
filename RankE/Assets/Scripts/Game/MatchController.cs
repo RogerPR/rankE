@@ -56,7 +56,7 @@ namespace RankE.Game
             if (State != MatchState.Loadout && State != MatchState.Result) return;
 
             var player = Loadout.BuildPlayerConfig();
-            var enemy = PocContent.DefaultConfig("Bandit");
+            var enemy = PocContent.DefaultConfig(Loadout.EnemyVisualName);
             Driver.Begin(player, enemy, new PocBehaviorProfile(), EnemyTelegraphTicks, seeds.Next());
             Input.SetLoadout(player.Abilities);
             Input.Buffer.Clear();

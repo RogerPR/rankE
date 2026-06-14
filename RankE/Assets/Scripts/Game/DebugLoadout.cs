@@ -30,10 +30,35 @@ namespace RankE.Game
         public int ArmorIndex;
         public readonly int[] AbilityIndices = { 0, 1, 2, 3 };
 
+        // Presentation-only model selection (player character + enemy monster). These
+        // pick which prefab FighterStage spawns; they don't touch the sim FighterConfig,
+        // except the enemy's display name is taken from the chosen monster.
+        readonly FighterVisualRegistry visuals = FighterVisualRegistry.Load();
+        public int PlayerVisualIndex;
+        public int EnemyVisualIndex;
+
+        public int PlayerVisualCount => visuals != null ? visuals.Players.Count : 0;
+        public int EnemyVisualCount => visuals != null ? visuals.Monsters.Count : 0;
+
+        public string PlayerVisualName =>
+            PlayerVisualCount > 0 ? visuals.PlayerAt(PlayerVisualIndex).DisplayName : "(no art)";
+        public string EnemyVisualName =>
+            EnemyVisualCount > 0 ? visuals.MonsterAt(EnemyVisualIndex).DisplayName : "Bandit";
+
         public string StanceName => Stances[StanceIndex]().Name;
         public string WeaponName => Weapons[WeaponIndex]().Name;
         public string ArmorName => Armors[ArmorIndex]().Name;
         public string AbilityName(int slot) => AbilityPool[AbilityIndices[slot]]().Name;
+
+        public void CyclePlayerVisual(int dir)
+        {
+            if (PlayerVisualCount > 0) PlayerVisualIndex = Wrap(PlayerVisualIndex + dir, PlayerVisualCount);
+        }
+
+        public void CycleEnemyVisual(int dir)
+        {
+            if (EnemyVisualCount > 0) EnemyVisualIndex = Wrap(EnemyVisualIndex + dir, EnemyVisualCount);
+        }
 
         public void CycleStance(int dir) => StanceIndex = Wrap(StanceIndex + dir, Stances.Length);
         public void CycleWeapon(int dir) => WeaponIndex = Wrap(WeaponIndex + dir, Weapons.Length);

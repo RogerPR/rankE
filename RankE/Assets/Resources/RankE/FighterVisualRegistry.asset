@@ -1,0 +1,1038 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01574db99f9d34ac08f1a7e0d4bb3fdb, type: 3}
+  m_Name: FighterVisualRegistry
+  m_EditorClassIdentifier: 
+  Players:
+  - Id: char_archer
+    DisplayName: Archer
+    Prefab: {fileID: 6898398503005989607, guid: ae219c58b20563e4db7142b3bb61e90d, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_king
+    DisplayName: King
+    Prefab: {fileID: 8745918608326849895, guid: c76d9cae93d289b41a3cf13c7ed44251, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_knight
+    DisplayName: Knight
+    Prefab: {fileID: 8765302607068232473, guid: e59b1955737d0c345a26a6da656e1302, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_mage
+    DisplayName: Mage
+    Prefab: {fileID: 3760659877356920, guid: 6d92ca1079bfa32449cee8bcb0671a62, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_necromancer
+    DisplayName: Necromancer
+    Prefab: {fileID: 5950813557001834863, guid: e55a1f8abda42fb4ead983a7c3cd753e, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_ninja
+    DisplayName: Ninja
+    Prefab: {fileID: 5411246034088248515, guid: dfb495113fe42ec4ca48cd0741fa8180, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_princess
+    DisplayName: Princess
+    Prefab: {fileID: 6401012481589044880, guid: ca035e673ef79bb44b1f8bf11953c6ca, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  - Id: char_warrior
+    DisplayName: Warrior
+    Prefab: {fileID: 4448025490638364912, guid: 1339aeecbc869314b86d856e2ded95da, type: 3}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block
+  Monsters:
+  - Id: mon_cyclops_bat
+    DisplayName: Cyclops Bat
+    Prefab: {fileID: 7120400216219614996, guid: 22bf763b1adc6d449a4a977b879ef390, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell 01
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell 01
+    - AbilityId: vampiro
+      State: Cast Spell 01
+    - AbilityId: falling_star
+      State: Cast Spell 01
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_cyclops_bat_mage
+    DisplayName: Cyclops Bat Mage
+    Prefab: {fileID: 3512226975218359816, guid: 99c95d5836d1b10479ae5535d0d204dc, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Clap Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Clap Attack
+  - Id: mon_cyclops_bat_wizard
+    DisplayName: Cyclops Bat Wizard
+    Prefab: {fileID: 9041234588153649531, guid: a00a1c68df610f843aed02240655bea2, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_dragon_blizzard
+    DisplayName: Dragon Blizzard
+    Prefab: {fileID: 7403445231042603841, guid: a510a891cea50f14bbe26430529d8e49, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Wing Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Wing Attack
+  - Id: mon_dragon_ice
+    DisplayName: Dragon Ice
+    Prefab: {fileID: 4124238425057026671, guid: 80a826a8aac47ac42ba6ce5585f294ef, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Wing Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Wing Attack
+  - Id: mon_dragon_water
+    DisplayName: Dragon Water
+    Prefab: {fileID: 8608373415205421460, guid: a91aa48d4e9278c4298d1083c73f509d, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Wing Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Wing Attack
+  - Id: mon_imp_devil
+    DisplayName: Imp Devil
+    Prefab: {fileID: 6182256961490819118, guid: c61dba1266c1fd049ad55afc0562d6a3, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Fly Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Fly Slash Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Fly Cast Spell
+    - AbilityId: vampiro
+      State: Fly Cast Spell
+    - AbilityId: falling_star
+      State: Fly Cast Spell
+    - AbilityId: riposte
+      State: Fly Slash Attack
+  - Id: mon_imp_mischief
+    DisplayName: Imp Mischief
+    Prefab: {fileID: 4162695792829326466, guid: 3616c8d031e272f44a85d15bca9de275, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Throw Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Throw Projectile Attack
+  - Id: mon_treant_forest_autumn
+    DisplayName: Treant Forest Autumn
+    Prefab: {fileID: 768083801442284221, guid: 1819f39e18359c84dba1d64815be12f6, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Swing Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Kick Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Swing Attack
+    - AbilityId: bash
+      State: Swing Attack
+    - AbilityId: kick
+      State: Swing Attack
+    - AbilityId: lunge
+      State: Swing Attack
+    - AbilityId: auto_attack
+      State: Swing Attack
+    - AbilityId: interrupt_cast
+      State: Swing Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Kick Attack
+  - Id: mon_treant_minion_autumn
+    DisplayName: Treant Minion Autumn
+    Prefab: {fileID: 8252848597702617735, guid: 4adb93d47b0833044a6059c73300d12f, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_treant_tree_autumn
+    DisplayName: Treant Tree Autumn
+    Prefab: {fileID: 800009091989957489, guid: f2c3b734326de9545a2a19484e8a00a0, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Slash Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Slash Attack
+    - AbilityId: bash
+      State: Slash Attack
+    - AbilityId: kick
+      State: Slash Attack
+    - AbilityId: lunge
+      State: Slash Attack
+    - AbilityId: auto_attack
+      State: Slash Attack
+    - AbilityId: interrupt_cast
+      State: Slash Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_worm_creep
+    DisplayName: Worm Creep
+    Prefab: {fileID: 8698390824579135309, guid: 04aabb43e39957c49931b5036a9f3e53, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_worm_rot
+    DisplayName: Worm Rot
+    Prefab: {fileID: 1943492618694287721, guid: 9e421f3b6200596438d38f4e1529ebb9, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack
+  - Id: mon_worm_stink
+    DisplayName: Worm Stink
+    Prefab: {fileID: 4631978361614701188, guid: fa9dcf49c872f8a40bd7941d5d5a93e4, type: 3}
+    Controller: {fileID: 0}
+    IsHumanoid: 0
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Bite Attack
+    - Action: 2
+      State: Cast Spell
+    - Action: 3
+      State: Take Damage
+    - Action: 5
+      State: Take Damage
+    - Action: 6
+      State: Projectile Attack
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Bite Attack
+    - AbilityId: bash
+      State: Bite Attack
+    - AbilityId: kick
+      State: Bite Attack
+    - AbilityId: lunge
+      State: Bite Attack
+    - AbilityId: auto_attack
+      State: Bite Attack
+    - AbilityId: interrupt_cast
+      State: Bite Attack
+    - AbilityId: fireball
+      State: Cast Spell
+    - AbilityId: vampiro
+      State: Cast Spell
+    - AbilityId: falling_star
+      State: Cast Spell
+    - AbilityId: riposte
+      State: Projectile Attack

@@ -4,7 +4,7 @@ namespace RankE.Game
 {
     /// <summary>
     /// Scene entry point — the only component hand-placed in CombatScene. Builds the
-    /// whole Game layer in Awake (driver, input, match flow, capsule views); the UI
+    /// whole Game layer in Awake (driver, input, match flow, fighter stage); the UI
     /// layer's HudRoot (same GameObject) finds the MatchController in Start and
     /// builds the HUD on top. Everything else lives in code, not the scene.
     /// </summary>
@@ -27,19 +27,10 @@ namespace RankE.Game
                 return;
             }
 
-            var playerBody = playerGo.AddComponent<FighterViewBody>();
-            var enemyBody = enemyGo.AddComponent<FighterViewBody>();
-            playerBody.Bind(driver, 0, enemyGo.transform);
-            enemyBody.Bind(driver, 1, playerGo.transform);
-
-            Match.StateChanged += state =>
-            {
-                if (state == MatchState.Countdown)
-                {
-                    playerBody.ResetVisual();
-                    enemyBody.ResetVisual();
-                }
-            };
+            // The capsules become invisible anchors; FighterStage spawns the real models
+            // under them per fight and binds the body/animation views.
+            var stage = gameObject.AddComponent<FighterStage>();
+            stage.Init(driver, Match, playerGo.transform, enemyGo.transform);
         }
     }
 }

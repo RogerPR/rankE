@@ -1,0 +1,77 @@
+# RANK E — Git attributes
+# Binary art (FBX / textures / audio) is tracked via Git LFS so the repo doesn't bloat.
+# Unity YAML assets stay in normal git so they diff and merge.
+# This file is committed BEFORE any binary art is imported (Phase 3).
+
+# --- Default: let git detect text, normalize to LF ---
+* text=auto eol=lf
+
+# --- Unity YAML / text assets: keep in normal git, treat as text ---
+*.cs        text diff=csharp
+*.shader    text
+*.cginc     text
+*.hlsl      text
+*.compute   text
+*.asmdef    text
+*.json      text
+*.md        text
+*.txt       text
+*.uxml      text
+*.uss       text
+*.unity     text
+*.prefab    text
+*.mat       text
+*.asset     text
+*.controller text
+*.anim      text
+*.overrideController text
+*.physicMaterial text
+*.physicsMaterial2D text
+*.mask      text
+*.playables text
+*.signal    text
+*.guiskin   text
+*.fontsettings text
+*.spriteatlas text
+*.preset    text
+*.meta      text
+*.gitattributes text
+*.gitignore text
+
+# --- 3D models: binary, via LFS ---
+*.fbx       filter=lfs diff=lfs merge=lfs -text
+*.FBX       filter=lfs diff=lfs merge=lfs -text
+*.obj       filter=lfs diff=lfs merge=lfs -text
+*.blend     filter=lfs diff=lfs merge=lfs -text
+*.dae       filter=lfs diff=lfs merge=lfs -text
+*.3ds       filter=lfs diff=lfs merge=lfs -text
+*.glb       filter=lfs diff=lfs merge=lfs -text
+*.gltf      filter=lfs diff=lfs merge=lfs -text
+
+# --- Textures: binary, via LFS ---
+*.png       filter=lfs diff=lfs merge=lfs -text
+*.PNG       filter=lfs diff=lfs merge=lfs -text
+*.jpg       filter=lfs diff=lfs merge=lfs -text
+*.jpeg      filter=lfs diff=lfs merge=lfs -text
+*.tga       filter=lfs diff=lfs merge=lfs -text
+*.tif       filter=lfs diff=lfs merge=lfs -text
+*.tiff      filter=lfs diff=lfs merge=lfs -text
+*.psd       filter=lfs diff=lfs merge=lfs -text
+*.exr       filter=lfs diff=lfs merge=lfs -text
+*.hdr       filter=lfs diff=lfs merge=lfs -text
+*.bmp       filter=lfs diff=lfs merge=lfs -text
+*.gif       filter=lfs diff=lfs merge=lfs -text
+
+# --- Audio: binary, via LFS ---
+*.wav       filter=lfs diff=lfs merge=lfs -text
+*.mp3       filter=lfs diff=lfs merge=lfs -text
+*.ogg       filter=lfs diff=lfs merge=lfs -text
+*.aif       filter=lfs diff=lfs merge=lfs -text
+*.aiff      filter=lfs diff=lfs merge=lfs -text
+*.flac      filter=lfs diff=lfs merge=lfs -text
+
+# --- Other binary art / packaging ---
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*.cubemap   filter=lfs diff=lfs merge=lfs -text
+*.ttf       filter=lfs diff=lfs merge=lfs -text
+*.otf       filter=lfs diff=lfs merge=lfs -text

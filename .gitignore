@@ -28,6 +28,7 @@ RankE/[Mm]emoryCaptures/
 RankE/[Rr]ecordings/
 RankE/sysinfo.txt
 RankE/*.stackdump
+RankE/mono_crash.*
 RankE/*.pidb.meta
 RankE/crashlytics-build.properties
 

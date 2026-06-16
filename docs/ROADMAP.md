@@ -102,14 +102,24 @@ changed yet** (paper + plan only).
 
 Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
 
-- [ ] Parry juice: hitstop, flash, screen shake, SFX. Iterate until it feels right.
-- [ ] Break bar + BROKEN state with big audiovisual payoff; riposte cinematic moment.
+- [~] Parry juice: hitstop, flash, screen shake, SFX. Iterate until it feels right.
+      (Flash/shake/lunge in via `FighterViewBody`; reactive skill VFX in via `FighterVfx`.
+      Still TODO: hitstop, camera shake, slow-mo riposte, all SFX.)
+- [~] Break bar + BROKEN state with big audiovisual payoff; riposte cinematic moment.
+      (Break bar UI + Broken shake/anim in; big payoff + riposte cinematic still TODO.)
 - [ ] Combo tracker UI + empowered finisher feedback.
-- [ ] Set up Git LFS **before** importing art packs (deferred from Phase 0: `brew
-      install git-lfs`, track fbx/textures/audio via `.gitattributes`).
-- [ ] Buy/import 2 character packs with animations (player knight + bandit); map
-      ability timings (pre/post locks) to animation clips; hit/stagger/cast/parry anims.
+- [x] Set up Git LFS **before** importing art packs (`.gitattributes` tracks fbx/
+      textures/audio; verified the VFX pack's PNG/FBX land in LFS).
+- [x] Import art packs + map ability timings/anims: Meshtint player + monster packs
+      (rigged, sim-reactive animation by semantic state name), **plus** a modular
+      character creator and **skill VFX** (Cartoon FX Remaster Free) — reactive,
+      data-driven registries built by `ArtSetupBuilder`. (commits through 3064c03)
 - [ ] Tune timings by playing (GCD, parry window, locks) — sim stays data-driven.
+
+Next-session candidates (decide at session start): an in-play param-tweak screen to
+A/B combat configs, an ability→effect/anim authoring tool, downloading + wiring UI
+assets, more TBD. Before the gate sign-off: run the 82 EditMode tests headless and do
+the CFXR URP pink-material check.
 
 **DoD (subjective gate):** you play 10 fights and *want more*. Parry feels great on
 controller. If not fun, iterate here — do NOT proceed to content.

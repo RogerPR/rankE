@@ -13,9 +13,12 @@ namespace RankE.UI
     public sealed class LoadoutPickerScreen : MonoBehaviour
     {
         MatchController match;
+        CharacterCreatorScreen creator;
         GameObject root;
         Button startButton;
         readonly Text[] values = new Text[9];
+
+        public void SetCreator(CharacterCreatorScreen creator) => this.creator = creator;
 
         public void Init(MatchController match, Transform parent)
         {
@@ -63,17 +66,32 @@ namespace RankE.UI
             UiFactory.PlaceFixed((RectTransform)hint.transform, new Vector2(0.5f, 1f),
                 new Vector2(0f, -760f), new Vector2(900f, 30f));
 
+            var customize = UiFactory.TextButton("Customize", panel.transform, "CUSTOMIZE CHARACTER", 26,
+                OpenCreator);
+            UiFactory.PlaceFixed((RectTransform)customize.transform, new Vector2(0.5f, 1f),
+                new Vector2(0f, -800f), new Vector2(360f, 54f));
+
             startButton = UiFactory.TextButton("Start", panel.transform, "START FIGHT", 34,
                 () => match.StartMatch());
             UiFactory.PlaceFixed((RectTransform)startButton.transform, new Vector2(0.5f, 1f),
-                new Vector2(0f, -820f), new Vector2(360f, 70f));
+                new Vector2(0f, -866f), new Vector2(360f, 70f));
+        }
+
+        void OpenCreator()
+        {
+            if (creator == null) return;
+            root.SetActive(false);
+            creator.Open(() => Show(true));
         }
 
         void Cycle(int row, int dir)
         {
             switch (row)
             {
-                case 0: match.Loadout.CyclePlayerVisual(dir); break;
+                case 0:
+                    match.Loadout.UseCustomAppearance = false; // cycling a sample leaves custom mode
+                    match.Loadout.CyclePlayerVisual(dir);
+                    break;
                 case 1: match.Loadout.CycleEnemyVisual(dir); break;
                 case 2: match.Loadout.CycleStance(dir); break;
                 case 3: match.Loadout.CycleWeapon(dir); break;
@@ -86,7 +104,7 @@ namespace RankE.UI
         void Refresh()
         {
             var l = match.Loadout;
-            values[0].text = l.PlayerVisualName;
+            values[0].text = l.UseCustomAppearance ? "(custom)" : l.PlayerVisualName;
             values[1].text = l.EnemyVisualName;
             values[2].text = l.StanceName;
             values[3].text = l.WeaponName;

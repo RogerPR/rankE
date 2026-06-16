@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 343b407cac13b4f6f99d4d95e274e233, type: 3}
+  m_Name: AbilityVfxRegistry
+  m_EditorClassIdentifier: 
+  Abilities:
+  - AbilityId: fireball
+    CastAura: {fileID: 3280519133390621005, guid: a71be3e7990efb040a07565c43cbb198, type: 3}
+    Muzzle: {fileID: 7177991128484655659, guid: 59a35ab9f68edff40b6e5332bed330f5, type: 3}
+    Projectile: {fileID: 6294508013172393196, guid: 043176b6a68be2b43b073aaaa4782c7d, type: 3}
+    Impact: {fileID: 8194992990867289339, guid: 99bc28c0d45f51c4fbac01080b73edc7, type: 3}
+    Mode: 1
+    TravelSeconds: 0
+  - AbilityId: falling_star
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 0}
+    Projectile: {fileID: 7305185502956871417, guid: 85b062a5517cf8345bb6784ffbed4877, type: 3}
+    Impact: {fileID: 8791802859087666345, guid: ae07f2a45f14a82428409cfe410e6002, type: 3}
+    Mode: 2
+    TravelSeconds: 0
+  - AbilityId: vampiro
+    CastAura: {fileID: 4425129568585013132, guid: bbeeb0ddc21369746aaaae5c5c1c09cf, type: 3}
+    Muzzle: {fileID: 9157105887711914197, guid: c4f829cb7dd4b864caf8832ec5b1ee55, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: slash
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: bash
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: auto_attack
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: lunge
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: kick
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  - AbilityId: interrupt_cast
+    CastAura: {fileID: 0}
+    Muzzle: {fileID: 6710139492206580332, guid: 95b8d3d65b5d7f1409c4ed1723887826, type: 3}
+    Projectile: {fileID: 0}
+    Impact: {fileID: 0}
+    Mode: 0
+    TravelSeconds: 0
+  Cues:
+  - Cue: 0
+    Prefab: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  - Cue: 1
+    Prefab: {fileID: 1590415177872986601, guid: acdb90624a404aa438447006f1026065, type: 3}
+  - Cue: 2
+    Prefab: {fileID: 763799897560185588, guid: 798157bad7358b04499c9d71cd3c0d9b, type: 3}
+  - Cue: 3
+    Prefab: {fileID: 6889676053574524597, guid: 1244a9e4f6193654989497ad418a287b, type: 3}
+  - Cue: 4
+    Prefab: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
+  - Cue: 5
+    Prefab: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  VfxScale: 1
+  DefaultTravelSeconds: 0.28
+  FallHeight: 6
+  ChestHeight: 1.1
+  CueLifetime: 2.5

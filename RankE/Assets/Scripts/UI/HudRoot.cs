@@ -18,6 +18,7 @@ namespace RankE.UI
         AbilityBarView abilityBar;
         FloatingCombatTextSpawner floatingText;
         LoadoutPickerScreen picker;
+        CharacterCreatorScreen creator;
         CountdownOverlay countdown;
         ResultScreen result;
         GameObject pauseOverlay;
@@ -74,6 +75,9 @@ namespace RankE.UI
             result.Init(match, canvas.transform);
             picker = canvas.gameObject.AddComponent<LoadoutPickerScreen>();
             picker.Init(match, canvas.transform);
+            creator = canvas.gameObject.AddComponent<CharacterCreatorScreen>();
+            creator.Init(match, canvas.transform);
+            picker.SetCreator(creator);
 
             match.StateChanged += OnStateChanged;
             OnStateChanged(match.State);
@@ -98,6 +102,7 @@ namespace RankE.UI
         {
             hudGroup.SetActive(state != MatchState.Loadout);
             picker.Show(state == MatchState.Loadout);
+            if (state != MatchState.Loadout) creator.Hide();
             countdown.Show(state == MatchState.Countdown);
             result.Show(state == MatchState.Result);
             pauseOverlay.SetActive(state == MatchState.Paused);

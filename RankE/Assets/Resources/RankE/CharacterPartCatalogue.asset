@@ -1,0 +1,2351 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13703336ba82402685fbd5ffa53277d, type: 3}
+  m_Name: CharacterPartCatalogue
+  m_EditorClassIdentifier: 
+  Bases:
+  - Id: base_f_cos_01_black
+    DisplayName: F Cos 01 Black
+    Prefab: {fileID: 8758513023470392210, guid: af2f98e0e70199d408623384315835ac, type: 3}
+  - Id: base_f_cos_01_blue
+    DisplayName: F Cos 01 Blue
+    Prefab: {fileID: 734584825325003923, guid: 9d0e3049e132c554e8ba2c204471f022, type: 3}
+  - Id: base_f_cos_01_brown
+    DisplayName: F Cos 01 Brown
+    Prefab: {fileID: 1883150772484745054, guid: 98ec70eaf5831dc4a82a875dd0fd90dc, type: 3}
+  - Id: base_f_cos_01_purple
+    DisplayName: F Cos 01 Purple
+    Prefab: {fileID: 4415390132665347899, guid: 48d34a67da79b2f49a8d9512bf786302, type: 3}
+  - Id: base_f_cos_01_red
+    DisplayName: F Cos 01 Red
+    Prefab: {fileID: 528833553960773219, guid: e8852a3128c3c34468e73ce361664f9e, type: 3}
+  - Id: base_f_cos_02_black
+    DisplayName: F Cos 02 Black
+    Prefab: {fileID: 1428661367483491368, guid: 7dd03ca09e2795a40b502eb6beacb93c, type: 3}
+  - Id: base_f_cos_02_black_1
+    DisplayName: F Cos 02 Black 1
+    Prefab: {fileID: 2265576497672406836, guid: 6a5597c488672214a8c476483a91dac7, type: 3}
+  - Id: base_f_cos_02_blue
+    DisplayName: F Cos 02 Blue
+    Prefab: {fileID: 4023916766199196511, guid: 7d887afebfeaf8646b58e0d2f8d299f4, type: 3}
+  - Id: base_f_cos_02_brown
+    DisplayName: F Cos 02 Brown
+    Prefab: {fileID: 2620179954904474197, guid: bace0295e8365c949919d749ac0c56ea, type: 3}
+  - Id: base_f_cos_02_red
+    DisplayName: F Cos 02 Red
+    Prefab: {fileID: 5041734167405039662, guid: 05815b3af281b124e8a5303212420b90, type: 3}
+  - Id: base_f_cos_03_black
+    DisplayName: F Cos 03 Black
+    Prefab: {fileID: 6918724141293442895, guid: 62116b67f6abb1e40844691064527526, type: 3}
+  - Id: base_f_cos_03_blue
+    DisplayName: F Cos 03 Blue
+    Prefab: {fileID: 7124390480581441005, guid: 4cfff41fa7d7bf842b1fb6fce12a0289, type: 3}
+  - Id: base_f_cos_03_brown
+    DisplayName: F Cos 03 Brown
+    Prefab: {fileID: 5877430482434566008, guid: 380b5cdef700d424eafb027d4a650d57, type: 3}
+  - Id: base_f_cos_03_purple
+    DisplayName: F Cos 03 Purple
+    Prefab: {fileID: 6662029202932110429, guid: b174fc569cdcc11428fca4d3732b6c5a, type: 3}
+  - Id: base_f_cos_03_red
+    DisplayName: F Cos 03 Red
+    Prefab: {fileID: 5246617727277363416, guid: 385dc8d9e7d921749b2c86f375d5b1ed, type: 3}
+  - Id: base_f_cos_04_black
+    DisplayName: F Cos 04 Black
+    Prefab: {fileID: 2516959100850987120, guid: 1b828bbf3d864394fa51d8d6ee63efbc, type: 3}
+  - Id: base_f_cos_04_blue
+    DisplayName: F Cos 04 Blue
+    Prefab: {fileID: 1618906366066306471, guid: 197018ee19fc9444fa12c48d16a8af62, type: 3}
+  - Id: base_f_cos_04_brown
+    DisplayName: F Cos 04 Brown
+    Prefab: {fileID: 6271666600151588576, guid: 253051f564b3ee24eb0efa31fd456464, type: 3}
+  - Id: base_f_cos_04_purple
+    DisplayName: F Cos 04 Purple
+    Prefab: {fileID: 7738271414092366177, guid: 248bb8e85b5fa114dbf3a7b5429c36d7, type: 3}
+  - Id: base_f_cos_04_red
+    DisplayName: F Cos 04 Red
+    Prefab: {fileID: 4899574730617647805, guid: ca2c4f269d855804fbe9d218b821dc79, type: 3}
+  - Id: base_f_cos_05_black
+    DisplayName: F Cos 05 Black
+    Prefab: {fileID: 490819616560028404, guid: 96ff990a06766e5429df403f18853015, type: 3}
+  - Id: base_f_cos_05_blue
+    DisplayName: F Cos 05 Blue
+    Prefab: {fileID: 7751465604904637003, guid: 7b36273708c2e6d469e1d4e2fbe11591, type: 3}
+  - Id: base_f_cos_05_brown
+    DisplayName: F Cos 05 Brown
+    Prefab: {fileID: 8543195561489510566, guid: 62dd1cea5cbd81646be1accf77d54d53, type: 3}
+  - Id: base_f_cos_05_purple
+    DisplayName: F Cos 05 Purple
+    Prefab: {fileID: 3363509836128240853, guid: d90210e3b4dc09f4b8192f70bb91c9b0, type: 3}
+  - Id: base_f_cos_05_red
+    DisplayName: F Cos 05 Red
+    Prefab: {fileID: 5008399555414329116, guid: 710121eac1db94b43bafb4fa0d018b7e, type: 3}
+  - Id: base_f_cos_06_black
+    DisplayName: F Cos 06 Black
+    Prefab: {fileID: 9041950835436902604, guid: 1aa9b5bfc501b594dacfb4d45a48a27b, type: 3}
+  - Id: base_f_cos_06_blue
+    DisplayName: F Cos 06 Blue
+    Prefab: {fileID: 5507085946434217753, guid: 9cf8aa1cbe81ab243b4f9aebf6fb91c4, type: 3}
+  - Id: base_f_cos_06_brown
+    DisplayName: F Cos 06 Brown
+    Prefab: {fileID: 7136344566475617933, guid: 251c633d57233094aa3685794a217596, type: 3}
+  - Id: base_f_cos_06_purple
+    DisplayName: F Cos 06 Purple
+    Prefab: {fileID: 3115294755328875656, guid: b236150d16e827c47b229d92395b6686, type: 3}
+  - Id: base_f_cos_06_red
+    DisplayName: F Cos 06 Red
+    Prefab: {fileID: 5682581300550716519, guid: 3fbdb3e4daa9dbc48855d70410a468b0, type: 3}
+  - Id: base_f_cos_07_black
+    DisplayName: F Cos 07 Black
+    Prefab: {fileID: 613778669963239491, guid: 9874160f0ce7a4d46b8644533b20068d, type: 3}
+  - Id: base_f_cos_07_blue
+    DisplayName: F Cos 07 Blue
+    Prefab: {fileID: 2958749649171727236, guid: 015eff567af67b241a87623871171395, type: 3}
+  - Id: base_f_cos_07_brown
+    DisplayName: F Cos 07 Brown
+    Prefab: {fileID: 810313948878606811, guid: 5a73c824996776943af323282af7e3a2, type: 3}
+  - Id: base_f_cos_07_purple
+    DisplayName: F Cos 07 Purple
+    Prefab: {fileID: 2181139967456510561, guid: 18777c8dbd9525944a5dc386b34b1c0d, type: 3}
+  - Id: base_f_cos_07_red
+    DisplayName: F Cos 07 Red
+    Prefab: {fileID: 2787893463767377698, guid: a60eeb2ef7f8796499d39c8f0e979382, type: 3}
+  - Id: base_f_cos_08_black
+    DisplayName: F Cos 08 Black
+    Prefab: {fileID: 8937205103852179804, guid: bf2bd958cda253b4aa993e065e551422, type: 3}
+  - Id: base_f_cos_08_blue
+    DisplayName: F Cos 08 Blue
+    Prefab: {fileID: 7415822921270071631, guid: 83849b56c31cb2343a3c6d1a9eb80762, type: 3}
+  - Id: base_f_cos_08_brown
+    DisplayName: F Cos 08 Brown
+    Prefab: {fileID: 6837897255147867415, guid: de18982fa26a3894db13ef7cc4b753c3, type: 3}
+  - Id: base_f_cos_08_purple
+    DisplayName: F Cos 08 Purple
+    Prefab: {fileID: 948298841283647605, guid: 3b3b93ccd5203944d8922322e5f5c335, type: 3}
+  - Id: base_f_cos_08_red
+    DisplayName: F Cos 08 Red
+    Prefab: {fileID: 1180998606279734775, guid: 9297ddae6bbe00a4a929f5f24bbcfcb3, type: 3}
+  - Id: base_f_cos_09_black
+    DisplayName: F Cos 09 Black
+    Prefab: {fileID: 5105359436741950157, guid: 98248f5a72eb710479a23a5cc762db29, type: 3}
+  - Id: base_f_cos_09_blue
+    DisplayName: F Cos 09 Blue
+    Prefab: {fileID: 499415052587569018, guid: 3eb9146870dfd5d46beee9efdde0574f, type: 3}
+  - Id: base_f_cos_09_brown
+    DisplayName: F Cos 09 Brown
+    Prefab: {fileID: 8360383540977598560, guid: a75bca7ee55282348b107e17900c7517, type: 3}
+  - Id: base_f_cos_09_purple
+    DisplayName: F Cos 09 Purple
+    Prefab: {fileID: 5889363357456332775, guid: 308219e3cec6451429e5b25c3a915fa9, type: 3}
+  - Id: base_f_cos_09_red
+    DisplayName: F Cos 09 Red
+    Prefab: {fileID: 4176214423258565633, guid: a4eb7e6fac872fc45a2510b43318a38d, type: 3}
+  - Id: base_f_cos_10_black
+    DisplayName: F Cos 10 Black
+    Prefab: {fileID: 6408655559557036607, guid: 6e8b411cb6bf9a04791439abe554da60, type: 3}
+  - Id: base_f_cos_10_blue
+    DisplayName: F Cos 10 Blue
+    Prefab: {fileID: 5945399230961116316, guid: dec5b435e80584c4db30bef5027ec856, type: 3}
+  - Id: base_f_cos_10_brown
+    DisplayName: F Cos 10 Brown
+    Prefab: {fileID: 2047171939477393588, guid: a612cd8157fccba47bb48c5df876a1a0, type: 3}
+  - Id: base_f_cos_10_purple
+    DisplayName: F Cos 10 Purple
+    Prefab: {fileID: 884321045637245373, guid: 111d1389a2041664bb691c1d5d3da626, type: 3}
+  - Id: base_f_cos_10_red
+    DisplayName: F Cos 10 Red
+    Prefab: {fileID: 8908999266326653385, guid: 54ba2ffab4e5ebb4080a53dff0a59c58, type: 3}
+  - Id: base_f_cos_11_black
+    DisplayName: F Cos 11 Black
+    Prefab: {fileID: 6148429855739486710, guid: 675543776daa6e4448a0b088d63a13e5, type: 3}
+  - Id: base_f_cos_11_blue
+    DisplayName: F Cos 11 Blue
+    Prefab: {fileID: 2601255054672103098, guid: c388353685453c749b5810bb1ee721db, type: 3}
+  - Id: base_f_cos_11_brown
+    DisplayName: F Cos 11 Brown
+    Prefab: {fileID: 7122930776040787202, guid: 47412f4b8c9a7aa42883287f1555fb25, type: 3}
+  - Id: base_f_cos_11_purple
+    DisplayName: F Cos 11 Purple
+    Prefab: {fileID: 3266526865981920983, guid: 6910f857997e9b84380b59fcddaa5540, type: 3}
+  - Id: base_f_cos_11_red
+    DisplayName: F Cos 11 Red
+    Prefab: {fileID: 4986881569338526099, guid: 368412fb2dbd64243a54a338fb5fa5db, type: 3}
+  - Id: base_f_cos_12_black
+    DisplayName: F Cos 12 Black
+    Prefab: {fileID: 1839700301773778147, guid: 1b47d86f57fad2047837601dfab8ed42, type: 3}
+  - Id: base_f_cos_12_blue
+    DisplayName: F Cos 12 Blue
+    Prefab: {fileID: 527127853786926325, guid: 4054435db423b964a82f44b64a44ccb3, type: 3}
+  - Id: base_f_cos_12_brown
+    DisplayName: F Cos 12 Brown
+    Prefab: {fileID: 7636166289525622359, guid: 6febdeab7beee6d4c9386ca602605016, type: 3}
+  - Id: base_f_cos_12_purple
+    DisplayName: F Cos 12 Purple
+    Prefab: {fileID: 7511390323982685866, guid: ea2ddc99be76a08459299846d938ee9e, type: 3}
+  - Id: base_f_cos_12_red
+    DisplayName: F Cos 12 Red
+    Prefab: {fileID: 3246731961452712987, guid: 0c7358be85b72434699879d1500377c7, type: 3}
+  - Id: base_f_cos_13_black
+    DisplayName: F Cos 13 Black
+    Prefab: {fileID: 6690954636537257152, guid: c888ec5a2b25d6447822a836aa68152d, type: 3}
+  - Id: base_f_cos_13_blue
+    DisplayName: F Cos 13 Blue
+    Prefab: {fileID: 6463271624719170853, guid: 8640ff2240ee2e7489ced284147ff734, type: 3}
+  - Id: base_f_cos_13_brown
+    DisplayName: F Cos 13 Brown
+    Prefab: {fileID: 5944630671062274992, guid: 946db7faba93ef043b212515096f0a8c, type: 3}
+  - Id: base_f_cos_13_purple
+    DisplayName: F Cos 13 Purple
+    Prefab: {fileID: 7709494869170247661, guid: a0d041c4fe6ca42499f44d2f2a162f83, type: 3}
+  - Id: base_f_cos_13_red
+    DisplayName: F Cos 13 Red
+    Prefab: {fileID: 6770328778010562996, guid: f120363870973c7458552e366c3d8cee, type: 3}
+  - Id: base_f_cos_14_black
+    DisplayName: F Cos 14 Black
+    Prefab: {fileID: 7001222409383346324, guid: d9f1c0a36000a1342a88fb2c8d8164dd, type: 3}
+  - Id: base_f_cos_14_blue
+    DisplayName: F Cos 14 Blue
+    Prefab: {fileID: 2678606692773446898, guid: 82aac72092b64ea4bb0ca37591eb910e, type: 3}
+  - Id: base_f_cos_14_brown
+    DisplayName: F Cos 14 Brown
+    Prefab: {fileID: 990042276838232383, guid: 27c4f1f825fb95847815913c4500ebfb, type: 3}
+  - Id: base_f_cos_14_purple
+    DisplayName: F Cos 14 Purple
+    Prefab: {fileID: 8253310542492810051, guid: 16feff10d4ef8a74d9077b63ba8cf3a0, type: 3}
+  - Id: base_f_cos_14_red
+    DisplayName: F Cos 14 Red
+    Prefab: {fileID: 8469998215093809324, guid: 2ade252d58f838448b0be455edf050f7, type: 3}
+  - Id: base_f_cos_15_black
+    DisplayName: F Cos 15 Black
+    Prefab: {fileID: 7555569887664797716, guid: a840635219108ca40a5038da6e6002ba, type: 3}
+  - Id: base_f_cos_15_blue
+    DisplayName: F Cos 15 Blue
+    Prefab: {fileID: 7180070053170796585, guid: 1439043ecb86aaa499ab73b32819a7b5, type: 3}
+  - Id: base_f_cos_15_brown
+    DisplayName: F Cos 15 Brown
+    Prefab: {fileID: 3086832248399617327, guid: 0a691fbdad9f4d8428f7f15bd4905d2d, type: 3}
+  - Id: base_f_cos_15_purple
+    DisplayName: F Cos 15 Purple
+    Prefab: {fileID: 6086235934377046130, guid: 362f072006fc97d4abb83e695c0331c2, type: 3}
+  - Id: base_f_cos_15_red
+    DisplayName: F Cos 15 Red
+    Prefab: {fileID: 5914445428437775266, guid: 42fe16da6532f15478772d5d6d4349df, type: 3}
+  - Id: base_f_cos_16_black
+    DisplayName: F Cos 16 Black
+    Prefab: {fileID: 5916704209381255707, guid: e555676491cb3fb49967acfb58e085f0, type: 3}
+  - Id: base_f_cos_16_blue
+    DisplayName: F Cos 16 Blue
+    Prefab: {fileID: 7932268052424492758, guid: fd14fe391f8118c408ed1b687aaa0f5c, type: 3}
+  - Id: base_f_cos_16_brown
+    DisplayName: F Cos 16 Brown
+    Prefab: {fileID: 4500735677185089599, guid: 1c969af68ba6c3f4398db6894304cf7d, type: 3}
+  - Id: base_f_cos_16_purple
+    DisplayName: F Cos 16 Purple
+    Prefab: {fileID: 76256781690939964, guid: e6b99a1e5d655f746a1fb440144b2c08, type: 3}
+  - Id: base_f_cos_16_red
+    DisplayName: F Cos 16 Red
+    Prefab: {fileID: 1458133529649883896, guid: 2f3639e2a2c5acc4cb8db83ea40a48c7, type: 3}
+  - Id: base_f_cos_17_black
+    DisplayName: F Cos 17 Black
+    Prefab: {fileID: 8051408995739930587, guid: 4bf96b0d151fb054bbed36e72e3bc898, type: 3}
+  - Id: base_f_cos_17_blue
+    DisplayName: F Cos 17 Blue
+    Prefab: {fileID: 8254853915499422826, guid: f133661bd165d894ab233eaa6a52fa8b, type: 3}
+  - Id: base_f_cos_17_brown
+    DisplayName: F Cos 17 Brown
+    Prefab: {fileID: 3970598173233130288, guid: 8c58e3e6b3b8f95449996ecf03900e70, type: 3}
+  - Id: base_f_cos_17_purple
+    DisplayName: F Cos 17 Purple
+    Prefab: {fileID: 7649463448017716075, guid: bd3f97bc9cc7dc9488fd833c72b76ce8, type: 3}
+  - Id: base_f_cos_17_red
+    DisplayName: F Cos 17 Red
+    Prefab: {fileID: 4919034224955306883, guid: 99e7fc411dc664749aa0ba2a7fb9efb4, type: 3}
+  - Id: base_f_cos_18_black
+    DisplayName: F Cos 18 Black
+    Prefab: {fileID: 1629649702321771001, guid: 689e439a91102234fb584d82d11eb14c, type: 3}
+  - Id: base_f_cos_18_blue
+    DisplayName: F Cos 18 Blue
+    Prefab: {fileID: 3181128611275865374, guid: 21510765110aeed469e755ef98883c8e, type: 3}
+  - Id: base_f_cos_18_brown
+    DisplayName: F Cos 18 Brown
+    Prefab: {fileID: 2914043262734691810, guid: 44e47d6ae19719f47b150e7fd198bf09, type: 3}
+  - Id: base_f_cos_18_purple
+    DisplayName: F Cos 18 Purple
+    Prefab: {fileID: 6058704810587764929, guid: 566a9e4b55c2b4545b2c4ad14a05cded, type: 3}
+  - Id: base_f_cos_18_red
+    DisplayName: F Cos 18 Red
+    Prefab: {fileID: 6396661688510186025, guid: 3d31412ddf232a042a6d77055a5742b0, type: 3}
+  - Id: base_f_cos_19_black
+    DisplayName: F Cos 19 Black
+    Prefab: {fileID: 1920836459881751293, guid: 532d7a26ba915054ba96cc340eda67e3, type: 3}
+  - Id: base_f_cos_19_blue
+    DisplayName: F Cos 19 Blue
+    Prefab: {fileID: 7920287524347425415, guid: 9c45cf4f21ce56a4096da3ddea800977, type: 3}
+  - Id: base_f_cos_19_purple
+    DisplayName: F Cos 19 Purple
+    Prefab: {fileID: 2223171481995444077, guid: 619ef6949bf773d45a85bf43b389e4ba, type: 3}
+  - Id: base_f_cos_19_purple_1
+    DisplayName: F Cos 19 Purple 1
+    Prefab: {fileID: 648094837144659476, guid: 4f95acf8f9232b64b802e26a83799c06, type: 3}
+  - Id: base_f_cos_19_red
+    DisplayName: F Cos 19 Red
+    Prefab: {fileID: 7221730181489379509, guid: ac793d19a3d91bd43ac94ed4820c996b, type: 3}
+  - Id: base_f_cos_20_black
+    DisplayName: F Cos 20 Black
+    Prefab: {fileID: 3680174759249930194, guid: ad185c87f1616e14d83379fb9aa3b5eb, type: 3}
+  - Id: base_f_cos_20_blue
+    DisplayName: F Cos 20 Blue
+    Prefab: {fileID: 3071815238270563645, guid: 8d1e5f99deb25df4084cac03a542f3e6, type: 3}
+  - Id: base_f_cos_20_brown
+    DisplayName: F Cos 20 Brown
+    Prefab: {fileID: 6924595180121847064, guid: b82227ee024c75246aee146990dc2c2a, type: 3}
+  - Id: base_f_cos_20_purple
+    DisplayName: F Cos 20 Purple
+    Prefab: {fileID: 506506679181956210, guid: ebba4b2f703573a49892653bbfcfbafd, type: 3}
+  - Id: base_f_cos_20_red
+    DisplayName: F Cos 20 Red
+    Prefab: {fileID: 4452908619363660179, guid: 4cecfb5e0360ae3458af7eba9109353c, type: 3}
+  - Id: base_m_cos_01_black
+    DisplayName: M Cos 01 Black
+    Prefab: {fileID: 7987241680596310787, guid: 275376e97ced9d441a558f0ffe1e5e03, type: 3}
+  - Id: base_m_cos_01_blue
+    DisplayName: M Cos 01 Blue
+    Prefab: {fileID: 2420990128065136224, guid: dee064f22cc201448aba3a2f57ab0683, type: 3}
+  - Id: base_m_cos_01_brown
+    DisplayName: M Cos 01 Brown
+    Prefab: {fileID: 5714938294154494874, guid: 0424f2e73604a25438e5fe2499dcb78d, type: 3}
+  - Id: base_m_cos_01_purple
+    DisplayName: M Cos 01 Purple
+    Prefab: {fileID: 7004801909768832094, guid: 1f5f405e6954dee4fb2136aec4641d62, type: 3}
+  - Id: base_m_cos_01_red
+    DisplayName: M Cos 01 Red
+    Prefab: {fileID: 6705238951891488078, guid: 3924fbe988ddd684ea65465c9902016b, type: 3}
+  - Id: base_m_cos_02_black
+    DisplayName: M Cos 02 Black
+    Prefab: {fileID: 6747584167214447890, guid: aead7c07f149ebc4996c0441b4bd2e29, type: 3}
+  - Id: base_m_cos_02_blue
+    DisplayName: M Cos 02 Blue
+    Prefab: {fileID: 1206413271791996807, guid: 21b26dc9181b0644c9b2ebb5652b8b2e, type: 3}
+  - Id: base_m_cos_02_brown
+    DisplayName: M Cos 02 Brown
+    Prefab: {fileID: 4681135323874082705, guid: 36a0a7596a9f6ca478e5e68cef50b33d, type: 3}
+  - Id: base_m_cos_02_purple
+    DisplayName: M Cos 02 Purple
+    Prefab: {fileID: 6674143065582753405, guid: 94829080e1bea4d4282e449312a71d62, type: 3}
+  - Id: base_m_cos_02_red
+    DisplayName: M Cos 02 Red
+    Prefab: {fileID: 7376810467709168960, guid: ea5dbd470fe59ce468f5f27e95befb3e, type: 3}
+  - Id: base_m_cos_03_black
+    DisplayName: M Cos 03 Black
+    Prefab: {fileID: 5165883186678948201, guid: 6ae3f1db760851c4293a588bc6fadffa, type: 3}
+  - Id: base_m_cos_03_blue
+    DisplayName: M Cos 03 Blue
+    Prefab: {fileID: 2439369044934541885, guid: 6a0a83ea7f6894d40b2d54b8fc5bc23f, type: 3}
+  - Id: base_m_cos_03_brown
+    DisplayName: M Cos 03 Brown
+    Prefab: {fileID: 6674062611252245587, guid: 469e7a58ca08b7b42853381066d36ef1, type: 3}
+  - Id: base_m_cos_03_purple
+    DisplayName: M Cos 03 Purple
+    Prefab: {fileID: 1579673964429324116, guid: fd7787a96e9fb1c4d882de1d5d358858, type: 3}
+  - Id: base_m_cos_03_red
+    DisplayName: M Cos 03 Red
+    Prefab: {fileID: 5716862191025927674, guid: aa9961162fae0a846906d844e02cd527, type: 3}
+  - Id: base_m_cos_04_black
+    DisplayName: M Cos 04 Black
+    Prefab: {fileID: 2274176130693180910, guid: 6dce1c640a1f9d34c86c930f84d28914, type: 3}
+  - Id: base_m_cos_04_blue
+    DisplayName: M Cos 04 Blue
+    Prefab: {fileID: 9186591524986566418, guid: 5cc5d4ba822b62842931c04fc93372bd, type: 3}
+  - Id: base_m_cos_04_brown
+    DisplayName: M Cos 04 Brown
+    Prefab: {fileID: 8592422961457059128, guid: 76fb69021c5982041975954dcc08704b, type: 3}
+  - Id: base_m_cos_04_purple
+    DisplayName: M Cos 04 Purple
+    Prefab: {fileID: 8478115108274688831, guid: e38508914dae8774c83c0008c00836b4, type: 3}
+  - Id: base_m_cos_04_red
+    DisplayName: M Cos 04 Red
+    Prefab: {fileID: 8197651694402147904, guid: 99b4bb44382abaa49bc721ec51d89358, type: 3}
+  - Id: base_m_cos_05_black
+    DisplayName: M Cos 05 Black
+    Prefab: {fileID: 7645546632269252770, guid: 8f4be3a185fece44eb47e0e458fe893f, type: 3}
+  - Id: base_m_cos_05_blue
+    DisplayName: M Cos 05 Blue
+    Prefab: {fileID: 1775439880164888707, guid: bada483c3c7a9644f94ebd7449485a9f, type: 3}
+  - Id: base_m_cos_05_brown
+    DisplayName: M Cos 05 Brown
+    Prefab: {fileID: 5444966370045365005, guid: 1e92516e41c8c244dab9834e9656521d, type: 3}
+  - Id: base_m_cos_05_purple
+    DisplayName: M Cos 05 Purple
+    Prefab: {fileID: 845984314193670677, guid: 8a54b93384fcd134dbb120383e1ec492, type: 3}
+  - Id: base_m_cos_05_red
+    DisplayName: M Cos 05 Red
+    Prefab: {fileID: 9173810349931413049, guid: 77c262c6048eefc4f883ad1cb34ec0d1, type: 3}
+  - Id: base_m_cos_06_black
+    DisplayName: M Cos 06 Black
+    Prefab: {fileID: 2638584232889510320, guid: 6fc8af86c2d855641ac35ba882ae6a26, type: 3}
+  - Id: base_m_cos_06_blue
+    DisplayName: M Cos 06 Blue
+    Prefab: {fileID: 2096503204861814445, guid: f591b6412663c1f4ab91a4106cdba4d2, type: 3}
+  - Id: base_m_cos_06_brown
+    DisplayName: M Cos 06 Brown
+    Prefab: {fileID: 2708737210250478366, guid: 51b3f001600b9ff449ab443c1b0fabb3, type: 3}
+  - Id: base_m_cos_06_purple
+    DisplayName: M Cos 06 Purple
+    Prefab: {fileID: 1945641311325600901, guid: b0044b7ce9d6d564eaa4b07ccfc69f1c, type: 3}
+  - Id: base_m_cos_06_red
+    DisplayName: M Cos 06 Red
+    Prefab: {fileID: 8716964856881798269, guid: b1495e21630047d439f0b42f987dba81, type: 3}
+  - Id: base_m_cos_07_black
+    DisplayName: M Cos 07 Black
+    Prefab: {fileID: 8333710820660069547, guid: cb50776c597ed924197e56915171880e, type: 3}
+  - Id: base_m_cos_07_blue
+    DisplayName: M Cos 07 Blue
+    Prefab: {fileID: 2752418596869657472, guid: 88c49d6b22c5bfb4eb289aa24a34fcf1, type: 3}
+  - Id: base_m_cos_07_brown
+    DisplayName: M Cos 07 Brown
+    Prefab: {fileID: 2789014858964691361, guid: a00d9438f7a2e7446aa0ee84d83387f9, type: 3}
+  - Id: base_m_cos_07_purple
+    DisplayName: M Cos 07 Purple
+    Prefab: {fileID: 2977835080625325859, guid: 41c82843092d11343bd9f06ba72c5369, type: 3}
+  - Id: base_m_cos_07_red
+    DisplayName: M Cos 07 Red
+    Prefab: {fileID: 3109706959760228630, guid: 93c8d5dbae13b2340b3c9a000f79ad6a, type: 3}
+  - Id: base_m_cos_08_black
+    DisplayName: M Cos 08 Black
+    Prefab: {fileID: 8674946068842127312, guid: c253b240f3fe39149bf0db8fa0ec777e, type: 3}
+  - Id: base_m_cos_08_blue
+    DisplayName: M Cos 08 Blue
+    Prefab: {fileID: 3368281364078936496, guid: 0b9bba0034009c24599143e106af0b9b, type: 3}
+  - Id: base_m_cos_08_brown
+    DisplayName: M Cos 08 Brown
+    Prefab: {fileID: 854093983479279066, guid: 79ee4cc3e52448741b234a9bcdf1b91e, type: 3}
+  - Id: base_m_cos_08_purple
+    DisplayName: M Cos 08 Purple
+    Prefab: {fileID: 6040869388796184091, guid: e58865a6ee8bfcf4985edff98fd57ed9, type: 3}
+  - Id: base_m_cos_08_red
+    DisplayName: M Cos 08 Red
+    Prefab: {fileID: 1031812555709110251, guid: 559ac05a70d7d3149bf6dc2fb723ebb3, type: 3}
+  - Id: base_m_cos_09_black
+    DisplayName: M Cos 09 Black
+    Prefab: {fileID: 8233456347704517565, guid: 4fc9cddc04bef944d98a84f265486133, type: 3}
+  - Id: base_m_cos_09_blue
+    DisplayName: M Cos 09 Blue
+    Prefab: {fileID: 7765534139413150854, guid: a8a0cfe76ec92414e9b3349ed8325a25, type: 3}
+  - Id: base_m_cos_09_brown
+    DisplayName: M Cos 09 Brown
+    Prefab: {fileID: 7462118081825231957, guid: edb3304f7d48a564790dda1990a96b98, type: 3}
+  - Id: base_m_cos_09_purple
+    DisplayName: M Cos 09 Purple
+    Prefab: {fileID: 7821112690824736900, guid: b36acdf8cd3bf584f8025ae0ecb0a74d, type: 3}
+  - Id: base_m_cos_09_red
+    DisplayName: M Cos 09 Red
+    Prefab: {fileID: 325983744974703777, guid: ad7c50a90bcea20459f97b04a6286054, type: 3}
+  - Id: base_m_cos_10_black
+    DisplayName: M Cos 10 Black
+    Prefab: {fileID: 931452792704222483, guid: 7d6a135d57071ea44a267e26e0358a18, type: 3}
+  - Id: base_m_cos_10_blue
+    DisplayName: M Cos 10 Blue
+    Prefab: {fileID: 6506678760244500458, guid: 6c6b4f332aa6a6b40bf840aacf395c97, type: 3}
+  - Id: base_m_cos_10_brown
+    DisplayName: M Cos 10 Brown
+    Prefab: {fileID: 2445577039722720789, guid: 9e23bc4a3ac915645b7e319412b9d4ea, type: 3}
+  - Id: base_m_cos_10_purple
+    DisplayName: M Cos 10 Purple
+    Prefab: {fileID: 3308551446135372445, guid: 7574c18d9dca9cd479d4bca0134aaee0, type: 3}
+  - Id: base_m_cos_10_red
+    DisplayName: M Cos 10 Red
+    Prefab: {fileID: 1996009906455249672, guid: 0e63bac4daf29bc4c9394147b648a209, type: 3}
+  - Id: base_m_cos_11_black
+    DisplayName: M Cos 11 Black
+    Prefab: {fileID: 6188278231710144398, guid: e5c94e4c135a77f4593c3dafa8626f6a, type: 3}
+  - Id: base_m_cos_11_blue
+    DisplayName: M Cos 11 Blue
+    Prefab: {fileID: 512273580691144615, guid: 5e16bc5a968e61c4e8aa69db6cd2a1c1, type: 3}
+  - Id: base_m_cos_11_brown
+    DisplayName: M Cos 11 Brown
+    Prefab: {fileID: 6878411264147818572, guid: dce09c47bd4121f49a06260e207277ac, type: 3}
+  - Id: base_m_cos_11_purple
+    DisplayName: M Cos 11 Purple
+    Prefab: {fileID: 3932763640290678538, guid: 094c4713693b15e439ab71977990e944, type: 3}
+  - Id: base_m_cos_11_red
+    DisplayName: M Cos 11 Red
+    Prefab: {fileID: 5825466665175896730, guid: d8b69a787b9e3724b9d2dbe3b4056990, type: 3}
+  - Id: base_m_cos_12_black
+    DisplayName: M Cos 12 Black
+    Prefab: {fileID: 4692458429124016252, guid: c05fb451ccfe2784bb8811e0a094085a, type: 3}
+  - Id: base_m_cos_12_blue
+    DisplayName: M Cos 12 Blue
+    Prefab: {fileID: 7162617681614639516, guid: f3efd8135c90b4145b15ced1173d5570, type: 3}
+  - Id: base_m_cos_12_brown
+    DisplayName: M Cos 12 Brown
+    Prefab: {fileID: 2177285001032390245, guid: 98837e23735546c45a66bab9e08611ce, type: 3}
+  - Id: base_m_cos_12_purple
+    DisplayName: M Cos 12 Purple
+    Prefab: {fileID: 957895045611743765, guid: ec4388cd682e70844a756b4d167bce8b, type: 3}
+  - Id: base_m_cos_12_red
+    DisplayName: M Cos 12 Red
+    Prefab: {fileID: 8795008491563626348, guid: 9c2a875a0f4fa3b4eacb3441e3fa600c, type: 3}
+  - Id: base_m_cos_13_black
+    DisplayName: M Cos 13 Black
+    Prefab: {fileID: 5003164655511959373, guid: d62b363bdb5549d42a96e43d8bd2853f, type: 3}
+  - Id: base_m_cos_13_blue
+    DisplayName: M Cos 13 Blue
+    Prefab: {fileID: 1273989829458423691, guid: 09cd23953df7c7f4e8376cdf6c5a61eb, type: 3}
+  - Id: base_m_cos_13_brown
+    DisplayName: M Cos 13 Brown
+    Prefab: {fileID: 8522624924645600241, guid: 27690a1d5127a044b9c435b8143276a4, type: 3}
+  - Id: base_m_cos_13_purple
+    DisplayName: M Cos 13 Purple
+    Prefab: {fileID: 6421651623832469888, guid: 383d05c02948cc54792163c087d08cc6, type: 3}
+  - Id: base_m_cos_13_red
+    DisplayName: M Cos 13 Red
+    Prefab: {fileID: 4378580772758290172, guid: 8c6b6bf591e3aaf4f8f62c197ec31a18, type: 3}
+  - Id: base_m_cos_14_black
+    DisplayName: M Cos 14 Black
+    Prefab: {fileID: 9108795791152311400, guid: 8b1302b8a4ddd554894ee0c6c34b4644, type: 3}
+  - Id: base_m_cos_14_blue
+    DisplayName: M Cos 14 Blue
+    Prefab: {fileID: 4813042527443776311, guid: 119c151b4ce82614085e2ea01b9c71b3, type: 3}
+  - Id: base_m_cos_14_brown
+    DisplayName: M Cos 14 Brown
+    Prefab: {fileID: 6861475670494805264, guid: c2a6efe1f2c2b9048b7c18b1aa8d036f, type: 3}
+  - Id: base_m_cos_14_purple
+    DisplayName: M Cos 14 Purple
+    Prefab: {fileID: 2823860264272596885, guid: 45189c095bfef2a498bf4249e375187d, type: 3}
+  - Id: base_m_cos_14_red
+    DisplayName: M Cos 14 Red
+    Prefab: {fileID: 3836062845479818900, guid: f0ace3792a1f37548880f168fb9a336b, type: 3}
+  - Id: base_m_cos_15_black
+    DisplayName: M Cos 15 Black
+    Prefab: {fileID: 65043129145356415, guid: 3b0910baa7115444a8d234268a87a22e, type: 3}
+  - Id: base_m_cos_15_blue
+    DisplayName: M Cos 15 Blue
+    Prefab: {fileID: 4981835479979882185, guid: 2c686509287021e4d992485b0979c6d8, type: 3}
+  - Id: base_m_cos_15_brown
+    DisplayName: M Cos 15 Brown
+    Prefab: {fileID: 2844845006947632109, guid: 25a146298172d0b4da94c3440d047565, type: 3}
+  - Id: base_m_cos_15_purple
+    DisplayName: M Cos 15 Purple
+    Prefab: {fileID: 696728085141385931, guid: 7c43768c7b754374a9ebca742257704f, type: 3}
+  - Id: base_m_cos_15_red
+    DisplayName: M Cos 15 Red
+    Prefab: {fileID: 8806185013754430974, guid: ea237a456947a1c4e8f8e2ffdc25ea3a, type: 3}
+  - Id: base_m_cos_16_black
+    DisplayName: M Cos 16 Black
+    Prefab: {fileID: 4059056745696855141, guid: 875e6602ea03bcf4ca302f24583b0493, type: 3}
+  - Id: base_m_cos_16_blue
+    DisplayName: M Cos 16 Blue
+    Prefab: {fileID: 936921279518934261, guid: 0a25bc3bfbc6c92488ed11af6d838e19, type: 3}
+  - Id: base_m_cos_16_brown
+    DisplayName: M Cos 16 Brown
+    Prefab: {fileID: 1179206635649412196, guid: 8c37bef00b967384aa9a4b71edb2a57b, type: 3}
+  - Id: base_m_cos_16_purple
+    DisplayName: M Cos 16 Purple
+    Prefab: {fileID: 4660728462210784871, guid: b8c9d65c9915aac4b945ae5859296cc4, type: 3}
+  - Id: base_m_cos_16_red
+    DisplayName: M Cos 16 Red
+    Prefab: {fileID: 4905518731116923162, guid: 71c6d9ee211c13348b6a2d48254ad862, type: 3}
+  - Id: base_m_cos_17_black
+    DisplayName: M Cos 17 Black
+    Prefab: {fileID: 7955540354893280072, guid: f32fc760c824d8945a4df2455a573aa3, type: 3}
+  - Id: base_m_cos_17_blue
+    DisplayName: M Cos 17 Blue
+    Prefab: {fileID: 3911969877350957750, guid: c0af562a8cec7544081265405e34f0f6, type: 3}
+  - Id: base_m_cos_17_brown
+    DisplayName: M Cos 17 Brown
+    Prefab: {fileID: 4345279405661193473, guid: c51834df63683e84ebcfc32a59b786f9, type: 3}
+  - Id: base_m_cos_17_purple
+    DisplayName: M Cos 17 Purple
+    Prefab: {fileID: 1111311415702178213, guid: fd17d89f50bfa1a4dacf3c493ae26a7c, type: 3}
+  - Id: base_m_cos_17_red
+    DisplayName: M Cos 17 Red
+    Prefab: {fileID: 6314054101932695243, guid: 94f7bf12ba30afb4e8a353ba0a88a369, type: 3}
+  - Id: base_m_cos_18_black
+    DisplayName: M Cos 18 Black
+    Prefab: {fileID: 801083862944698051, guid: 0786c755e90f19b438ff3d1fc06886b4, type: 3}
+  - Id: base_m_cos_18_blue
+    DisplayName: M Cos 18 Blue
+    Prefab: {fileID: 1986425391749486604, guid: b10ed32e8aa9c1c4fb2ba72249c76b37, type: 3}
+  - Id: base_m_cos_18_brown
+    DisplayName: M Cos 18 Brown
+    Prefab: {fileID: 3172985466405913587, guid: 22ae9a2736377f54180f88a9f7d88cab, type: 3}
+  - Id: base_m_cos_18_purple
+    DisplayName: M Cos 18 Purple
+    Prefab: {fileID: 8995966239713546601, guid: ad176ae3349e83e41a32682e97101006, type: 3}
+  - Id: base_m_cos_18_red
+    DisplayName: M Cos 18 Red
+    Prefab: {fileID: 513635406747178286, guid: f47e30cf4f4ddf0469f32c2935adc2d9, type: 3}
+  - Id: base_m_cos_19_black
+    DisplayName: M Cos 19 Black
+    Prefab: {fileID: 5699906039368076878, guid: 3021b937296fef240b56befff70f5931, type: 3}
+  - Id: base_m_cos_19_blue
+    DisplayName: M Cos 19 Blue
+    Prefab: {fileID: 6442051737270742560, guid: 9e47587ecba54ef4dae0f2f5ef0ea027, type: 3}
+  - Id: base_m_cos_19_brown
+    DisplayName: M Cos 19 Brown
+    Prefab: {fileID: 5255558183599821570, guid: 9aa9ddd85281b184ba6edad391c3adc8, type: 3}
+  - Id: base_m_cos_19_purple
+    DisplayName: M Cos 19 Purple
+    Prefab: {fileID: 8618874625124526581, guid: 3ba99604122391645a458d1e210966bf, type: 3}
+  - Id: base_m_cos_19_red
+    DisplayName: M Cos 19 Red
+    Prefab: {fileID: 4267186970698261953, guid: 3e81185106b4dc24e82a329c301561bd, type: 3}
+  - Id: base_m_cos_20_black
+    DisplayName: M Cos 20 Black
+    Prefab: {fileID: 3885560071654722756, guid: 726b1653fac5f26468b140ee89bd22b1, type: 3}
+  - Id: base_m_cos_20_blue
+    DisplayName: M Cos 20 Blue
+    Prefab: {fileID: 1962514228343085470, guid: a191907a7b2ffcd48a0e332e2ae67f2f, type: 3}
+  - Id: base_m_cos_20_brown
+    DisplayName: M Cos 20 Brown
+    Prefab: {fileID: 5510314073676286690, guid: 7c1af647f0396834ab9eb252015063c8, type: 3}
+  - Id: base_m_cos_20_purple
+    DisplayName: M Cos 20 Purple
+    Prefab: {fileID: 6710552950986016962, guid: 175ec9ca3ca28a94dbe4fba96ba6a985, type: 3}
+  - Id: base_m_cos_20_red
+    DisplayName: M Cos 20 Red
+    Prefab: {fileID: 5442363726795592148, guid: bb4120cfe852be74185640094508a8ed, type: 3}
+  Categories:
+  - Id: chest_armor
+    DisplayName: Armor
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: armor_01
+      DisplayName: Armor 01
+      Prefab: {fileID: 3126494543187902932, guid: bed41b71e37add34e9be404c75e0f19c, type: 3}
+    - Id: armor_02
+      DisplayName: Armor 02
+      Prefab: {fileID: 5806483303767558523, guid: 10e9ddd053de747489be31fed60ffecd, type: 3}
+    - Id: armor_03
+      DisplayName: Armor 03
+      Prefab: {fileID: 8207853396617923158, guid: e6ba53c00a1852f468efe6615dbf4427, type: 3}
+    - Id: armor_04_black
+      DisplayName: Armor 04 Black
+      Prefab: {fileID: 542367666209709822, guid: 15b146490e8ebc2449f42165e88f965c, type: 3}
+    - Id: armor_04_blue
+      DisplayName: Armor 04 Blue
+      Prefab: {fileID: 6014517779922704091, guid: c00053f4887015e49bd3aa76149d95cc, type: 3}
+    - Id: armor_04_brown
+      DisplayName: Armor 04 Brown
+      Prefab: {fileID: 3964272608581639467, guid: 52e53f252b0a92141a51958b675148c2, type: 3}
+    - Id: armor_04_purple
+      DisplayName: Armor 04 Purple
+      Prefab: {fileID: 7528306315221565828, guid: d93be8f6dddb85c40aed850a387e8343, type: 3}
+    - Id: armor_04_red
+      DisplayName: Armor 04 Red
+      Prefab: {fileID: 6861454213619219153, guid: dd8999e5ab0cc7d49963632e8d648a65, type: 3}
+    - Id: armor_05
+      DisplayName: Armor 05
+      Prefab: {fileID: 7405927190862796562, guid: 72fa3ebfe5bddc74e8635bd56592a0e4, type: 3}
+    - Id: armor_06
+      DisplayName: Armor 06
+      Prefab: {fileID: 8710283476382958270, guid: f3d4c334e11d85c43ae2661ee3e448f3, type: 3}
+  - Id: r_hand_and_l_hand_arrow_projectile
+    DisplayName: Arrow (Projectile)
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: arrow__1_blue
+      DisplayName: Arrow  1 Blue
+      Prefab: {fileID: 7578287566714940703, guid: 714d817af9ac9b942b0a0f08cab4200a, type: 3}
+    - Id: arrow_01_black
+      DisplayName: Arrow 01 Black
+      Prefab: {fileID: 5751978325454423493, guid: 680e6ca71f164df438ec66f838944b3c, type: 3}
+    - Id: arrow_01_brown
+      DisplayName: Arrow 01 Brown
+      Prefab: {fileID: 1163372591675147017, guid: 24913df92faf5b847b34b93f07b8d869, type: 3}
+    - Id: arrow_01_purple
+      DisplayName: Arrow 01 Purple
+      Prefab: {fileID: 1849878686161478709, guid: fcaa1726b38cc9242bdc975956c5988c, type: 3}
+    - Id: arrow_01_red
+      DisplayName: Arrow 01 Red
+      Prefab: {fileID: 1055523871713056442, guid: b14038a75a01d2e4bbfb7b3d6b2699f7, type: 3}
+  - Id: r_hand_and_l_hand_axe
+    DisplayName: Axe
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: axe_01_black
+      DisplayName: Axe 01 Black
+      Prefab: {fileID: 5293175537062397162, guid: 0dc43dadc10d40a4b9fb141a8397749e, type: 3}
+    - Id: axe_01_blue
+      DisplayName: Axe 01 Blue
+      Prefab: {fileID: 7851283122554760257, guid: 6a017d26d1107a749a856eb2818315bf, type: 3}
+    - Id: axe_01_brown
+      DisplayName: Axe 01 Brown
+      Prefab: {fileID: 9004208201472055728, guid: 052bbc82c41df814da9ac47650f3a055, type: 3}
+    - Id: axe_01_purple
+      DisplayName: Axe 01 Purple
+      Prefab: {fileID: 5010761778232764495, guid: a63588c2e5813b749b6b0ecdb6bd9186, type: 3}
+    - Id: axe_01_red
+      DisplayName: Axe 01 Red
+      Prefab: {fileID: 1625977765173382520, guid: 3ecd9b96f64b299408f39e356537993f, type: 3}
+    - Id: axe_02_black
+      DisplayName: Axe 02 Black
+      Prefab: {fileID: 7107839623223904554, guid: 1779573d09be332488582d0265fbdfc4, type: 3}
+    - Id: axe_02_blue
+      DisplayName: Axe 02 Blue
+      Prefab: {fileID: 1498863861409813910, guid: b152ab294bc8daf49812aecc84e10fa1, type: 3}
+    - Id: axe_02_brown
+      DisplayName: Axe 02 Brown
+      Prefab: {fileID: 740567722820262456, guid: 6f72898e95d62d54fa8f65d4259e80ef, type: 3}
+    - Id: axe_02_purple
+      DisplayName: Axe 02 Purple
+      Prefab: {fileID: 3116024625495119541, guid: 8955f028f067faa448127e34725c3a69, type: 3}
+    - Id: axe_02_red
+      DisplayName: Axe 02 Red
+      Prefab: {fileID: 7657103577319413763, guid: 4143c226e48c6154fb69fec4a55dba41, type: 3}
+    - Id: axe_03_black
+      DisplayName: Axe 03 Black
+      Prefab: {fileID: 2566818584599266320, guid: ef35d486582448d4dae659bac5fbdd31, type: 3}
+    - Id: axe_03_blue
+      DisplayName: Axe 03 Blue
+      Prefab: {fileID: 9042500588091849614, guid: 47fef4a6c55107c449503abcb8b9a9cc, type: 3}
+    - Id: axe_03_brown
+      DisplayName: Axe 03 Brown
+      Prefab: {fileID: 3569646981461204671, guid: bed8c8969c6f20c458e4d405c85a7572, type: 3}
+    - Id: axe_03_purple
+      DisplayName: Axe 03 Purple
+      Prefab: {fileID: 4315107940800887493, guid: 6213bc3ab02bb48479e4bce5d0ccb649, type: 3}
+    - Id: axe_03_red
+      DisplayName: Axe 03 Red
+      Prefab: {fileID: 1574388865237471564, guid: da8769a853e682a48a8a6fb53b484774, type: 3}
+  - Id: head_beard
+    DisplayName: Beard
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: beard_01_black
+      DisplayName: Beard 01 Black
+      Prefab: {fileID: 6378643639859692553, guid: ab5ca5a7ec103d54fa28ea8a3d389dc4, type: 3}
+    - Id: beard_01_blonde
+      DisplayName: Beard 01 Blonde
+      Prefab: {fileID: 5599468192912736337, guid: 1f06cab75ee86a24f8d3b5aed18625b8, type: 3}
+    - Id: beard_01_brown
+      DisplayName: Beard 01 Brown
+      Prefab: {fileID: 3320013141974638069, guid: 34ebefcae7c80db49840e22236eaebfd, type: 3}
+    - Id: beard_01_grey
+      DisplayName: Beard 01 Grey
+      Prefab: {fileID: 6290638725366989814, guid: a951a8f9b1e40c74cbea65e20de62436, type: 3}
+    - Id: beard_01_orange
+      DisplayName: Beard 01 Orange
+      Prefab: {fileID: 2721719874492515179, guid: 95a9adf5258df474cabdcddbc42f58bf, type: 3}
+    - Id: beard_02_black
+      DisplayName: Beard 02 Black
+      Prefab: {fileID: 1302962774646203604, guid: fa3e5988bfd8d394088ffbecbd411ab4, type: 3}
+    - Id: beard_02_blonde
+      DisplayName: Beard 02 Blonde
+      Prefab: {fileID: 6592086122646105825, guid: bc1a774e06d730c4ea69c85205522e3e, type: 3}
+    - Id: beard_02_brown
+      DisplayName: Beard 02 Brown
+      Prefab: {fileID: 3238096628355701166, guid: 3e75fb33109769a40905dbb22ed751a8, type: 3}
+    - Id: beard_02_grey
+      DisplayName: Beard 02 Grey
+      Prefab: {fileID: 8669882305502840943, guid: 75f3517c3e5cefc448715afa20afce63, type: 3}
+    - Id: beard_02_orange
+      DisplayName: Beard 02 Orange
+      Prefab: {fileID: 5496370188342744191, guid: 7c3d8c2be91d0a1448562d2de631b33e, type: 3}
+    - Id: beard_03_black
+      DisplayName: Beard 03 Black
+      Prefab: {fileID: 6169989031000429322, guid: 0cfc7602365980d4bb2acb652ff4da55, type: 3}
+    - Id: beard_03_blonde
+      DisplayName: Beard 03 Blonde
+      Prefab: {fileID: 6815453557735681733, guid: 154b2acd47315554a8e18ad33e9e2ff7, type: 3}
+    - Id: beard_03_brown
+      DisplayName: Beard 03 Brown
+      Prefab: {fileID: 3956522860589106163, guid: 5071bd37bc59a61459f8b307618ea70b, type: 3}
+    - Id: beard_03_grey
+      DisplayName: Beard 03 Grey
+      Prefab: {fileID: 2979898528702503760, guid: 1ed0da31845e7f64f9d194bc2169a627, type: 3}
+    - Id: beard_03_orange
+      DisplayName: Beard 03 Orange
+      Prefab: {fileID: 8851161574309229059, guid: 59b4c03591705ad47ba6f0955aa076e1, type: 3}
+    - Id: beard_04_black
+      DisplayName: Beard 04 Black
+      Prefab: {fileID: 495051062230877929, guid: 6a1b93d7be9c6c64f9f3f59b0757704b, type: 3}
+    - Id: beard_04_blonde
+      DisplayName: Beard 04 Blonde
+      Prefab: {fileID: 2953850393943388772, guid: 3297e30107c55ba46b929be7e62c48d1, type: 3}
+    - Id: beard_04_brown
+      DisplayName: Beard 04 Brown
+      Prefab: {fileID: 8900372227511186803, guid: d6e4c03bc7cd0434ca6d4acbacdc6b89, type: 3}
+    - Id: beard_04_grey
+      DisplayName: Beard 04 Grey
+      Prefab: {fileID: 1234146883552291356, guid: efe6bd99df12e0a408f80fbd445b2b61, type: 3}
+    - Id: beard_04_orange
+      DisplayName: Beard 04 Orange
+      Prefab: {fileID: 2011661239990335101, guid: d87020a03e1e66b42aa88950a09bd091, type: 3}
+    - Id: beard_05_black
+      DisplayName: Beard 05 Black
+      Prefab: {fileID: 6316390549403823788, guid: c6b676f2408b0664ca77c72123ee12ff, type: 3}
+    - Id: beard_05_blonde
+      DisplayName: Beard 05 Blonde
+      Prefab: {fileID: 7998260860524162480, guid: 153cf3aa3c9ea374e8c6537dbb3f9da1, type: 3}
+    - Id: beard_05_brown
+      DisplayName: Beard 05 Brown
+      Prefab: {fileID: 931618926773248266, guid: 49ce6c426e225d64285d689c84376105, type: 3}
+    - Id: beard_05_grey
+      DisplayName: Beard 05 Grey
+      Prefab: {fileID: 2149554296955877847, guid: e709e44f3457ea14994ec0f88765a1e3, type: 3}
+    - Id: beard_05_orange
+      DisplayName: Beard 05 Orange
+      Prefab: {fileID: 4360152296851568468, guid: e4362f3edbd95d148a7ad04556fce9e5, type: 3}
+  - Id: r_hand_and_l_hand_bow
+    DisplayName: Bow
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: bow_01_black
+      DisplayName: Bow 01 Black
+      Prefab: {fileID: 1192378631327186879, guid: b089aeb074af99f43a7a3608cb1a97da, type: 3}
+    - Id: bow_01_blue
+      DisplayName: Bow 01 Blue
+      Prefab: {fileID: 2756401067578476259, guid: 6feba67f4c766984eb5ef07d2bed7027, type: 3}
+    - Id: bow_01_brown
+      DisplayName: Bow 01 Brown
+      Prefab: {fileID: 8051557455620758578, guid: a8feed6b5975a1d48924ea6171609d81, type: 3}
+    - Id: bow_01_purple
+      DisplayName: Bow 01 Purple
+      Prefab: {fileID: 3125038436920560623, guid: 832639aafdd26254f935d09b31ab72d5, type: 3}
+    - Id: bow_01_red
+      DisplayName: Bow 01 Red
+      Prefab: {fileID: 8318603618927172436, guid: 35cf0d7d95a8d454183e9fce29c17e53, type: 3}
+    - Id: bow_02_black
+      DisplayName: Bow 02 Black
+      Prefab: {fileID: 6325882318133852167, guid: f9a5106747cbc2141aa59dbd8a1b651e, type: 3}
+    - Id: bow_02_blue
+      DisplayName: Bow 02 Blue
+      Prefab: {fileID: 7984621156825315569, guid: c90c3f457333dc34cb951251a5901f02, type: 3}
+    - Id: bow_02_brown
+      DisplayName: Bow 02 Brown
+      Prefab: {fileID: 8349871864403090741, guid: 62101232d18ceb8428d732654998d202, type: 3}
+    - Id: bow_02_purple
+      DisplayName: Bow 02 Purple
+      Prefab: {fileID: 7842251656385637666, guid: 7a4fa90e3852e384481c5f982fea66dc, type: 3}
+    - Id: bow_02_red
+      DisplayName: Bow 02 Red
+      Prefab: {fileID: 6097909297356811484, guid: b8cc71553bd118d4fa658b12105a9686, type: 3}
+    - Id: bow_03_black
+      DisplayName: Bow 03 Black
+      Prefab: {fileID: 3442218557155513347, guid: 344139b8905be2e40953626c35d47c30, type: 3}
+    - Id: bow_03_blue
+      DisplayName: Bow 03 Blue
+      Prefab: {fileID: 131358132377930982, guid: e238fe1a6a1338d40b256ecac54d15e4, type: 3}
+    - Id: bow_03_brown
+      DisplayName: Bow 03 Brown
+      Prefab: {fileID: 5987111842165535168, guid: 5c2193ce850d3a344a737ad18484d736, type: 3}
+    - Id: bow_03_purple
+      DisplayName: Bow 03 Purple
+      Prefab: {fileID: 3994214026700835017, guid: f1b685f36186c79479b996f38dea0235, type: 3}
+    - Id: bow_03_red
+      DisplayName: Bow 03 Red
+      Prefab: {fileID: 284343513435706256, guid: 45e9c13cb357b224483e0062a54abc3f, type: 3}
+  - Id: chest_cape
+    DisplayName: Cape
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: cape_01_black
+      DisplayName: Cape 01 Black
+      Prefab: {fileID: 4517603916858318690, guid: 36aeea86dbaa22a42bb447149dbf656a, type: 3}
+    - Id: cape_01_blue
+      DisplayName: Cape 01 Blue
+      Prefab: {fileID: 5199527918803485529, guid: 869eddb44876c1b47b0f530036c7c89d, type: 3}
+    - Id: cape_01_brown
+      DisplayName: Cape 01 Brown
+      Prefab: {fileID: 6432457330719530766, guid: 3b816c6eec8ab9f49ba6d771e9bfd84b, type: 3}
+    - Id: cape_01_purple
+      DisplayName: Cape 01 Purple
+      Prefab: {fileID: 9194384527681586506, guid: 497d0d980ea97654199640e1dacb6f89, type: 3}
+    - Id: cape_01_red
+      DisplayName: Cape 01 Red
+      Prefab: {fileID: 8442521202283718344, guid: b40cb43ff90a63540a0a309188629225, type: 3}
+    - Id: cape_02_black
+      DisplayName: Cape 02 Black
+      Prefab: {fileID: 5795946546067874667, guid: 4e95521350299b94390adb91828ed42c, type: 3}
+    - Id: cape_02_blue
+      DisplayName: Cape 02 Blue
+      Prefab: {fileID: 2542540891814018281, guid: db8fa304dd0694f419a2e1e56fb42caa, type: 3}
+    - Id: cape_02_brown
+      DisplayName: Cape 02 Brown
+      Prefab: {fileID: 8984516294386349300, guid: 2e47ad647133b914ea79269e921ed1d9, type: 3}
+    - Id: cape_02_purple
+      DisplayName: Cape 02 Purple
+      Prefab: {fileID: 4543523584516145844, guid: 0a75146b700910d429e08c0e186d795e, type: 3}
+    - Id: cape_02_red
+      DisplayName: Cape 02 Red
+      Prefab: {fileID: 2789149523964095680, guid: 092fc6278991705409ffc141abdacf7a, type: 3}
+    - Id: cape_03_black
+      DisplayName: Cape 03 Black
+      Prefab: {fileID: 1805700291820281090, guid: 4fbd3ac3b42175e4b84c108a7256d9c3, type: 3}
+    - Id: cape_03_blue
+      DisplayName: Cape 03 Blue
+      Prefab: {fileID: 1565905962225207423, guid: dcb86a12231872e48b7383fba1a35ac2, type: 3}
+    - Id: cape_03_brown
+      DisplayName: Cape 03 Brown
+      Prefab: {fileID: 6156536488160196654, guid: 29d0475982d688a45a30ca6bcc6d30ef, type: 3}
+    - Id: cape_03_purple
+      DisplayName: Cape 03 Purple
+      Prefab: {fileID: 7499098502138033069, guid: cc0039bee9f52ec419f2ea40afe20f1b, type: 3}
+    - Id: cape_03_red
+      DisplayName: Cape 03 Red
+      Prefab: {fileID: 3580752196423087698, guid: ec743da7c593f7147a67cd983f38c559, type: 3}
+  - Id: head_earrings
+    DisplayName: Earrings
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: earrings_01
+      DisplayName: Earrings 01
+      Prefab: {fileID: 2432982632069554231, guid: 9b46a20d26513cb45855c218f51ac589, type: 3}
+    - Id: earrings_02_black
+      DisplayName: Earrings 02 Black
+      Prefab: {fileID: 3544615702110895660, guid: 6f5e7ce3e8a436c468f34cf2fcd2e0dc, type: 3}
+    - Id: earrings_02_blue
+      DisplayName: Earrings 02 Blue
+      Prefab: {fileID: 7298771214694592226, guid: ef5632e6de72b914bbce533484381526, type: 3}
+    - Id: earrings_02_brown
+      DisplayName: Earrings 02 Brown
+      Prefab: {fileID: 2587797273342156317, guid: d02d1aa277c7b6d458479cdab8b9bd81, type: 3}
+    - Id: earrings_02_purple
+      DisplayName: Earrings 02 Purple
+      Prefab: {fileID: 4623640827242553319, guid: bc98d066227554648b1d69a538a1332a, type: 3}
+    - Id: earrings_02_red
+      DisplayName: Earrings 02 Red
+      Prefab: {fileID: 3345904756716088124, guid: aa55f9e115152164b9d06cec73460b46, type: 3}
+  - Id: head_face_female
+    DisplayName: Face Female
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: face_female_01_black
+      DisplayName: Face Female 01 Black
+      Prefab: {fileID: 8046364194092199127, guid: 9f7a459747fa8424cace1b60125346a8, type: 3}
+    - Id: face_female_01_blonde
+      DisplayName: Face Female 01 Blonde
+      Prefab: {fileID: 4777857584150012319, guid: ee500b36de55a8e409a34e17f12a6268, type: 3}
+    - Id: face_female_01_brown
+      DisplayName: Face Female 01 Brown
+      Prefab: {fileID: 5417444036310645640, guid: 6a19f78a731ebec4eb0783fdde658828, type: 3}
+    - Id: face_female_01_grey
+      DisplayName: Face Female 01 Grey
+      Prefab: {fileID: 3209965884788910548, guid: 9630179619c832948a0212d269abb4b0, type: 3}
+    - Id: face_female_01_orange
+      DisplayName: Face Female 01 Orange
+      Prefab: {fileID: 4801483260780907747, guid: 63911641670474249acf25f05d1deb24, type: 3}
+    - Id: face_female_02_black
+      DisplayName: Face Female 02 Black
+      Prefab: {fileID: 4370211753078483148, guid: eb5060534f6658f47a915019ee289fae, type: 3}
+    - Id: face_female_02_blonde
+      DisplayName: Face Female 02 Blonde
+      Prefab: {fileID: 7990355367730044665, guid: 7973f4baadda90849b2c46c95cacd086, type: 3}
+    - Id: face_female_02_brown
+      DisplayName: Face Female 02 Brown
+      Prefab: {fileID: 6381557244985965242, guid: 804b0d402c5f3564194743c58628efd4, type: 3}
+    - Id: face_female_02_grey
+      DisplayName: Face Female 02 Grey
+      Prefab: {fileID: 8102440964513909088, guid: 9fa7b1f945728c04993daa9dbce18858, type: 3}
+    - Id: face_female_02_orange
+      DisplayName: Face Female 02 Orange
+      Prefab: {fileID: 7767326150765649693, guid: b2f95bbf0a33ad64abfd2bd222ccbec0, type: 3}
+    - Id: face_female_03_black
+      DisplayName: Face Female 03 Black
+      Prefab: {fileID: 8610535136006937199, guid: a23eba49b4c7aa44d8a149329ac7a9d0, type: 3}
+    - Id: face_female_03_blonde
+      DisplayName: Face Female 03 Blonde
+      Prefab: {fileID: 8489829535735285644, guid: 367ecbe02cc767c46945b365cfdd6064, type: 3}
+    - Id: face_female_03_brown
+      DisplayName: Face Female 03 Brown
+      Prefab: {fileID: 1072525041521333316, guid: 3109c1ccd0c21404b8a9c06241ba636a, type: 3}
+    - Id: face_female_03_grey
+      DisplayName: Face Female 03 Grey
+      Prefab: {fileID: 1093398821526166930, guid: 31c51bb6dca4ee443b4616c99bfca7a1, type: 3}
+    - Id: face_female_03_orange
+      DisplayName: Face Female 03 Orange
+      Prefab: {fileID: 879164831123480108, guid: e58059b928756884ea72640d1c8ae5f0, type: 3}
+    - Id: face_female_04_black
+      DisplayName: Face Female 04 Black
+      Prefab: {fileID: 702208437234090636, guid: c8151bf824deb7d4a941981fba4952e5, type: 3}
+    - Id: face_female_04_blonde
+      DisplayName: Face Female 04 Blonde
+      Prefab: {fileID: 6133950183372809093, guid: 7fe4a2d94a57e8f49a1b4876545d5321, type: 3}
+    - Id: face_female_04_brown
+      DisplayName: Face Female 04 Brown
+      Prefab: {fileID: 63206136719782696, guid: f7b91080714055f48bcbb55cfec73ffe, type: 3}
+    - Id: face_female_04_grey
+      DisplayName: Face Female 04 Grey
+      Prefab: {fileID: 6018644588791860316, guid: 4c7a67fe0c5c65d4d93cd36b6d73fb55, type: 3}
+    - Id: face_female_04_orange
+      DisplayName: Face Female 04 Orange
+      Prefab: {fileID: 9135537381204200284, guid: 4007be415758ea847a562240e02b8cbd, type: 3}
+    - Id: face_female_05_black
+      DisplayName: Face Female 05 Black
+      Prefab: {fileID: 6602348807763191418, guid: 3fabb7ff372977b4c96bf8eec7fde3f0, type: 3}
+    - Id: face_female_05_blonde
+      DisplayName: Face Female 05 Blonde
+      Prefab: {fileID: 4304910218386321617, guid: 40b765e697035fc4d9d8d95d75a18902, type: 3}
+    - Id: face_female_05_brown
+      DisplayName: Face Female 05 Brown
+      Prefab: {fileID: 3090268754406542971, guid: f6f171eeae18e694fb02a0f82d458f69, type: 3}
+    - Id: face_female_05_grey
+      DisplayName: Face Female 05 Grey
+      Prefab: {fileID: 1550896942151620294, guid: def172a31e178f640b1d55db8d52224b, type: 3}
+    - Id: face_female_05_orange
+      DisplayName: Face Female 05 Orange
+      Prefab: {fileID: 5478621336789028019, guid: 0adebceb4bded524cb0fa64fece4838b, type: 3}
+    - Id: face_female_06_black
+      DisplayName: Face Female 06 Black
+      Prefab: {fileID: 2626031878333162389, guid: d501e7ba2fdf61440959cda9514c460f, type: 3}
+    - Id: face_female_06_blonde
+      DisplayName: Face Female 06 Blonde
+      Prefab: {fileID: 6540213613753465849, guid: 11a05b619d23c934286edac6329df9a2, type: 3}
+    - Id: face_female_06_brown
+      DisplayName: Face Female 06 Brown
+      Prefab: {fileID: 3044241901604989277, guid: c9f7ae93d1e41444b8b2a854ed69b3cc, type: 3}
+    - Id: face_female_06_grey
+      DisplayName: Face Female 06 Grey
+      Prefab: {fileID: 3504392676337549582, guid: e4601810a90149249bc369d2824ac27f, type: 3}
+    - Id: face_female_06_orange
+      DisplayName: Face Female 06 Orange
+      Prefab: {fileID: 5294657590489329441, guid: a6200844b2310e94c8bb3f4a63f6f8a8, type: 3}
+    - Id: face_female_07_black
+      DisplayName: Face Female 07 Black
+      Prefab: {fileID: 8407350969317632165, guid: 5c6c449d939090949ab3536353bd10a1, type: 3}
+    - Id: face_female_07_blonde
+      DisplayName: Face Female 07 Blonde
+      Prefab: {fileID: 6569740952764599077, guid: f9630f25a3264e14ba530c1ebd29ce4e, type: 3}
+    - Id: face_female_07_brown
+      DisplayName: Face Female 07 Brown
+      Prefab: {fileID: 7333127515995452256, guid: f6b79d7986128f14eb8c8392613e9965, type: 3}
+    - Id: face_female_07_grey
+      DisplayName: Face Female 07 Grey
+      Prefab: {fileID: 5450619766506352638, guid: f407b1af273a4f64bb5acdd1886a42fb, type: 3}
+    - Id: face_female_07_orange
+      DisplayName: Face Female 07 Orange
+      Prefab: {fileID: 5426068642198328165, guid: fe224a9876e55ec4d8f34d8699edf5af, type: 3}
+    - Id: face_female_08_black
+      DisplayName: Face Female 08 Black
+      Prefab: {fileID: 7553524145020327502, guid: ee59b1dddacb30b43b7ec29c54d2d512, type: 3}
+    - Id: face_female_08_blonde
+      DisplayName: Face Female 08 Blonde
+      Prefab: {fileID: 40455156473511306, guid: c0009ccf8dccd374697ca17a7120bdec, type: 3}
+    - Id: face_female_08_brown
+      DisplayName: Face Female 08 Brown
+      Prefab: {fileID: 4727433196398049498, guid: ad83564ed8fa1fb4697030dce06e787b, type: 3}
+    - Id: face_female_08_grey
+      DisplayName: Face Female 08 Grey
+      Prefab: {fileID: 8714636340178069666, guid: b1b5751368e089f48ac0429fd36cc83f, type: 3}
+    - Id: face_female_08_orange
+      DisplayName: Face Female 08 Orange
+      Prefab: {fileID: 2646974445702100877, guid: 4cff68b8e29bb0e4498a455366b2a819, type: 3}
+    - Id: face_female_09_black
+      DisplayName: Face Female 09 Black
+      Prefab: {fileID: 3862030705581361291, guid: 1116fb7da3361094fbaa19858ceae88d, type: 3}
+    - Id: face_female_09_blonde
+      DisplayName: Face Female 09 Blonde
+      Prefab: {fileID: 3342897382451834294, guid: 4125b353b78192d4fbda0ff4b0f3eaf5, type: 3}
+    - Id: face_female_09_brown
+      DisplayName: Face Female 09 Brown
+      Prefab: {fileID: 1953831796250803794, guid: 819e56be2a4e12648a26f8a54d36b44b, type: 3}
+    - Id: face_female_09_grey
+      DisplayName: Face Female 09 Grey
+      Prefab: {fileID: 8360329644814803160, guid: 2bce4bc022bdf3549a78533a311ae8db, type: 3}
+    - Id: face_female_09_orange
+      DisplayName: Face Female 09 Orange
+      Prefab: {fileID: 4888203705770567225, guid: 5fb6fd0556fea3c4091a33178524ecca, type: 3}
+    - Id: face_female_10_black
+      DisplayName: Face Female 10 Black
+      Prefab: {fileID: 2762947432552710532, guid: 3abd18faca242e04681e6493e4c39b77, type: 3}
+    - Id: face_female_10_blonde
+      DisplayName: Face Female 10 Blonde
+      Prefab: {fileID: 7272690606585588508, guid: 3ffbc6e404681f441b42a7748bb62a3e, type: 3}
+    - Id: face_female_10_brown
+      DisplayName: Face Female 10 Brown
+      Prefab: {fileID: 3365729270578009111, guid: 5b8515d86612ee24f818633bfb1d8d1d, type: 3}
+    - Id: face_female_10_grey
+      DisplayName: Face Female 10 Grey
+      Prefab: {fileID: 8044909014686982511, guid: a2ecc544ebdbdef438868ef42b5c570e, type: 3}
+    - Id: face_female_10_orange
+      DisplayName: Face Female 10 Orange
+      Prefab: {fileID: 4125702718738752818, guid: 394996a91e7fb264c92fbf006e85a7e8, type: 3}
+  - Id: head_face_male
+    DisplayName: Face Male
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: face_male_01_black
+      DisplayName: Face Male 01 Black
+      Prefab: {fileID: 1812231616054536235, guid: 89f117b6b75e15e4980657858e245777, type: 3}
+    - Id: face_male_01_blonde
+      DisplayName: Face Male 01 Blonde
+      Prefab: {fileID: 3974345413054933350, guid: d909c51ef1800214c8983f41fa94b589, type: 3}
+    - Id: face_male_01_brown
+      DisplayName: Face Male 01 Brown
+      Prefab: {fileID: 8003451733178551308, guid: 40bf4537bb42c49409bf0f7deb60d0b7, type: 3}
+    - Id: face_male_01_grey
+      DisplayName: Face Male 01 Grey
+      Prefab: {fileID: 2752737675514954888, guid: 4bc93934122cc364fb27ad501846a4e8, type: 3}
+    - Id: face_male_01_orange
+      DisplayName: Face Male 01 Orange
+      Prefab: {fileID: 7095946796264645443, guid: bf09a03cc1a20ec4994bd85cd925d11d, type: 3}
+    - Id: face_male_02_black
+      DisplayName: Face Male 02 Black
+      Prefab: {fileID: 7282582674224795011, guid: 165319cb2c1a44c48a089fd6cbfcb6c7, type: 3}
+    - Id: face_male_02_blonde
+      DisplayName: Face Male 02 Blonde
+      Prefab: {fileID: 5077981497011398711, guid: 6b5dadf0e2468404aba8b8b6433f239d, type: 3}
+    - Id: face_male_02_brown
+      DisplayName: Face Male 02 Brown
+      Prefab: {fileID: 6984618229528889459, guid: 5c5ae5fedea347646b2106ff03e4232a, type: 3}
+    - Id: face_male_02_grey
+      DisplayName: Face Male 02 Grey
+      Prefab: {fileID: 2716310674386050378, guid: e13e8b70f190a484f8946c03c6b1bdf1, type: 3}
+    - Id: face_male_02_orange
+      DisplayName: Face Male 02 Orange
+      Prefab: {fileID: 794701346231603465, guid: b6ba4be63f0938b44a716446d0dd3eb6, type: 3}
+    - Id: face_male_03_black
+      DisplayName: Face Male 03 Black
+      Prefab: {fileID: 7538736977616957231, guid: eb8fe7a85f1e05144a8e6abeb87f1ef6, type: 3}
+    - Id: face_male_03_blonde
+      DisplayName: Face Male 03 Blonde
+      Prefab: {fileID: 1861228574612685461, guid: b076f231d0f6893479c0d27acd334659, type: 3}
+    - Id: face_male_03_brown
+      DisplayName: Face Male 03 Brown
+      Prefab: {fileID: 8002264135445992229, guid: ffd00e22c0220044590369fe913d0795, type: 3}
+    - Id: face_male_03_grey
+      DisplayName: Face Male 03 Grey
+      Prefab: {fileID: 3269916769920122657, guid: 14b5f371d5f842c4db15a5dc6d587519, type: 3}
+    - Id: face_male_03_orange
+      DisplayName: Face Male 03 Orange
+      Prefab: {fileID: 1853601299314894403, guid: 085d56e643b1f0f4883b46bb9a59349d, type: 3}
+    - Id: face_male_04_black
+      DisplayName: Face Male 04 Black
+      Prefab: {fileID: 1412310290510318644, guid: e48543d0b24526b44a152e9ef8c6796e, type: 3}
+    - Id: face_male_04_blonde
+      DisplayName: Face Male 04 Blonde
+      Prefab: {fileID: 1112742551337200433, guid: 874f44884563da24897fc6e9271711d5, type: 3}
+    - Id: face_male_04_brown
+      DisplayName: Face Male 04 Brown
+      Prefab: {fileID: 1210603824180119121, guid: 83fcfc010fe9b8d44afbc5aefdb516bb, type: 3}
+    - Id: face_male_04_grey
+      DisplayName: Face Male 04 Grey
+      Prefab: {fileID: 7878730129826155448, guid: b3a291eaf36fa6b4199cced8ee8dd877, type: 3}
+    - Id: face_male_04_orange
+      DisplayName: Face Male 04 Orange
+      Prefab: {fileID: 3435412990992380629, guid: 6a10add5e9ade79439f9906066d211c3, type: 3}
+    - Id: face_male_05_black
+      DisplayName: Face Male 05 Black
+      Prefab: {fileID: 1917592213424338944, guid: 02c2c39cb47b7cc4c903d6ce65c1a7b6, type: 3}
+    - Id: face_male_05_blonde
+      DisplayName: Face Male 05 Blonde
+      Prefab: {fileID: 6661956752203981377, guid: b9f4c8d911b5112458710b14a6b99934, type: 3}
+    - Id: face_male_05_brown
+      DisplayName: Face Male 05 Brown
+      Prefab: {fileID: 6743731281746905408, guid: bc84f5681053c3441875a569dcc2b70c, type: 3}
+    - Id: face_male_05_grey
+      DisplayName: Face Male 05 Grey
+      Prefab: {fileID: 8938026952659592616, guid: a55ba2aec76873b40b594e7bfd510d9f, type: 3}
+    - Id: face_male_05_orange
+      DisplayName: Face Male 05 Orange
+      Prefab: {fileID: 32997676242458663, guid: 324365a763031364f9ac748870c3b00c, type: 3}
+    - Id: face_male_06_black
+      DisplayName: Face Male 06 Black
+      Prefab: {fileID: 8214381792419013892, guid: 83b93616ee6febb49ae0ebc061166317, type: 3}
+    - Id: face_male_06_blonde
+      DisplayName: Face Male 06 Blonde
+      Prefab: {fileID: 8771197033681534315, guid: 95eef178dbff8c34682f8eb61cc50fe6, type: 3}
+    - Id: face_male_06_brown
+      DisplayName: Face Male 06 Brown
+      Prefab: {fileID: 70173589768573091, guid: 0d27ad096e283e642ad66c1a5c2d65b2, type: 3}
+    - Id: face_male_06_grey
+      DisplayName: Face Male 06 Grey
+      Prefab: {fileID: 2064878312489465822, guid: 65050b25fc2986043b68d8337e780f02, type: 3}
+    - Id: face_male_06_orange
+      DisplayName: Face Male 06 Orange
+      Prefab: {fileID: 3274577215679606767, guid: 3a316b0dafe317e4db0b62b90bdb0b47, type: 3}
+    - Id: face_male_07_black
+      DisplayName: Face Male 07 Black
+      Prefab: {fileID: 5932697605572163281, guid: 5f665bc5825ad7541a8ea0bfffca95a0, type: 3}
+    - Id: face_male_07_blonde
+      DisplayName: Face Male 07 Blonde
+      Prefab: {fileID: 2530230826077633682, guid: 5fd0d0404aa735b4d8e72ad18459ff93, type: 3}
+    - Id: face_male_07_brown
+      DisplayName: Face Male 07 Brown
+      Prefab: {fileID: 811366162853920757, guid: dab497d43fd3a7b4bae1aaf521601593, type: 3}
+    - Id: face_male_07_grey
+      DisplayName: Face Male 07 Grey
+      Prefab: {fileID: 887444083262512317, guid: dc47f92da6548734699a39c91375adeb, type: 3}
+    - Id: face_male_07_orange
+      DisplayName: Face Male 07 Orange
+      Prefab: {fileID: 2584390293917876575, guid: e25c0269cd9b2d84e8472eca82dd630b, type: 3}
+    - Id: face_male_08_black
+      DisplayName: Face Male 08 Black
+      Prefab: {fileID: 8651054731288944944, guid: 8dc0d55ef87dfd64098a896157d310c7, type: 3}
+    - Id: face_male_08_blonde
+      DisplayName: Face Male 08 Blonde
+      Prefab: {fileID: 6994551963759345520, guid: f44a8cdd49af8f34fbf936288d630fbe, type: 3}
+    - Id: face_male_08_brown
+      DisplayName: Face Male 08 Brown
+      Prefab: {fileID: 5412040373720871938, guid: f341a1c0c97e78049a1127d61652578e, type: 3}
+    - Id: face_male_08_grey
+      DisplayName: Face Male 08 Grey
+      Prefab: {fileID: 4463311331726469261, guid: 1f71e8294f4c8044ea48745492d595c5, type: 3}
+    - Id: face_male_08_orange
+      DisplayName: Face Male 08 Orange
+      Prefab: {fileID: 5621535259394909847, guid: da45df81a5e25444e8e8fa3fb27504ae, type: 3}
+    - Id: face_male_09_black
+      DisplayName: Face Male 09 Black
+      Prefab: {fileID: 4753807044103087802, guid: 266970e3d6376a849a50b04cda7c8295, type: 3}
+    - Id: face_male_09_blonde
+      DisplayName: Face Male 09 Blonde
+      Prefab: {fileID: 4705022868795791350, guid: 5da0b24385ab42343a66b0054ce16e9c, type: 3}
+    - Id: face_male_09_brown
+      DisplayName: Face Male 09 Brown
+      Prefab: {fileID: 2196615959532587050, guid: 8cc191de650532342aaff18060f63a55, type: 3}
+    - Id: face_male_09_grey
+      DisplayName: Face Male 09 Grey
+      Prefab: {fileID: 2139193339107280883, guid: 39c64bb6978726c41bf60765a4edfa27, type: 3}
+    - Id: face_male_09_orange
+      DisplayName: Face Male 09 Orange
+      Prefab: {fileID: 5081399296682904934, guid: c2e23451bf989b14fb2d4410d16d2802, type: 3}
+    - Id: face_male_10_black
+      DisplayName: Face Male 10 Black
+      Prefab: {fileID: 5973430644729263424, guid: 2fd35764c474fc847a0ca919f4bce34d, type: 3}
+    - Id: face_male_10_blonde
+      DisplayName: Face Male 10 Blonde
+      Prefab: {fileID: 2192547182604151570, guid: d14948d55407fc248a6feb28ac88e9dc, type: 3}
+    - Id: face_male_10_brown
+      DisplayName: Face Male 10 Brown
+      Prefab: {fileID: 681882378254715713, guid: 2bf71f93c5a1dbc4c90dec584537c02a, type: 3}
+    - Id: face_male_10_grey
+      DisplayName: Face Male 10 Grey
+      Prefab: {fileID: 861310968034426349, guid: 781ea72375a75034fa211f553451d47a, type: 3}
+    - Id: face_male_10_orange
+      DisplayName: Face Male 10 Orange
+      Prefab: {fileID: 982938972561114003, guid: 4fa0bd2a2a59d9140ae8e3fb5a2e597a, type: 3}
+  - Id: head_hair_female
+    DisplayName: Hair Female
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: hair_female_01_black
+      DisplayName: Hair Female 01 Black
+      Prefab: {fileID: 4023539162864386848, guid: 637d649f01987da408bb5368bb03f9ff, type: 3}
+    - Id: hair_female_01_blonde
+      DisplayName: Hair Female 01 Blonde
+      Prefab: {fileID: 1007079336879940053, guid: b90cc91f8582bec488e18bbf4420ac9b, type: 3}
+    - Id: hair_female_01_brown
+      DisplayName: Hair Female 01 Brown
+      Prefab: {fileID: 4095264909072299270, guid: c6aed89e5bf371e438c2bae45b46e141, type: 3}
+    - Id: hair_female_01_grey
+      DisplayName: Hair Female 01 Grey
+      Prefab: {fileID: 4159184667339707513, guid: ca036d4e43fac2c4392bba8f63241a51, type: 3}
+    - Id: hair_female_01_orange
+      DisplayName: Hair Female 01 Orange
+      Prefab: {fileID: 1859857449093420969, guid: 01e5455ccfee4cf40ba1045184c8e3c4, type: 3}
+    - Id: hair_female_02_black
+      DisplayName: Hair Female 02 Black
+      Prefab: {fileID: 3053187180575860993, guid: 5f2e9d54ebea6dc478f5b8854c3f254e, type: 3}
+    - Id: hair_female_02_blonde
+      DisplayName: Hair Female 02 Blonde
+      Prefab: {fileID: 7918645453804447829, guid: 4d66394634e792a418be8ed06c6b1e41, type: 3}
+    - Id: hair_female_02_brown
+      DisplayName: Hair Female 02 Brown
+      Prefab: {fileID: 6992716750952245631, guid: 84046210c2f84f74282acf220be5649e, type: 3}
+    - Id: hair_female_02_grey
+      DisplayName: Hair Female 02 Grey
+      Prefab: {fileID: 7048088067664627689, guid: 4fa037d0ad20de84696cb900432a8179, type: 3}
+    - Id: hair_female_02_orange
+      DisplayName: Hair Female 02 Orange
+      Prefab: {fileID: 6630924225707672635, guid: 48f72b74c9324ff469847f9ec2fecb9d, type: 3}
+    - Id: hair_female_03_black
+      DisplayName: Hair Female 03 Black
+      Prefab: {fileID: 6566668305042502849, guid: e986a3216469eb946808a676e7cb4dc8, type: 3}
+    - Id: hair_female_03_blonde
+      DisplayName: Hair Female 03 Blonde
+      Prefab: {fileID: 9027164863918892959, guid: 5a3689714d1c29a498c32d153f57ffc1, type: 3}
+    - Id: hair_female_03_brown
+      DisplayName: Hair Female 03 Brown
+      Prefab: {fileID: 5282173668632221584, guid: ed68d2c102625264ebe95a952ccacf32, type: 3}
+    - Id: hair_female_03_grey
+      DisplayName: Hair Female 03 Grey
+      Prefab: {fileID: 5226521978786786583, guid: 65a6e0fd0c6d64c4eb6bcaf43aaa15d1, type: 3}
+    - Id: hair_female_03_orange
+      DisplayName: Hair Female 03 Orange
+      Prefab: {fileID: 9013945693186228462, guid: e6f783a73f014c64590299e7b9ef9efb, type: 3}
+    - Id: hair_female_04_black
+      DisplayName: Hair Female 04 Black
+      Prefab: {fileID: 4437472839678268479, guid: f171bd682ec513d4e90e5747d1f33ce8, type: 3}
+    - Id: hair_female_04_blonde
+      DisplayName: Hair Female 04 Blonde
+      Prefab: {fileID: 1942771510700704735, guid: 760301feeb7b431499eafcc55a78cc21, type: 3}
+    - Id: hair_female_04_brown
+      DisplayName: Hair Female 04 Brown
+      Prefab: {fileID: 8977331471386044425, guid: 1c43f281b8fbe8b4aa6aa6a453884b3e, type: 3}
+    - Id: hair_female_04_grey
+      DisplayName: Hair Female 04 Grey
+      Prefab: {fileID: 3057091692962634819, guid: e43548195f83a624998c7d92ac1ed984, type: 3}
+    - Id: hair_female_04_orange
+      DisplayName: Hair Female 04 Orange
+      Prefab: {fileID: 3954370903239376352, guid: 517e037670fcca7479f312d9d309c341, type: 3}
+    - Id: hair_female_05_black
+      DisplayName: Hair Female 05 Black
+      Prefab: {fileID: 3526627707382314720, guid: e97b163a1daf5ab49a67b9480218df1d, type: 3}
+    - Id: hair_female_05_blonde
+      DisplayName: Hair Female 05 Blonde
+      Prefab: {fileID: 2674674189474455496, guid: fe75b131268139442aa9090812b286d2, type: 3}
+    - Id: hair_female_05_brown
+      DisplayName: Hair Female 05 Brown
+      Prefab: {fileID: 4292450033678120977, guid: 5d546b3de8bf7254c9092e2023619ee4, type: 3}
+    - Id: hair_female_05_grey
+      DisplayName: Hair Female 05 Grey
+      Prefab: {fileID: 1067246849779460947, guid: a54831ec6bb5f9941aaf5c35526fd7f4, type: 3}
+    - Id: hair_female_05_orange
+      DisplayName: Hair Female 05 Orange
+      Prefab: {fileID: 8781603567520301153, guid: 5e6eadd9d86941e498b0e2cbdd7a8c73, type: 3}
+    - Id: hair_female_06_black
+      DisplayName: Hair Female 06 Black
+      Prefab: {fileID: 1708333334323785809, guid: 48fd1643fb2f9ca4cba26f6f9eff16f5, type: 3}
+    - Id: hair_female_06_blonde
+      DisplayName: Hair Female 06 Blonde
+      Prefab: {fileID: 855008742092841138, guid: 16a2488fbd6da4f4eb9b1f0605d1e618, type: 3}
+    - Id: hair_female_06_brown
+      DisplayName: Hair Female 06 Brown
+      Prefab: {fileID: 3432345394699389413, guid: 8678165ad350ed443b59671c3c69e07f, type: 3}
+    - Id: hair_female_06_grey
+      DisplayName: Hair Female 06 Grey
+      Prefab: {fileID: 7262720912702689013, guid: c55df4adabb2d124f9235395c666085b, type: 3}
+    - Id: hair_female_06_orange
+      DisplayName: Hair Female 06 Orange
+      Prefab: {fileID: 1687959739718912772, guid: 194b2bfa342d0b34bbae4d482535cc80, type: 3}
+    - Id: hair_female_07_black
+      DisplayName: Hair Female 07 Black
+      Prefab: {fileID: 5804246783323546003, guid: 75b1311909ea6864895f7c579254a61b, type: 3}
+    - Id: hair_female_07_blonde
+      DisplayName: Hair Female 07 Blonde
+      Prefab: {fileID: 7170030639710448252, guid: 60f46423b9e46eb439cbcdb981c5e86f, type: 3}
+    - Id: hair_female_07_brown
+      DisplayName: Hair Female 07 Brown
+      Prefab: {fileID: 4406073361786853630, guid: fa746c1b64d444644bdfadc83e85da6a, type: 3}
+    - Id: hair_female_07_grey
+      DisplayName: Hair Female 07 Grey
+      Prefab: {fileID: 2284187123949143758, guid: 3caac4d9de8f9904693a9c6ffdf5c144, type: 3}
+    - Id: hair_female_07_orange
+      DisplayName: Hair Female 07 Orange
+      Prefab: {fileID: 3120576141471278262, guid: 9476812df7fc8dd4699efaa94b32a02b, type: 3}
+    - Id: hair_female_08_black
+      DisplayName: Hair Female 08 Black
+      Prefab: {fileID: 2370003741172415064, guid: 23fa37ea49194fd47b0a0fc150b0929f, type: 3}
+    - Id: hair_female_08_blonde
+      DisplayName: Hair Female 08 Blonde
+      Prefab: {fileID: 8260864776717518287, guid: 952b1afff74819e40bb79abd9b31b81e, type: 3}
+    - Id: hair_female_08_brown
+      DisplayName: Hair Female 08 Brown
+      Prefab: {fileID: 5254293449189879934, guid: 7a68b281f6900d74d97a2ea01a0946e3, type: 3}
+    - Id: hair_female_08_grey
+      DisplayName: Hair Female 08 Grey
+      Prefab: {fileID: 2142706322191474890, guid: 0de578aa6f7f3774b89970a04754a6d3, type: 3}
+    - Id: hair_female_08_orange
+      DisplayName: Hair Female 08 Orange
+      Prefab: {fileID: 9060276726042599331, guid: ae234200600f92c4f9909f6158043721, type: 3}
+    - Id: hair_female_for_hat_01_black
+      DisplayName: Hair Female For Hat 01 Black
+      Prefab: {fileID: 1280956769251893171, guid: 944ad21fa3a14094cb7fcc846ca14e6a, type: 3}
+    - Id: hair_female_for_hat_01_blonde
+      DisplayName: Hair Female For Hat 01 Blonde
+      Prefab: {fileID: 2402504312857313442, guid: b20a3cccd09828440b6a66bc23565884, type: 3}
+    - Id: hair_female_for_hat_01_brown
+      DisplayName: Hair Female For Hat 01 Brown
+      Prefab: {fileID: 855757046653409627, guid: f780d0a7f3fbdee478c207762d8cdd60, type: 3}
+    - Id: hair_female_for_hat_01_grey
+      DisplayName: Hair Female For Hat 01 Grey
+      Prefab: {fileID: 6117196329895721098, guid: 3e27e629f8dc33944ae689fb98d15b14, type: 3}
+    - Id: hair_female_for_hat_01_orange
+      DisplayName: Hair Female For Hat 01 Orange
+      Prefab: {fileID: 1709495936573185900, guid: 9f9aeef7114b29d43ac434042144a498, type: 3}
+    - Id: hair_female_for_hat_02_black
+      DisplayName: Hair Female For Hat 02 Black
+      Prefab: {fileID: 6842149855300401357, guid: 661d0c66d970bb04a98c0b779f3bd472, type: 3}
+    - Id: hair_female_for_hat_02_blonde
+      DisplayName: Hair Female For Hat 02 Blonde
+      Prefab: {fileID: 5047583985830419735, guid: 0a957a43ea95ca14987222a11fec1ebd, type: 3}
+    - Id: hair_female_for_hat_02_brown
+      DisplayName: Hair Female For Hat 02 Brown
+      Prefab: {fileID: 7678245587178995002, guid: 9b842f5466eb31f47a2e06d6f01e022c, type: 3}
+    - Id: hair_female_for_hat_02_grey
+      DisplayName: Hair Female For Hat 02 Grey
+      Prefab: {fileID: 8111361377637398003, guid: 5a273c68c6a611e43bdb4615f4ebc4d4, type: 3}
+    - Id: hair_female_for_hat_02_orange
+      DisplayName: Hair Female For Hat 02 Orange
+      Prefab: {fileID: 3421997448494032813, guid: bbe03052baacc644dbcabb8157da5cd5, type: 3}
+  - Id: head_hair_male
+    DisplayName: Hair Male
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: hair_male_01_black
+      DisplayName: Hair Male 01 Black
+      Prefab: {fileID: 8414349753733218727, guid: bd134263176a79c4b8e9b722b61a5a65, type: 3}
+    - Id: hair_male_01_blonde
+      DisplayName: Hair Male 01 Blonde
+      Prefab: {fileID: 991143397361802592, guid: 1e5e8ae8cc06fe941bae792018dd8101, type: 3}
+    - Id: hair_male_01_brown
+      DisplayName: Hair Male 01 Brown
+      Prefab: {fileID: 1469969527839076539, guid: c54adedff088b2c4db1e05daafdb9385, type: 3}
+    - Id: hair_male_01_grey
+      DisplayName: Hair Male 01 Grey
+      Prefab: {fileID: 4404211208164557146, guid: 2ea3b3d69ba38904c834a03c479280e5, type: 3}
+    - Id: hair_male_01_orange
+      DisplayName: Hair Male 01 Orange
+      Prefab: {fileID: 1658648584569015280, guid: 073228bfc7cc7394cb5a688c0d4ab572, type: 3}
+    - Id: hair_male_02_black
+      DisplayName: Hair Male 02 Black
+      Prefab: {fileID: 2936541834246877944, guid: 36f35ff3a885f5340b13e9bf6ed25f94, type: 3}
+    - Id: hair_male_02_blonde
+      DisplayName: Hair Male 02 Blonde
+      Prefab: {fileID: 6990116242905473743, guid: 5656ea7431572df43a5dbb3944b35e02, type: 3}
+    - Id: hair_male_02_brown
+      DisplayName: Hair Male 02 Brown
+      Prefab: {fileID: 3019758587393351169, guid: 86bbefceee118064f9b3daff78bfe226, type: 3}
+    - Id: hair_male_02_grey
+      DisplayName: Hair Male 02 Grey
+      Prefab: {fileID: 4302257951551403379, guid: 353813e26101b664fb6a0ef21fc30d28, type: 3}
+    - Id: hair_male_02_orange
+      DisplayName: Hair Male 02 Orange
+      Prefab: {fileID: 5389269209578774407, guid: f108d638121a94c41a9a853e5f82644e, type: 3}
+    - Id: hair_male_03_black
+      DisplayName: Hair Male 03 Black
+      Prefab: {fileID: 8080765635829210920, guid: 035f99c0abcc67645998187b6616893f, type: 3}
+    - Id: hair_male_03_blonde
+      DisplayName: Hair Male 03 Blonde
+      Prefab: {fileID: 6852782959603610126, guid: 2e19df9b2c135fc4ca82976c29efe81a, type: 3}
+    - Id: hair_male_03_brown
+      DisplayName: Hair Male 03 Brown
+      Prefab: {fileID: 2696806772639347913, guid: 6839874e7120bb042b567b1804d4e5b7, type: 3}
+    - Id: hair_male_03_grey
+      DisplayName: Hair Male 03 Grey
+      Prefab: {fileID: 5972366129740761073, guid: 12016503332314a4889e0af51372dd03, type: 3}
+    - Id: hair_male_03_orange
+      DisplayName: Hair Male 03 Orange
+      Prefab: {fileID: 7361166497257742409, guid: ba0f62dcb291719439a81ae629559645, type: 3}
+    - Id: hair_male_04_black
+      DisplayName: Hair Male 04 Black
+      Prefab: {fileID: 4467362387259174838, guid: e037f4caab04e1843be0624f2706887d, type: 3}
+    - Id: hair_male_04_blonde
+      DisplayName: Hair Male 04 Blonde
+      Prefab: {fileID: 2545061171026764485, guid: 5b0b61392c3d2d540a2eda9ef9cec679, type: 3}
+    - Id: hair_male_04_brown
+      DisplayName: Hair Male 04 Brown
+      Prefab: {fileID: 8144732651907147769, guid: 5c6385f385005ec47a9996175cc94b0b, type: 3}
+    - Id: hair_male_04_grey
+      DisplayName: Hair Male 04 Grey
+      Prefab: {fileID: 4687905758435093056, guid: a77d969b39c1d0c4cb23e63a18f8b24a, type: 3}
+    - Id: hair_male_04_orange
+      DisplayName: Hair Male 04 Orange
+      Prefab: {fileID: 8761081896117845811, guid: 1a1347b3febcb3c45aae122bd59c2660, type: 3}
+    - Id: hair_male_05_black
+      DisplayName: Hair Male 05 Black
+      Prefab: {fileID: 8238420254904282389, guid: a993fca3ab67c8043b53b1a1570aa6ef, type: 3}
+    - Id: hair_male_05_blonde
+      DisplayName: Hair Male 05 Blonde
+      Prefab: {fileID: 3556661683186291992, guid: 0d3c197897709844eb841a2ea7503fc6, type: 3}
+    - Id: hair_male_05_brown
+      DisplayName: Hair Male 05 Brown
+      Prefab: {fileID: 3015072553369864223, guid: cf2648b7728f4c34a931233180a44ba5, type: 3}
+    - Id: hair_male_05_grey
+      DisplayName: Hair Male 05 Grey
+      Prefab: {fileID: 161548889473944631, guid: 7c49e045a3a5ade45be2e37162ec2150, type: 3}
+    - Id: hair_male_05_orange
+      DisplayName: Hair Male 05 Orange
+      Prefab: {fileID: 591711226111600537, guid: 1135e0352ee78fa47b2a10dd9998369e, type: 3}
+    - Id: hair_male_06_black
+      DisplayName: Hair Male 06 Black
+      Prefab: {fileID: 4250580996529090388, guid: e700a2dfb79f4e347a0696c5e956ab66, type: 3}
+    - Id: hair_male_06_blonde
+      DisplayName: Hair Male 06 Blonde
+      Prefab: {fileID: 8390321978532733329, guid: 164bfb308b66c0c478a44378be933cb7, type: 3}
+    - Id: hair_male_06_brown
+      DisplayName: Hair Male 06 Brown
+      Prefab: {fileID: 8642746361510269196, guid: 78f3218b45009dc49834dad7ef39f1db, type: 3}
+    - Id: hair_male_06_grey
+      DisplayName: Hair Male 06 Grey
+      Prefab: {fileID: 8776823760791686194, guid: 9256749b45f0645409eeb1036d03f91f, type: 3}
+    - Id: hair_male_06_orange
+      DisplayName: Hair Male 06 Orange
+      Prefab: {fileID: 3544484565202896143, guid: 6dbc0147c2728874496705543a0f8cc3, type: 3}
+    - Id: hair_male_07_black
+      DisplayName: Hair Male 07 Black
+      Prefab: {fileID: 6727760598525554339, guid: b9c26fbf1b35fa142b2e538a61816f84, type: 3}
+    - Id: hair_male_07_blonde
+      DisplayName: Hair Male 07 Blonde
+      Prefab: {fileID: 4083727469556099009, guid: aa84ea669f1cdc041ac1dee5c9c8d064, type: 3}
+    - Id: hair_male_07_brown
+      DisplayName: Hair Male 07 Brown
+      Prefab: {fileID: 2347873641620583314, guid: e350bb2c31fa6844fa935f09934e787e, type: 3}
+    - Id: hair_male_07_grey
+      DisplayName: Hair Male 07 Grey
+      Prefab: {fileID: 661020283465854603, guid: 44d81e77aca36024e878f6a56a514246, type: 3}
+    - Id: hair_male_07_orange
+      DisplayName: Hair Male 07 Orange
+      Prefab: {fileID: 6029206870075396518, guid: ea4ba3d09ac736f41b1eb9a5c48767be, type: 3}
+    - Id: hair_male_08_black
+      DisplayName: Hair Male 08 Black
+      Prefab: {fileID: 5161027455708119259, guid: b7d3b19d17e846b4596fd61e88a28545, type: 3}
+    - Id: hair_male_08_blonde
+      DisplayName: Hair Male 08 Blonde
+      Prefab: {fileID: 6729102175247915793, guid: 9a4de393bdec7cd4c8ac06061a68fe43, type: 3}
+    - Id: hair_male_08_brown
+      DisplayName: Hair Male 08 Brown
+      Prefab: {fileID: 6791821721497343831, guid: 3f97f584a116cdc41841616a3c8b041d, type: 3}
+    - Id: hair_male_08_grey
+      DisplayName: Hair Male 08 Grey
+      Prefab: {fileID: 1398038084839622760, guid: 31e30b249aff3af4e9ae6ebbf93290fa, type: 3}
+    - Id: hair_male_08_orange
+      DisplayName: Hair Male 08 Orange
+      Prefab: {fileID: 252468410885271384, guid: 6f351707ae34b534eb04b189de1bfa97, type: 3}
+    - Id: hair_male_for_hat_01_black
+      DisplayName: Hair Male For Hat 01 Black
+      Prefab: {fileID: 1577022651219659357, guid: 69e02e38d5fd6f44d8bd3d1cdd274436, type: 3}
+    - Id: hair_male_for_hat_01_blonde
+      DisplayName: Hair Male For Hat 01 Blonde
+      Prefab: {fileID: 6094258969964472064, guid: 9bcb2fbce1017694091320fcc24e74d4, type: 3}
+    - Id: hair_male_for_hat_01_brown
+      DisplayName: Hair Male For Hat 01 Brown
+      Prefab: {fileID: 4607760080892618944, guid: a01cc3a9e593e4942af86af614deac4b, type: 3}
+    - Id: hair_male_for_hat_01_grey
+      DisplayName: Hair Male For Hat 01 Grey
+      Prefab: {fileID: 79426556974876779, guid: bfa3080e91467b4479a709cd2d99fe69, type: 3}
+    - Id: hair_male_for_hat_01_orange
+      DisplayName: Hair Male For Hat 01 Orange
+      Prefab: {fileID: 8812630334763337970, guid: 107d0493b9f6c7a4f97d2d0fd596788c, type: 3}
+  - Id: head_head_dress
+    DisplayName: Head Dress
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: crown_01
+      DisplayName: Crown 01
+      Prefab: {fileID: 4138955075811403218, guid: 8c8510251dfe5b54fa39b2f965c872f4, type: 3}
+    - Id: hat_01_black
+      DisplayName: Hat 01 Black
+      Prefab: {fileID: 7109401485477564352, guid: 2af06cf54cdbf0d4ea48388d659c6e7e, type: 3}
+    - Id: hat_01_blue
+      DisplayName: Hat 01 Blue
+      Prefab: {fileID: 235577075179581294, guid: 009c7df9c9be0b442874f0153cba17e6, type: 3}
+    - Id: hat_01_brown
+      DisplayName: Hat 01 Brown
+      Prefab: {fileID: 1303087352698442340, guid: 5f125d0f380cf8e4b86b15f4ebd71bc9, type: 3}
+    - Id: hat_01_purple
+      DisplayName: Hat 01 Purple
+      Prefab: {fileID: 9146630530208054969, guid: 1506e519c35d5f340af988c0f3141ec0, type: 3}
+    - Id: hat_01_red
+      DisplayName: Hat 01 Red
+      Prefab: {fileID: 8797884461344566332, guid: cb0554bd4ad13124eaa06c0a2d9292ae, type: 3}
+    - Id: hat_02_black
+      DisplayName: Hat 02 Black
+      Prefab: {fileID: 3418768887054122332, guid: a8154f3c90e61b54fb16ac50ea114f35, type: 3}
+    - Id: hat_02_blue
+      DisplayName: Hat 02 Blue
+      Prefab: {fileID: 3269037194727976729, guid: c1c48ecf695bbda4f9819573e10e4c34, type: 3}
+    - Id: hat_02_brown
+      DisplayName: Hat 02 Brown
+      Prefab: {fileID: 7311770224311957013, guid: 074a76c221077ae428ca0e106b509c4d, type: 3}
+    - Id: hat_02_purple
+      DisplayName: Hat 02 Purple
+      Prefab: {fileID: 3441565094716402572, guid: 6198c637c0f150c44ab3d9175d51fcdb, type: 3}
+    - Id: hat_02_red
+      DisplayName: Hat 02 Red
+      Prefab: {fileID: 1092180302124100354, guid: 2da67a0fedc3b6146923b73bba37c696, type: 3}
+    - Id: hat_03_black
+      DisplayName: Hat 03 Black
+      Prefab: {fileID: 6852405038102185438, guid: d7719bedceace5344922f398f6b766d8, type: 3}
+    - Id: hat_03_blue
+      DisplayName: Hat 03 Blue
+      Prefab: {fileID: 3444819035699421876, guid: 1b8112910d2ecf240ac590c7995f5e7a, type: 3}
+    - Id: hat_03_brown
+      DisplayName: Hat 03 Brown
+      Prefab: {fileID: 5334242510761532325, guid: beb2805a12547614f8fb17e4896c85ef, type: 3}
+    - Id: hat_03_purple
+      DisplayName: Hat 03 Purple
+      Prefab: {fileID: 8668324833279640112, guid: 0d6371464855f5a42be2da0c9920d12c, type: 3}
+    - Id: hat_03_red
+      DisplayName: Hat 03 Red
+      Prefab: {fileID: 1265195517491399010, guid: f678c904bb7dabb408c4054789862134, type: 3}
+    - Id: hat_04_black
+      DisplayName: Hat 04 Black
+      Prefab: {fileID: 5497016362397117814, guid: 55eafcc15efa73c4b81bba698dca093a, type: 3}
+    - Id: hat_04_blue
+      DisplayName: Hat 04 Blue
+      Prefab: {fileID: 4597877159071909793, guid: bbcc3e1f9c91fdc4faf151da65ec5e18, type: 3}
+    - Id: hat_04_brown
+      DisplayName: Hat 04 Brown
+      Prefab: {fileID: 9194852547653486621, guid: a3a1eea2ffdca294a90214956fb61026, type: 3}
+    - Id: hat_04_purple
+      DisplayName: Hat 04 Purple
+      Prefab: {fileID: 1358922664919190705, guid: bbcb53d7ed4d80b4ebc79f3d07797726, type: 3}
+    - Id: hat_04_red
+      DisplayName: Hat 04 Red
+      Prefab: {fileID: 5175469356358858781, guid: c4cea4592c2cd8549b1e2e98228e84ac, type: 3}
+    - Id: headdress_01_black
+      DisplayName: Headdress 01 Black
+      Prefab: {fileID: 3765943994728220258, guid: 047ec590b3524b3448cefc8113e56f87, type: 3}
+    - Id: headdress_01_blue
+      DisplayName: Headdress 01 Blue
+      Prefab: {fileID: 4008449163295133789, guid: baa73de9c21ea9d4581ab1a7cd1febe9, type: 3}
+    - Id: headdress_01_brown
+      DisplayName: Headdress 01 Brown
+      Prefab: {fileID: 3284218496573660173, guid: 4f28fd5be699bcd46ab576abf6f29e83, type: 3}
+    - Id: headdress_01_purple
+      DisplayName: Headdress 01 Purple
+      Prefab: {fileID: 7892711581892857073, guid: 23fbe64c8f18ba14b85c59c7cea88d0a, type: 3}
+    - Id: headdress_01_red
+      DisplayName: Headdress 01 Red
+      Prefab: {fileID: 710389803430883276, guid: 7f6442e0c649841408a0925c12f02253, type: 3}
+    - Id: headdress_02_black
+      DisplayName: 'Headdress 02 Black '
+      Prefab: {fileID: 271888659269734916, guid: 6278a7f84c9b830428a2511b51e5266c, type: 3}
+    - Id: headdress_02_blue
+      DisplayName: 'Headdress 02 Blue '
+      Prefab: {fileID: 2580562181708612156, guid: fe20f6fe121ecee4fa9ba49b7d23ef8f, type: 3}
+    - Id: headdress_02_brown
+      DisplayName: 'Headdress 02 Brown '
+      Prefab: {fileID: 6637334171583406241, guid: 42e7f3cd85d448044a9167c320f25c78, type: 3}
+    - Id: headdress_02_purple
+      DisplayName: 'Headdress 02 Purple '
+      Prefab: {fileID: 4716916306184203042, guid: 9acb93b21f5bc2a44afe5286719e5646, type: 3}
+    - Id: headdress_02_red
+      DisplayName: 'Headdress 02 Red '
+      Prefab: {fileID: 4391201789850619483, guid: e7c6c02bb02de3246b6e10435ac79e01, type: 3}
+    - Id: headdress_03_black
+      DisplayName: Headdress 03 Black
+      Prefab: {fileID: 1178894887959614697, guid: 3d18ba8e5ffefad469f1a283aedc1007, type: 3}
+    - Id: headdress_03_blue
+      DisplayName: Headdress 03 Blue
+      Prefab: {fileID: 7475161883707198030, guid: ed33414ba8b78484d93df03cebb0af87, type: 3}
+    - Id: headdress_03_brown
+      DisplayName: Headdress 03 Brown
+      Prefab: {fileID: 6433599851843726975, guid: 87f0a84d02edb054cabec3e3164b6439, type: 3}
+    - Id: headdress_03_purple
+      DisplayName: Headdress 03 Purple
+      Prefab: {fileID: 5413093914475020796, guid: 840921945a20f2a48aee5d1c32a95693, type: 3}
+    - Id: headdress_03_red
+      DisplayName: Headdress 03 Red
+      Prefab: {fileID: 3473364987474913946, guid: bff40a514b6046b4281928ef19205af7, type: 3}
+    - Id: headdress_04_black
+      DisplayName: Headdress 04 Black
+      Prefab: {fileID: 6731385510740937716, guid: 17fa6a9c59c1f1d438890cfd672b70f2, type: 3}
+    - Id: headdress_04_blue
+      DisplayName: Headdress 04 Blue
+      Prefab: {fileID: 73976564843318747, guid: 619ebff81f3b795488fbd8cb0159e779, type: 3}
+    - Id: headdress_04_brown
+      DisplayName: Headdress 04 Brown
+      Prefab: {fileID: 4496714823464547434, guid: 6abcba61940cef04bb5f5079e994b8bd, type: 3}
+    - Id: headdress_04_purple
+      DisplayName: Headdress 04 Purple
+      Prefab: {fileID: 7080102036302500958, guid: 39295d92b173fee4ca7b7df741ea4d92, type: 3}
+    - Id: headdress_04_red
+      DisplayName: Headdress 04 Red
+      Prefab: {fileID: 9037287850758010205, guid: b2c2082934782364382fbc142428ac1e, type: 3}
+    - Id: headdress_05_black
+      DisplayName: Headdress 05 Black
+      Prefab: {fileID: 8624997320483501054, guid: be065344488a72a429479b99f1a82639, type: 3}
+    - Id: headdress_05_blue
+      DisplayName: Headdress 05 Blue
+      Prefab: {fileID: 5941873997276225660, guid: c2b48937721ebdc43a5159e4652c58c2, type: 3}
+    - Id: headdress_05_brown
+      DisplayName: Headdress 05 Brown
+      Prefab: {fileID: 5702768764612397820, guid: fff0e6463ef3eef46b18f0a601aa574e, type: 3}
+    - Id: headdress_05_purple
+      DisplayName: Headdress 05 Purple
+      Prefab: {fileID: 8941711298344154262, guid: 43755c03489e6544884a1a78729af98c, type: 3}
+    - Id: headdress_05_red
+      DisplayName: Headdress 05 Red
+      Prefab: {fileID: 5298189771478891378, guid: 3eb843cd7cf9fc64ab4bafe9b3b3d9e1, type: 3}
+    - Id: hood_01_black
+      DisplayName: Hood 01 Black
+      Prefab: {fileID: 7138564070812551769, guid: c541f402e5533b64d90365444d62a227, type: 3}
+    - Id: hood_01_blue
+      DisplayName: Hood 01 Blue
+      Prefab: {fileID: 9139282647204238121, guid: db6a8e353b7fb0f44af449ba309ab719, type: 3}
+    - Id: hood_01_brown
+      DisplayName: Hood 01 Brown
+      Prefab: {fileID: 6635932712900338866, guid: 19e56e51c81dcf14e874c5d85781cea8, type: 3}
+    - Id: hood_01_purple
+      DisplayName: Hood 01 Purple
+      Prefab: {fileID: 4650252445317164249, guid: 465ddfc25cb869148b617978b7904605, type: 3}
+    - Id: hood_01_red
+      DisplayName: Hood 01 Red
+      Prefab: {fileID: 6656742885685089708, guid: 9d869338f2a084f40977992390aa5b72, type: 3}
+    - Id: hood_02_black
+      DisplayName: Hood 02 Black
+      Prefab: {fileID: 5228758240101751701, guid: db27cf8f7b369f24bb07c4c1a98e7f02, type: 3}
+    - Id: hood_02_blue
+      DisplayName: Hood 02 Blue
+      Prefab: {fileID: 9132238393690054483, guid: 34c45aef39664144db98281ca5c4a76c, type: 3}
+    - Id: hood_02_brown
+      DisplayName: Hood 02 Brown
+      Prefab: {fileID: 6684611190378596370, guid: 056fa3c7e62565b4eb4111f8e27eafd2, type: 3}
+    - Id: hood_02_purple
+      DisplayName: Hood 02 Purple
+      Prefab: {fileID: 9052327790682508350, guid: 8a5c4c7ceb0172d47ada243bf1889704, type: 3}
+    - Id: hood_02_red
+      DisplayName: Hood 02 Red
+      Prefab: {fileID: 1515079384835272752, guid: 6bb9cc015763a9549a18fff2e0cdcb5d, type: 3}
+  - Id: head_helmet
+    DisplayName: Helmet
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: helmet_01_black
+      DisplayName: Helmet 01 Black
+      Prefab: {fileID: 2786129922201570703, guid: d54a01f1cebd40947818329fd448553e, type: 3}
+    - Id: helmet_01_blue
+      DisplayName: Helmet 01 Blue
+      Prefab: {fileID: 3052731277360298228, guid: f979dc68bfa5a3541b7c5b3087e89f55, type: 3}
+    - Id: helmet_01_brown
+      DisplayName: Helmet 01 Brown
+      Prefab: {fileID: 4898657915225445847, guid: 3526aeae3ec0e9f45badcfe8f4a4f7cc, type: 3}
+    - Id: helmet_01_purple
+      DisplayName: Helmet 01 Purple
+      Prefab: {fileID: 7744478920037820432, guid: eb95e80e49f34dc48b9638f7c9e173d2, type: 3}
+    - Id: helmet_01_red
+      DisplayName: Helmet 01 Red
+      Prefab: {fileID: 5584701545404751868, guid: 170391b522f5ff24dbbfa2dc467828ca, type: 3}
+    - Id: helmet_02_black
+      DisplayName: Helmet 02 Black
+      Prefab: {fileID: 3529072470965424749, guid: 8ba694b0d9114954184d6d047d87e3f5, type: 3}
+    - Id: helmet_02_blue
+      DisplayName: Helmet 02 Blue
+      Prefab: {fileID: 2608127453912397925, guid: 1be2aa5217ccc684fa95847f2760cf7f, type: 3}
+    - Id: helmet_02_brown
+      DisplayName: Helmet 02 Brown
+      Prefab: {fileID: 2632141017013651498, guid: 9ec3a27dc987a4448be84f2754920b13, type: 3}
+    - Id: helmet_02_purple
+      DisplayName: Helmet 02 Purple
+      Prefab: {fileID: 2326099675960802813, guid: 673ea5c6328152d498e8ead9f4d7e228, type: 3}
+    - Id: helmet_02_red
+      DisplayName: Helmet 02 Red
+      Prefab: {fileID: 7263935537417606883, guid: 8e9d3ec33d5d0aa4bb83c764d6090abe, type: 3}
+    - Id: helmet_03_black
+      DisplayName: Helmet 03 Black
+      Prefab: {fileID: 994787762939478587, guid: 5355618a02889594e95a2138db35a2a4, type: 3}
+    - Id: helmet_03_blue
+      DisplayName: Helmet 03 Blue
+      Prefab: {fileID: 6351205116973171001, guid: 79ca390e209a37e45a5b84f5b8a428b6, type: 3}
+    - Id: helmet_03_brown
+      DisplayName: Helmet 03 Brown
+      Prefab: {fileID: 7724341539103923999, guid: 176540582d7093846aa228eb2c82da63, type: 3}
+    - Id: helmet_03_purple
+      DisplayName: Helmet 03 Purple
+      Prefab: {fileID: 7176366440454827884, guid: 1177d173c368b1343b55010880fcd5f9, type: 3}
+    - Id: helmet_03_red
+      DisplayName: Helmet 03 Red
+      Prefab: {fileID: 767490871562613558, guid: e157f805ffaeae44a855ca9fa4bcbf9f, type: 3}
+    - Id: helmet_04
+      DisplayName: Helmet 04
+      Prefab: {fileID: 8915479983669131379, guid: 97b2089695a44e44d9160b573cdacfd1, type: 3}
+    - Id: helmet_05_black
+      DisplayName: Helmet 05 Black
+      Prefab: {fileID: 6652248641967415937, guid: f52799015b1bd0347bb96fb75f0b5961, type: 3}
+    - Id: helmet_05_blue
+      DisplayName: Helmet 05 Blue
+      Prefab: {fileID: 316469859780616385, guid: c37f3dc00caae674189776e4389de441, type: 3}
+    - Id: helmet_05_brown
+      DisplayName: Helmet 05 Brown
+      Prefab: {fileID: 3551652091376701725, guid: 40882913a91acc2478e6a2a4ede01222, type: 3}
+    - Id: helmet_05_purple
+      DisplayName: Helmet 05 Purple
+      Prefab: {fileID: 4784140720421228551, guid: 2d8c74d84df659b42b84058a772c5a6d, type: 3}
+    - Id: helmet_05_red
+      DisplayName: Helmet 05 Red
+      Prefab: {fileID: 6374670947339399972, guid: 33fcc4884a110cb42899cda01fcec32e, type: 3}
+    - Id: helmet_06_black
+      DisplayName: Helmet 06 Black
+      Prefab: {fileID: 2671264867587776268, guid: a932feac00c317243a1c9ace1f630655, type: 3}
+    - Id: helmet_06_blue
+      DisplayName: Helmet 06 Blue
+      Prefab: {fileID: 3883115696750420751, guid: c561b01b4bdc1dd4ca025caa71bec222, type: 3}
+    - Id: helmet_06_brown
+      DisplayName: Helmet 06 Brown
+      Prefab: {fileID: 7720350816170710967, guid: 7aabe273c394d444c8a48d7ea1eb7451, type: 3}
+    - Id: helmet_06_purple
+      DisplayName: Helmet 06 Purple
+      Prefab: {fileID: 2740681584232669926, guid: 409233f21733e584e93a666c04fd6f9f, type: 3}
+    - Id: helmet_06_red
+      DisplayName: Helmet 06 Red
+      Prefab: {fileID: 3520034576181940257, guid: 5cc1453d75b49a6459bb3bcf27b634f2, type: 3}
+    - Id: helmet_07_black
+      DisplayName: Helmet 07 Black
+      Prefab: {fileID: 7748142068802385095, guid: 4c387143b15f1674a9109fbc6409cde8, type: 3}
+    - Id: helmet_07_blue
+      DisplayName: Helmet 07 Blue
+      Prefab: {fileID: 706240399158187502, guid: de7f914430672a74487c16166d1db421, type: 3}
+    - Id: helmet_07_brown
+      DisplayName: Helmet 07 Brown
+      Prefab: {fileID: 1730751735619937786, guid: a46e7e01548463c40af535e22ba8ff19, type: 3}
+    - Id: helmet_07_purple
+      DisplayName: Helmet 07 Purple
+      Prefab: {fileID: 6995537434067890154, guid: 913a4210448154744b1f5753f630a94e, type: 3}
+    - Id: helmet_07_red
+      DisplayName: Helmet 07 Red
+      Prefab: {fileID: 941222257733214427, guid: cc029c68f5bdc8243a2c4c0e81a365bb, type: 3}
+    - Id: helmet_08_black
+      DisplayName: Helmet 08 Black
+      Prefab: {fileID: 6462377502680535340, guid: 5894bb12873bdd049b2b7aa5a5e36852, type: 3}
+    - Id: helmet_08_blue
+      DisplayName: Helmet 08 Blue
+      Prefab: {fileID: 1183083492734336731, guid: 08e9930546b9f4b49a9d38ce0c9e718a, type: 3}
+    - Id: helmet_08_brown
+      DisplayName: Helmet 08 Brown
+      Prefab: {fileID: 4872964262164197798, guid: cabc48eb7f835094e8703854e55678cd, type: 3}
+    - Id: helmet_08_purple
+      DisplayName: Helmet 08 Purple
+      Prefab: {fileID: 3546806394830546262, guid: 6d437e155e1353e4a9a5927e2f9502d3, type: 3}
+    - Id: helmet_08_red
+      DisplayName: Helmet 08 Red
+      Prefab: {fileID: 301392914268947651, guid: cd3d994febbeba448a804d625f5e2e36, type: 3}
+  - Id: head_mask
+    DisplayName: Mask
+    AttachGroup: +Head
+    AttachBones:
+    - +Head
+    Optional: 1
+    Parts:
+    - Id: mask_01
+      DisplayName: Mask 01
+      Prefab: {fileID: 5498313744971943834, guid: bd774bdf48a824040b13cd19e8fe463a, type: 3}
+    - Id: ninja_mask_01_black
+      DisplayName: Ninja Mask 01 Black
+      Prefab: {fileID: 6832978706309111232, guid: a22dc2646c56a20468098cedb9c53ead, type: 3}
+    - Id: ninja_mask_01_blue
+      DisplayName: Ninja Mask 01 Blue
+      Prefab: {fileID: 8140154992962990560, guid: 25c643a4ab4a531488ec8bf3f08f6d68, type: 3}
+    - Id: ninja_mask_01_brown
+      DisplayName: Ninja Mask 01 Brown
+      Prefab: {fileID: 239246310984933088, guid: 6be39381c98ded849ace8711e0c25d77, type: 3}
+    - Id: ninja_mask_01_purple
+      DisplayName: Ninja Mask 01 Purple
+      Prefab: {fileID: 54599973926527844, guid: ccf68b04aebe66b448af24aeb70cbbc0, type: 3}
+    - Id: ninja_mask_01_red
+      DisplayName: Ninja Mask 01 Red
+      Prefab: {fileID: 4919005143208517596, guid: 957f0b632124c8c4cbf717e53e7b64fc, type: 3}
+  - Id: chest_quiver
+    DisplayName: Quiver
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: quiver_01_black
+      DisplayName: Quiver 01 Black
+      Prefab: {fileID: 4771959747802262703, guid: 0b94bb40f5fc066499cc96cdacb26208, type: 3}
+    - Id: quiver_01_blue
+      DisplayName: Quiver 01 Blue
+      Prefab: {fileID: 5667946658094669502, guid: 779ff009ee6472d4e83bde754aa2df77, type: 3}
+    - Id: quiver_01_brown
+      DisplayName: Quiver 01 Brown
+      Prefab: {fileID: 7776672577223561290, guid: 3fee55115d086cc4b91464e1602df565, type: 3}
+    - Id: quiver_01_purple
+      DisplayName: Quiver 01 Purple
+      Prefab: {fileID: 7646605896093115944, guid: 4d3c07122164340418c007d0cfd65214, type: 3}
+    - Id: quiver_01_red
+      DisplayName: Quiver 01 Red
+      Prefab: {fileID: 7498117087234157109, guid: 585dc2dadf205c6418833a5a483f8685, type: 3}
+    - Id: quiver_02_black
+      DisplayName: Quiver 02 Black
+      Prefab: {fileID: 4765369770007426712, guid: bf9570a06e2607c48a0d9c52f8949daf, type: 3}
+    - Id: quiver_02_blue
+      DisplayName: Quiver 02 Blue
+      Prefab: {fileID: 3343730020677121778, guid: d701bfeef5781a7448a6cc5abe81d083, type: 3}
+    - Id: quiver_02_brown
+      DisplayName: Quiver 02 Brown
+      Prefab: {fileID: 4744047515870011247, guid: c5809f36eb30f8f47a90fe162b6d4776, type: 3}
+    - Id: quiver_02_purple
+      DisplayName: Quiver 02 Purple
+      Prefab: {fileID: 7166122231527976513, guid: a7adaecc825e8844eb5a112b874f9a35, type: 3}
+    - Id: quiver_02_red
+      DisplayName: Quiver 02 Red
+      Prefab: {fileID: 3792189089519782298, guid: d2557d8cfb5996d478120e443fe70437, type: 3}
+    - Id: quiver_03_black
+      DisplayName: Quiver 03 Black
+      Prefab: {fileID: 4442066939692088090, guid: 7f25b1a4bc2473f4a98ad4d47d664643, type: 3}
+    - Id: quiver_03_blue
+      DisplayName: Quiver 03 Blue
+      Prefab: {fileID: 7508533322957013676, guid: b283f713a732e0c4f9fd46beb80c7b4f, type: 3}
+    - Id: quiver_03_brown
+      DisplayName: Quiver 03 Brown
+      Prefab: {fileID: 4216647788986737931, guid: 2c243cc03fe7c1c45adbd93cd1e5369d, type: 3}
+    - Id: quiver_03_purple
+      DisplayName: Quiver 03 Purple
+      Prefab: {fileID: 909306108147684647, guid: ef3a640441980694fb25a0cd00ba8a44, type: 3}
+    - Id: quiver_03_red
+      DisplayName: Quiver 03 Red
+      Prefab: {fileID: 8297847982341218629, guid: 11f9e8f046eaea64db403e2ec63da073, type: 3}
+  - Id: r_hand_and_l_hand_scythe
+    DisplayName: Scythe
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: scythe_01_black
+      DisplayName: Scythe 01 Black
+      Prefab: {fileID: 3587388084059002765, guid: fd58a2199291dcc4f916b3fd58019966, type: 3}
+    - Id: scythe_01_blue
+      DisplayName: Scythe 01 Blue
+      Prefab: {fileID: 3998547721350531490, guid: ce56a85a8dc8e4a4aa19fedf4ea46110, type: 3}
+    - Id: scythe_01_brown
+      DisplayName: Scythe 01 Brown
+      Prefab: {fileID: 8419407383287879470, guid: 96b1afee65411da4c9690d0bd7580e35, type: 3}
+    - Id: scythe_01_purple
+      DisplayName: Scythe 01 Purple
+      Prefab: {fileID: 7075714766934526944, guid: da78a58e934c645449c5c5cd4fad29c2, type: 3}
+    - Id: scythe_01_red
+      DisplayName: Scythe 01 Red
+      Prefab: {fileID: 4371485508703504672, guid: 519a97d2ff9732d4abd7ef3bc8cba6dc, type: 3}
+    - Id: scythe_02_black
+      DisplayName: Scythe 02 Black
+      Prefab: {fileID: 8756198127225968968, guid: bc96dd9db9f65af4a9135b6c0c62fb6b, type: 3}
+    - Id: scythe_02_blue
+      DisplayName: Scythe 02 Blue
+      Prefab: {fileID: 650396184248365940, guid: 9647d05000b79a34ba0b35d8b970cd7d, type: 3}
+    - Id: scythe_02_brown
+      DisplayName: Scythe 02 Brown
+      Prefab: {fileID: 1186997356913616773, guid: cbeebef88a73ba24bab45509b003ec5a, type: 3}
+    - Id: scythe_02_purple
+      DisplayName: Scythe 02 Purple
+      Prefab: {fileID: 4043894434886029100, guid: 9ed8f1a256c1eb64cbeb6fa39af4c611, type: 3}
+    - Id: scythe_02_red
+      DisplayName: Scythe 02 Red
+      Prefab: {fileID: 6055151260691211903, guid: 1e2647c1b69ce6a45a37a829ccf1b04b, type: 3}
+    - Id: scythe_03_black
+      DisplayName: Scythe 03 Black
+      Prefab: {fileID: 4173212142533639590, guid: 203730e64951e5e478e559ccce23731a, type: 3}
+    - Id: scythe_03_blue
+      DisplayName: Scythe 03 Blue
+      Prefab: {fileID: 7809151611465017371, guid: d4a73844cbe895749b0da3d511da2cb7, type: 3}
+    - Id: scythe_03_brown
+      DisplayName: Scythe 03 Brown
+      Prefab: {fileID: 486188091370022769, guid: 348977ae291cfe64bbcc604f360bcfeb, type: 3}
+    - Id: scythe_03_purple
+      DisplayName: Scythe 03 Purple
+      Prefab: {fileID: 1364174415728166151, guid: d870ccc657614a04b9ae9144faabe521, type: 3}
+    - Id: scythe_03_red
+      DisplayName: Scythe 03 Red
+      Prefab: {fileID: 4462930112797426376, guid: e1dfc16b50a7d6f49b812534552527ae, type: 3}
+  - Id: r_hand_and_l_hand_shield
+    DisplayName: Shield
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +L Hand
+    Optional: 1
+    Parts:
+    - Id: shield_01_black
+      DisplayName: Shield 01 Black
+      Prefab: {fileID: 3804051115762001394, guid: 30ca416375f90aa4d8a1149870fdf8f9, type: 3}
+    - Id: shield_01_blue
+      DisplayName: Shield 01 Blue
+      Prefab: {fileID: 8627214452017544448, guid: ccd96ff9c317c264b853b0812a914367, type: 3}
+    - Id: shield_01_brown
+      DisplayName: Shield 01 Brown
+      Prefab: {fileID: 6399295581019316239, guid: 3dff4f294ec38da4aaf3924a4007a17c, type: 3}
+    - Id: shield_01_purple
+      DisplayName: Shield 01 Purple
+      Prefab: {fileID: 3268079608373522322, guid: 3faa41369bd13b048ad5968542038bf9, type: 3}
+    - Id: shield_01_red
+      DisplayName: Shield 01 Red
+      Prefab: {fileID: 1762056872952516844, guid: 0e90bc60956a8b649884d43f20b4ae1d, type: 3}
+    - Id: shield_02_black
+      DisplayName: Shield 02 Black
+      Prefab: {fileID: 4792364312638489096, guid: 7a7eaa66e32fc28469ff0eca44b5ffb8, type: 3}
+    - Id: shield_02_blue
+      DisplayName: Shield 02 Blue
+      Prefab: {fileID: 4337644047548701118, guid: cb13aef9d0e9b7a46a15dcc432a03365, type: 3}
+    - Id: shield_02_brown
+      DisplayName: Shield 02 Brown
+      Prefab: {fileID: 4249757491957010967, guid: 8d1d200ad5cc0f248a007fcd2e54a87f, type: 3}
+    - Id: shield_02_purple
+      DisplayName: Shield 02 Purple
+      Prefab: {fileID: 3175700173588195985, guid: 882653df36be639418307d3f4023f9e5, type: 3}
+    - Id: shield_02_red
+      DisplayName: Shield 02 Red
+      Prefab: {fileID: 832636515567022405, guid: e4b18fabafd2755409076f367f239a60, type: 3}
+    - Id: shield_03_black
+      DisplayName: Shield 03 Black
+      Prefab: {fileID: 7796290965682458065, guid: a277135c30d466c45bb10fde2962ddab, type: 3}
+    - Id: shield_03_blue
+      DisplayName: Shield 03 Blue
+      Prefab: {fileID: 1783904020345117890, guid: 011e453981c31fd46967e6cd2a29eafe, type: 3}
+    - Id: shield_03_brown
+      DisplayName: Shield 03 Brown
+      Prefab: {fileID: 5367871123804544853, guid: 4bd8737b279a23a4cb97c97eda5392db, type: 3}
+    - Id: shield_03_purple
+      DisplayName: Shield 03 Purple
+      Prefab: {fileID: 330047218948378414, guid: 4dff70cbe2e4ad34a9358c987db88d0c, type: 3}
+    - Id: shield_03_red
+      DisplayName: Shield 03 Red
+      Prefab: {fileID: 4585704655462102373, guid: be5a7aaa163430a43b12e2b9a8faa343, type: 3}
+  - Id: r_hand_and_l_hand_shuriken_projectile
+    DisplayName: Shuriken (Projectile)
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: shuriken_01
+      DisplayName: Shuriken 01
+      Prefab: {fileID: 2981859859921591788, guid: 3484711c9b58a5a4a99cf65ac221b3bf, type: 3}
+  - Id: chest_sling
+    DisplayName: Sling
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: shuriken_01_back
+      DisplayName: Shuriken 01 Back
+      Prefab: {fileID: 7023494153315013108, guid: 6af16271b32ecab479ae9803fe32c4ee, type: 3}
+    - Id: sling_01
+      DisplayName: Sling 01
+      Prefab: {fileID: 7550908588283982143, guid: 17c4e723031b9574aa709ffa106d4294, type: 3}
+    - Id: sword_01_back
+      DisplayName: Sword 01 Back
+      Prefab: {fileID: 625579447426028112, guid: a47a60b2831d15c41a37bb58cb3fa757, type: 3}
+  - Id: chest_spellbook
+    DisplayName: Spellbook
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: spellbook_01_black
+      DisplayName: Spellbook 01 Black
+      Prefab: {fileID: 815418679843443056, guid: b78d9ed54cd4e964089e87aa158f32db, type: 3}
+    - Id: spellbook_01_blue
+      DisplayName: Spellbook 01 Blue
+      Prefab: {fileID: 3597634827254991387, guid: 2cdb844328ed66849818eb35cf65cc5c, type: 3}
+    - Id: spellbook_01_brown
+      DisplayName: Spellbook 01 Brown
+      Prefab: {fileID: 891972874882622345, guid: 68c38670470123c4cbc2e7bd1fee7bf4, type: 3}
+    - Id: spellbook_01_purple
+      DisplayName: Spellbook 01 Purple
+      Prefab: {fileID: 5389334455616726913, guid: a627ce35e179ac84aac8a189eef44d98, type: 3}
+    - Id: spellbook_01_red
+      DisplayName: Spellbook 01 Red
+      Prefab: {fileID: 661545352824139000, guid: fc3570cffd24399448323baf615df349, type: 3}
+  - Id: r_hand_and_l_hand_sword
+    DisplayName: Sword
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: sword_01_black
+      DisplayName: Sword 01 Black
+      Prefab: {fileID: 4998877850447518373, guid: 4b335e56ec09dd54f86891feb33c92c0, type: 3}
+    - Id: sword_01_blue
+      DisplayName: Sword 01 Blue
+      Prefab: {fileID: 5377456640003224914, guid: ed6562f0bba427b40a19f707b958f718, type: 3}
+    - Id: sword_01_brown
+      DisplayName: Sword 01 Brown
+      Prefab: {fileID: 2756834715616886547, guid: 372d5f3291716144b95551db4ab6a5eb, type: 3}
+    - Id: sword_01_purple
+      DisplayName: Sword 01 Purple
+      Prefab: {fileID: 2910578545724023340, guid: 94f0cb3a8b304b04fbb1a9f8178c3463, type: 3}
+    - Id: sword_01_red
+      DisplayName: Sword 01 Red
+      Prefab: {fileID: 1318062114957000849, guid: 2e2c73c5cf750a44f8b7a00dc29ea6f3, type: 3}
+    - Id: sword_02_black
+      DisplayName: Sword 02 Black
+      Prefab: {fileID: 2846910007543418343, guid: 2e961ffa6549c674c86e25d5c0f199d2, type: 3}
+    - Id: sword_02_blue
+      DisplayName: Sword 02 Blue
+      Prefab: {fileID: 5922251739334705461, guid: ba8da636b0d04a84885f0cd7c96425ab, type: 3}
+    - Id: sword_02_brown
+      DisplayName: Sword 02 Brown
+      Prefab: {fileID: 8960942405488045800, guid: 05ff1a6173c7d914ba5344cf1f9d7152, type: 3}
+    - Id: sword_02_purple
+      DisplayName: Sword 02 Purple
+      Prefab: {fileID: 801338494945021412, guid: 8b226973ff71dc244ad5916fd38f614a, type: 3}
+    - Id: sword_02_red
+      DisplayName: Sword 02 Red
+      Prefab: {fileID: 7738539554705488656, guid: 56aecc7c22e1b05448a8e67d18000c61, type: 3}
+    - Id: sword_03_black
+      DisplayName: Sword 03 Black
+      Prefab: {fileID: 2513098935336584479, guid: cd08eddc7ee6d1743b2e9ad2db3df341, type: 3}
+    - Id: sword_03_blue
+      DisplayName: Sword 03 Blue
+      Prefab: {fileID: 2408752911109563394, guid: aa86e1c61c59a9549b1030daf2fd3faf, type: 3}
+    - Id: sword_03_brown
+      DisplayName: Sword 03 Brown
+      Prefab: {fileID: 7797083660909794924, guid: 9a11bba4950e0c74daeedbe89512b985, type: 3}
+    - Id: sword_03_purple
+      DisplayName: Sword 03 Purple
+      Prefab: {fileID: 5597990300191289540, guid: 225d90b68bdcb5e44a01bce62f1cd468, type: 3}
+    - Id: sword_03_red
+      DisplayName: Sword 03 Red
+      Prefab: {fileID: 8099439379848624958, guid: 4d706079f463b594899d6e899f5ef90e, type: 3}
+    - Id: sword_04_black
+      DisplayName: Sword 04 Black
+      Prefab: {fileID: 7922811859760152710, guid: fa7dacb5c785b104095eceb2ef5fcc6d, type: 3}
+    - Id: sword_04_blue
+      DisplayName: Sword 04 Blue
+      Prefab: {fileID: 7189829875409446008, guid: 336d191dc68ce4441b2ab29f71311f4c, type: 3}
+    - Id: sword_04_brown
+      DisplayName: Sword 04 Brown
+      Prefab: {fileID: 6605063180775403116, guid: dc51312205af7af4796dc3d7a8aca297, type: 3}
+    - Id: sword_04_purple
+      DisplayName: Sword 04 Purple
+      Prefab: {fileID: 3655489985119213981, guid: 9fbe299ffff513748b02b31b58e5c4eb, type: 3}
+    - Id: sword_04_red
+      DisplayName: Sword 04 Red
+      Prefab: {fileID: 7078711595186442815, guid: e1ee121ef12c6ea49b78bbd5d188e87c, type: 3}
+    - Id: sword_05_black
+      DisplayName: Sword 05 Black
+      Prefab: {fileID: 2304666203167805014, guid: 26ae73c6cfa266740874576cdd48367c, type: 3}
+    - Id: sword_05_blue
+      DisplayName: Sword 05 Blue
+      Prefab: {fileID: 8844037916164199090, guid: d9d3473899685544daf95474d4c481f5, type: 3}
+    - Id: sword_05_brown
+      DisplayName: Sword 05 Brown
+      Prefab: {fileID: 4332899201174494117, guid: e0e1293190a3c15499e52048943ce91b, type: 3}
+    - Id: sword_05_purple
+      DisplayName: Sword 05 Purple
+      Prefab: {fileID: 478176308689232724, guid: a912d80cb1da38745a47c9d276322de8, type: 3}
+    - Id: sword_05_red
+      DisplayName: Sword 05 Red
+      Prefab: {fileID: 2154739176345984904, guid: cb96b89599f659d4c8df37456d9a0bb4, type: 3}
+    - Id: sword_06_black
+      DisplayName: Sword 06 Black
+      Prefab: {fileID: 6595645577700226139, guid: 952c3c003862e6448914134bd8f48808, type: 3}
+    - Id: sword_06_blue
+      DisplayName: Sword 06 Blue
+      Prefab: {fileID: 6000762284765076475, guid: d2558d6b8ee7ffa408ac096f87c83907, type: 3}
+    - Id: sword_06_brown
+      DisplayName: Sword 06 Brown
+      Prefab: {fileID: 3446527422167412985, guid: f61b347a15ed2c0448927c85d7bf4340, type: 3}
+    - Id: sword_06_purple
+      DisplayName: Sword 06 Purple
+      Prefab: {fileID: 1981538040209462007, guid: 95e4f6a31eba4994e8de9c161f597aba, type: 3}
+    - Id: sword_06_red
+      DisplayName: Sword 06 Red
+      Prefab: {fileID: 2425657950310876295, guid: 7f2734bae7d489441b9dc9590997d8cb, type: 3}
+  - Id: chest_vest
+    DisplayName: Vest
+    AttachGroup: +Chest
+    AttachBones:
+    - +Chest
+    Optional: 1
+    Parts:
+    - Id: vest_01_black
+      DisplayName: Vest 01 Black
+      Prefab: {fileID: 2826970643573413077, guid: 713345461101fe04d8376ca9b4c1c3e9, type: 3}
+    - Id: vest_01_blue
+      DisplayName: Vest 01 Blue
+      Prefab: {fileID: 566634411244424782, guid: 19e7d7c4d44259c4696cfaa9e0252f73, type: 3}
+    - Id: vest_01_brown
+      DisplayName: Vest 01 Brown
+      Prefab: {fileID: 4347305185565699216, guid: 63686567d6ba50e4184a20b0a26305b5, type: 3}
+    - Id: vest_01_purple
+      DisplayName: Vest 01 Purple
+      Prefab: {fileID: 7863958355800708835, guid: d2fb1e3e12e0c2b4cb85d0e97f7bc9e3, type: 3}
+    - Id: vest_01_red
+      DisplayName: Vest 01 Red
+      Prefab: {fileID: 7403992876072072734, guid: 0b3b0e83a174bab4f9c4cc1e6153ec4a, type: 3}
+    - Id: vest_02_black
+      DisplayName: Vest 02 Black
+      Prefab: {fileID: 7366368743495600012, guid: cc42c3e0ca18c234d868ba5ce2a7103e, type: 3}
+    - Id: vest_02_blue
+      DisplayName: Vest 02 Blue
+      Prefab: {fileID: 6103177976337072194, guid: d5992c3a8ff1a8546b21241aa00c825b, type: 3}
+    - Id: vest_02_brown
+      DisplayName: Vest 02 Brown
+      Prefab: {fileID: 4813473659274360415, guid: 4d7a18309aa94b04f91d875af91441b9, type: 3}
+    - Id: vest_02_purple
+      DisplayName: Vest 02 Purple
+      Prefab: {fileID: 6822168813882917469, guid: 876ca67d9c75b7248897c12a7d53d06e, type: 3}
+    - Id: vest_02_red
+      DisplayName: Vest 02 Red
+      Prefab: {fileID: 5750196042640743536, guid: 121941f4a511acb44a6eb27135f8b29d, type: 3}
+    - Id: vest_03_black
+      DisplayName: Vest 03 Black
+      Prefab: {fileID: 6340499137182507975, guid: 2e4d326a244e3e342bbf0f820dd6024f, type: 3}
+    - Id: vest_03_blue
+      DisplayName: Vest 03 Blue
+      Prefab: {fileID: 2122756333719758815, guid: 4cdc52f1490decc478a12da580350199, type: 3}
+    - Id: vest_03_brown
+      DisplayName: Vest 03 Brown
+      Prefab: {fileID: 3744395181658994894, guid: a8d6ea2d792c7fe4685a4350f5db0d4e, type: 3}
+    - Id: vest_03_purple
+      DisplayName: Vest 03 Purple
+      Prefab: {fileID: 8709439629344098041, guid: f3907de29b2dfda4eb67b015f68d1dc6, type: 3}
+    - Id: vest_03_red
+      DisplayName: Vest 03 Red
+      Prefab: {fileID: 2609246399141428733, guid: 680a9b49d089d5c4896636bbc25eca2c, type: 3}
+  - Id: r_hand_and_l_hand_wand
+    DisplayName: Wand
+    AttachGroup: +R Hand and +L Hand
+    AttachBones:
+    - +R Hand
+    Optional: 1
+    Parts:
+    - Id: wand_01_black
+      DisplayName: Wand 01 Black
+      Prefab: {fileID: 609306588613547059, guid: e7dd5a478883c304f92350a49de9e423, type: 3}
+    - Id: wand_01_blue
+      DisplayName: Wand 01 Blue
+      Prefab: {fileID: 300158259150075809, guid: 032098d155983e143bf43a7faae90e7c, type: 3}
+    - Id: wand_01_brown
+      DisplayName: Wand 01 Brown
+      Prefab: {fileID: 877318905077697700, guid: 5120e9a05d52ae143be9da2db5ca77bf, type: 3}
+    - Id: wand_01_purple
+      DisplayName: Wand 01 Purple
+      Prefab: {fileID: 134955645460509581, guid: 6d35029cc7d0cdc45ab1900f80c3c02f, type: 3}
+    - Id: wand_01_red
+      DisplayName: Wand 01 Red
+      Prefab: {fileID: 8750086004545318395, guid: 06aa7363db5cc3e4caeac083456d7caa, type: 3}
+    - Id: wand_02_black
+      DisplayName: Wand 02 Black
+      Prefab: {fileID: 2924176998082043023, guid: 1e46bd1e99766ac44ae94b64943c8889, type: 3}
+    - Id: wand_02_blue
+      DisplayName: Wand 02 Blue
+      Prefab: {fileID: 767306109827533741, guid: 41bf037f6ed68ee429cce7018aafb176, type: 3}
+    - Id: wand_02_brown
+      DisplayName: Wand 02 Brown
+      Prefab: {fileID: 8236769191253376572, guid: 96671fac892aede44892b2463cdf222f, type: 3}
+    - Id: wand_02_purple
+      DisplayName: Wand 02 Purple
+      Prefab: {fileID: 5056560224260638978, guid: 74c862841a5853449b84e3b0ccf8637a, type: 3}
+    - Id: wand_02_red
+      DisplayName: Wand 02 Red
+      Prefab: {fileID: 5690194473021381956, guid: 2f98931b29314f2499365aa6698457e6, type: 3}
+    - Id: wand_03_black
+      DisplayName: Wand 03 Black
+      Prefab: {fileID: 3237892554563385799, guid: e84c19ad015533b478d88beb378cb1b7, type: 3}
+    - Id: wand_03_blue
+      DisplayName: Wand 03 Blue
+      Prefab: {fileID: 8193878500821788722, guid: 111de66a81356f1428abd5865e2f7b86, type: 3}
+    - Id: wand_03_brown
+      DisplayName: Wand 03 Brown
+      Prefab: {fileID: 3117553497255616739, guid: 74dbc5eae82a29746a18d68e7058c978, type: 3}
+    - Id: wand_03_purple
+      DisplayName: Wand 03 Purple
+      Prefab: {fileID: 734641458083608836, guid: 464f9aaef505baf4a9ef254cc3af22d5, type: 3}
+    - Id: wand_03_red
+      DisplayName: Wand 03 Red
+      Prefab: {fileID: 8401957450729190428, guid: 5f821c3c0aeaea54489aa8fb8d7a057b, type: 3}
+    - Id: wand_04_black
+      DisplayName: Wand 04 Black
+      Prefab: {fileID: 4668016987113889841, guid: 8789cb54fe642aa44b7e3ed57b79d945, type: 3}
+    - Id: wand_04_blue
+      DisplayName: Wand 04 Blue
+      Prefab: {fileID: 8490281967079622307, guid: 2b0124c204727444893c61ad2d705bc4, type: 3}
+    - Id: wand_04_brown
+      DisplayName: Wand 04 Brown
+      Prefab: {fileID: 2900876080072431409, guid: e7c72b982e4959143872e6151519b25d, type: 3}
+    - Id: wand_04_purple
+      DisplayName: Wand 04 Purple
+      Prefab: {fileID: 2774146658749129189, guid: 50a95080bf33fe54787ac26e24aab53a, type: 3}
+    - Id: wand_04_red
+      DisplayName: Wand 04 Red
+      Prefab: {fileID: 5795929301331176669, guid: b9440b946e81ff745adba8a37cfe1c24, type: 3}
+    - Id: wand_05_black
+      DisplayName: Wand 05 Black
+      Prefab: {fileID: 7226663233433810323, guid: 11b182aad062ece45845ff31a21cf2b8, type: 3}
+    - Id: wand_05_blue
+      DisplayName: Wand 05 Blue
+      Prefab: {fileID: 1584639251899600499, guid: 7aafd5976eeea054fb23c01eeff6f1dd, type: 3}
+    - Id: wand_05_brown
+      DisplayName: Wand 05 Brown
+      Prefab: {fileID: 6278694321695882705, guid: e45ece33959a92c4e89a09da21ed4c95, type: 3}
+    - Id: wand_05_purple
+      DisplayName: Wand 05 Purple
+      Prefab: {fileID: 2143247862620842823, guid: ca642dba8c61897428f12634a26da3bb, type: 3}
+    - Id: wand_05_red
+      DisplayName: Wand 05 Red
+      Prefab: {fileID: 2317772383332131571, guid: f7fba304ef5c4c24987f669e577bc9a6, type: 3}
+  HumanoidTemplate:
+    Id: char_humanoid
+    DisplayName: Humanoid
+    Prefab: {fileID: 0}
+    Controller: {fileID: 9100000, guid: 0d39f08d6877d4728807de540b06108c, type: 2}
+    IsHumanoid: 1
+    ModelScale: 1
+    ModelYOffset: 0
+    Actions:
+    - Action: 0
+      State: Idle
+    - Action: 1
+      State: Attack_Slash
+    - Action: 2
+      State: Cast
+    - Action: 3
+      State: Hit
+    - Action: 4
+      State: Block
+    - Action: 5
+      State: Hit
+    - Action: 6
+      State: Attack_Stab
+    - Action: 7
+      State: Die
+    - Action: 8
+      State: Spawn
+    AbilityStates:
+    - AbilityId: slash
+      State: Attack_Slash
+    - AbilityId: bash
+      State: Attack_Cut
+    - AbilityId: fireball
+      State: Cast
+    - AbilityId: vampiro
+      State: Cast
+    - AbilityId: falling_star
+      State: Cast
+    - AbilityId: lunge
+      State: Attack_Stab
+    - AbilityId: auto_attack
+      State: Attack_Slash
+    - AbilityId: kick
+      State: Attack_Cut
+    - AbilityId: interrupt_cast
+      State: Attack_Stab
+    - AbilityId: riposte
+      State: Attack_Stab
+    - AbilityId: parry
+      State: Block

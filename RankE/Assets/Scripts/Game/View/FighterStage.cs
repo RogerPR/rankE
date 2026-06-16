@@ -21,8 +21,10 @@ namespace RankE.Game
         MatchController match;
         Transform playerAnchor, enemyAnchor;
         FighterVisualRegistry registry;
+        AbilityVfxRegistry vfxRegistry;
 
         FighterViewBody playerBody, enemyBody;
+        FighterVfx playerVfx, enemyVfx;
         GameObject playerModel, enemyModel;
 
         public bool HasContent =>
@@ -36,11 +38,18 @@ namespace RankE.Game
             this.playerAnchor = playerAnchor;
             this.enemyAnchor = enemyAnchor;
             registry = FighterVisualRegistry.Load();
+            vfxRegistry = AbilityVfxRegistry.Load();
 
             playerBody = playerAnchor.gameObject.AddComponent<FighterViewBody>();
             playerBody.Bind(driver, 0, enemyAnchor);
             enemyBody = enemyAnchor.gameObject.AddComponent<FighterViewBody>();
             enemyBody.Bind(driver, 1, playerAnchor);
+
+            // Skill VFX ride on the anchors too (additive; null registry = no pack yet).
+            playerVfx = playerAnchor.gameObject.AddComponent<FighterVfx>();
+            playerVfx.Bind(driver, 0, enemyAnchor, vfxRegistry);
+            enemyVfx = enemyAnchor.gameObject.AddComponent<FighterVfx>();
+            enemyVfx.Bind(driver, 1, playerAnchor, vfxRegistry);
 
             if (HasContent)
             {
@@ -73,19 +82,46 @@ namespace RankE.Game
 
         void SpawnForMatch()
         {
-            var pl = registry.PlayerAt(match.Loadout.PlayerVisualIndex);
+            playerModel = SpawnPlayer(playerModel);
             var en = registry.MonsterAt(match.Loadout.EnemyVisualIndex);
-            playerModel = Spawn(pl, playerAnchor, playerYaw, playerModel, 0, playerBody);
-            enemyModel = Spawn(en, enemyAnchor, enemyYaw, enemyModel, 1, enemyBody);
+            enemyModel = Spawn(en, enemyAnchor, enemyYaw, enemyModel, 1, enemyBody, enemyVfx);
+        }
+
+        /// <summary>Custom-assembled player when the creator is on, else a sample prefab.</summary>
+        GameObject SpawnPlayer(GameObject previous)
+        {
+            var loadout = match.Loadout;
+            if (loadout.UseCustomAppearance)
+            {
+                var go = CharacterAssembler.Assemble(CharacterPartCatalogue.Load(),
+                    loadout.Appearance, out var def);
+                if (go != null)
+                {
+                    if (previous != null) Destroy(previous);
+                    return Configure(go, def, playerAnchor, playerYaw, 0, playerBody, playerVfx);
+                }
+                // No catalogue / no base — fall back to the sample path below.
+            }
+            var sample = registry.PlayerAt(loadout.PlayerVisualIndex);
+            return Spawn(sample, playerAnchor, playerYaw, previous, 0, playerBody, playerVfx);
         }
 
         GameObject Spawn(FighterVisualDef def, Transform anchor, float yaw,
-            GameObject previous, int index, FighterViewBody body)
+            GameObject previous, int index, FighterViewBody body, FighterVfx vfx)
         {
             if (previous != null) Destroy(previous);
             if (def == null || def.Prefab == null) return null;
+            return Configure(Instantiate(def.Prefab), def, anchor, yaw, index, body, vfx);
+        }
 
-            var go = Instantiate(def.Prefab);
+        /// <summary>
+        /// Position/scale/ground an already-instantiated model under its anchor, assign
+        /// the controller, and bind the animation + body views. Shared by the sample and
+        /// custom-assembled paths.
+        /// </summary>
+        GameObject Configure(GameObject go, FighterVisualDef def, Transform anchor, float yaw,
+            int index, FighterViewBody body, FighterVfx vfx)
+        {
             go.name = def.Id;
             go.transform.SetParent(anchor, false);
             go.transform.localScale = Vector3.one * (def.ModelScale > 0f ? def.ModelScale : 1f);
@@ -101,6 +137,7 @@ namespace RankE.Game
             }
 
             body.SetModel(go.transform);
+            if (vfx != null) vfx.SetModel(go.transform);
             return go;
         }
 

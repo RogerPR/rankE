@@ -28,6 +28,16 @@ namespace RankE.Editor
         const string OutDir = "Assets/Resources/RankE";
         const string ControllerPath = OutDir + "/PlayerCombat.controller";
         const string RegistryPath = OutDir + "/FighterVisualRegistry.asset";
+        const string CataloguePath = OutDir + "/CharacterPartCatalogue.asset";
+        const string VfxRegistryPath = OutDir + "/AbilityVfxRegistry.asset";
+
+        // Cartoon FX Remaster Free (Jean Moreno / "JMO Assets"). Adjust if the pack lands
+        // in a different folder; the VFX registry build is skipped if it isn't present.
+        const string CfxRoot = "Assets/JMO Assets/Cartoon FX Remaster";
+
+        const string CharSamples = CharRoot + "/Prefabs/00 Character Samples";
+        const string CharBases = CharRoot + "/Prefabs/01 Select Bases";
+        const string CharAccessories = CharRoot + "/Prefabs/02 Add Accessories";
 
         // Normalize every fighter to a sane on-screen height so a tiny slime and a
         // huge dragon read at comparable scale in a 1v1 duel.
@@ -48,11 +58,44 @@ namespace RankE.Editor
             if (AssetDatabase.LoadAssetAtPath<FighterVisualRegistry>(RegistryPath) != null)
                 AssetDatabase.DeleteAsset(RegistryPath);
             AssetDatabase.CreateAsset(registry, RegistryPath);
+
+            var catalogue = BuildPartCatalogue(controller);
+            if (AssetDatabase.LoadAssetAtPath<CharacterPartCatalogue>(CataloguePath) != null)
+                AssetDatabase.DeleteAsset(CataloguePath);
+            AssetDatabase.CreateAsset(catalogue, CataloguePath);
+
+            WriteVfxRegistry(); // skipped cleanly if the VFX pack isn't imported yet
+
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
 
             Debug.Log($"[ArtSetup] Built {registry.Players.Count} player characters + " +
                       $"{registry.Monsters.Count} monsters → {RegistryPath}");
+            Debug.Log($"[ArtSetup] Built character creator catalogue: {catalogue.Bases.Count} bases + " +
+                      $"{catalogue.Categories.Count} slots → {CataloguePath}");
+        }
+
+        /// <summary>Build only the skill-VFX registry (run after importing/updating the pack).</summary>
+        [MenuItem("Tools/RANK E/Build VFX Registry")]
+        public static void BuildVfx()
+        {
+            EnsureFolder("Assets/Resources");
+            EnsureFolder(OutDir);
+            if (!WriteVfxRegistry()) return;
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        static bool WriteVfxRegistry()
+        {
+            var vfx = BuildVfxRegistry();
+            if (vfx == null) return false;
+            if (AssetDatabase.LoadAssetAtPath<AbilityVfxRegistry>(VfxRegistryPath) != null)
+                AssetDatabase.DeleteAsset(VfxRegistryPath);
+            AssetDatabase.CreateAsset(vfx, VfxRegistryPath);
+            Debug.Log($"[ArtSetup] Built VFX registry: {vfx.Abilities.Count} ability bindings + " +
+                      $"{vfx.Cues.Count} cues → {VfxRegistryPath}");
+            return true;
         }
 
         // ---- Player humanoid controller (clean named states, driven by CrossFade) ----
@@ -101,14 +144,13 @@ namespace RankE.Editor
         static List<FighterVisualDef> BuildPlayers(RuntimeAnimatorController controller)
         {
             var list = new List<FighterVisualDef>();
-            string dir = $"{CharRoot}/Prefabs/00 Character Samples";
-            if (!AssetDatabase.IsValidFolder(dir))
+            if (!AssetDatabase.IsValidFolder(CharSamples))
             {
-                Debug.LogWarning($"[ArtSetup] Player samples folder not found: {dir}");
+                Debug.LogWarning($"[ArtSetup] Player samples folder not found: {CharSamples}");
                 return list;
             }
 
-            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { dir }))
+            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { CharSamples }))
             {
                 string path = AssetDatabase.GUIDToAssetPath(guid);
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
@@ -116,47 +158,161 @@ namespace RankE.Editor
                 string name = Path.GetFileNameWithoutExtension(path);
                 ComputeFit(prefab, PlayerTargetHeight, out float scale, out float yOff);
 
-                list.Add(new FighterVisualDef
-                {
-                    Id = "char_" + name.ToLowerInvariant(),
-                    DisplayName = name,
-                    Prefab = prefab,
-                    Controller = controller,
-                    IsHumanoid = true,
-                    ModelScale = scale,
-                    ModelYOffset = yOff,
-                    Actions = new List<ActionState>
-                    {
-                        A(AnimAction.Idle, "Idle"),
-                        A(AnimAction.Attack, "Attack_Slash"),
-                        A(AnimAction.Cast, "Cast"),
-                        A(AnimAction.Hit, "Hit"),
-                        A(AnimAction.Block, "Block"),
-                        A(AnimAction.Broken, "Hit"),
-                        A(AnimAction.Riposte, "Attack_Stab"),
-                        A(AnimAction.Die, "Die"),
-                        A(AnimAction.Spawn, "Spawn"),
-                    },
-                    AbilityStates = new List<AbilityAnim>
-                    {
-                        Ab(PocContent.SlashId, "Attack_Slash"),
-                        Ab(PocContent.BashId, "Attack_Cut"),
-                        Ab(PocContent.FireballId, "Cast"),
-                        Ab(PocContent.VampiroId, "Cast"),
-                        Ab(PocContent.FallingStarId, "Cast"),
-                        Ab(PocContent.LungeId, "Attack_Stab"),
-                        Ab(PocContent.AutoAttackId, "Attack_Slash"),
-                        Ab(PocContent.KickId, "Attack_Cut"),
-                        Ab(PocContent.InterruptCastId, "Attack_Stab"),
-                        Ab(PocContent.RiposteId, "Attack_Stab"),
-                        Ab(PocContent.ParryId, "Block"),
-                    },
-                });
+                var def = HumanoidTemplate(controller);
+                def.Id = "char_" + name.ToLowerInvariant();
+                def.DisplayName = name;
+                def.Prefab = prefab;
+                def.ModelScale = scale;
+                def.ModelYOffset = yOff;
+                list.Add(def);
             }
 
             list.Sort((a, b) => string.CompareOrdinal(a.DisplayName, b.DisplayName));
             return list;
         }
+
+        /// <summary>
+        /// The canonical humanoid visual: shared controller + the action/ability anim
+        /// maps every player shares (all 8 samples + any custom-assembled character).
+        /// <c>Prefab</c>, scale and offset are filled in per use.
+        /// </summary>
+        static FighterVisualDef HumanoidTemplate(RuntimeAnimatorController controller) =>
+            new FighterVisualDef
+            {
+                Id = "char_humanoid",
+                DisplayName = "Humanoid",
+                Prefab = null,
+                Controller = controller,
+                IsHumanoid = true,
+                Actions = new List<ActionState>
+                {
+                    A(AnimAction.Idle, "Idle"),
+                    A(AnimAction.Attack, "Attack_Slash"),
+                    A(AnimAction.Cast, "Cast"),
+                    A(AnimAction.Hit, "Hit"),
+                    A(AnimAction.Block, "Block"),
+                    A(AnimAction.Broken, "Hit"),
+                    A(AnimAction.Riposte, "Attack_Stab"),
+                    A(AnimAction.Die, "Die"),
+                    A(AnimAction.Spawn, "Spawn"),
+                },
+                AbilityStates = new List<AbilityAnim>
+                {
+                    Ab(PocContent.SlashId, "Attack_Slash"),
+                    Ab(PocContent.BashId, "Attack_Cut"),
+                    Ab(PocContent.FireballId, "Cast"),
+                    Ab(PocContent.VampiroId, "Cast"),
+                    Ab(PocContent.FallingStarId, "Cast"),
+                    Ab(PocContent.LungeId, "Attack_Stab"),
+                    Ab(PocContent.AutoAttackId, "Attack_Slash"),
+                    Ab(PocContent.KickId, "Attack_Cut"),
+                    Ab(PocContent.InterruptCastId, "Attack_Stab"),
+                    Ab(PocContent.RiposteId, "Attack_Stab"),
+                    Ab(PocContent.ParryId, "Block"),
+                },
+            };
+
+        // ---- Character creator: scan modular bases + accessories into a catalogue ----
+
+        static CharacterPartCatalogue BuildPartCatalogue(RuntimeAnimatorController controller)
+        {
+            var cat = ScriptableObject.CreateInstance<CharacterPartCatalogue>();
+            cat.HumanoidTemplate = HumanoidTemplate(controller);
+            cat.Bases = BuildBases();
+            cat.Categories = BuildCategories();
+            return cat;
+        }
+
+        static List<PartEntry> BuildBases()
+        {
+            var list = new List<PartEntry>();
+            if (!AssetDatabase.IsValidFolder(CharBases))
+            {
+                Debug.LogWarning($"[ArtSetup] Base bodies folder not found: {CharBases}");
+                return list;
+            }
+
+            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { CharBases }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (prefab == null) continue;
+                string name = Path.GetFileNameWithoutExtension(path);
+                list.Add(new PartEntry { Id = "base_" + Slug(name), DisplayName = name, Prefab = prefab });
+            }
+            list.Sort((a, b) => string.CompareOrdinal(a.DisplayName, b.DisplayName));
+            return list;
+        }
+
+        static List<PartCategory> BuildCategories()
+        {
+            var list = new List<PartCategory>();
+            string accAbs = ToAbsolute(CharAccessories);
+            if (!Directory.Exists(accAbs))
+            {
+                Debug.LogWarning($"[ArtSetup] Accessories folder not found: {CharAccessories}");
+                return list;
+            }
+
+            foreach (var groupAbs in Directory.GetDirectories(accAbs))
+            {
+                string group = Path.GetFileName(groupAbs); // e.g. "+Head", "+R Hand and +L Hand"
+                foreach (var subAbs in Directory.GetDirectories(groupAbs))
+                {
+                    string sub = Path.GetFileName(subAbs); // e.g. "Helmet", "Sword"
+                    var prefabFiles = Directory.GetFiles(subAbs, "*.prefab", SearchOption.AllDirectories);
+                    if (prefabFiles.Length == 0) continue;
+
+                    var parts = new List<PartEntry>();
+                    foreach (var f in prefabFiles)
+                    {
+                        var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ToAssetPath(f));
+                        if (prefab == null) continue;
+                        string pname = Path.GetFileNameWithoutExtension(f);
+                        parts.Add(new PartEntry { Id = Slug(pname), DisplayName = pname, Prefab = prefab });
+                    }
+                    if (parts.Count == 0) continue;
+                    parts.Sort((a, b) => string.CompareOrdinal(a.DisplayName, b.DisplayName));
+
+                    list.Add(new PartCategory
+                    {
+                        Id = Slug(group) + "_" + Slug(sub),
+                        DisplayName = sub,
+                        AttachGroup = group,
+                        AttachBones = ResolveAttachBones(group, sub),
+                        Optional = true,
+                        Parts = parts,
+                    });
+                }
+            }
+            list.Sort((a, b) => string.CompareOrdinal(a.DisplayName, b.DisplayName));
+            return list;
+        }
+
+        /// <summary>
+        /// Resolve which bone(s) a slot mounts to. Single-bone groups ("+Head") map to
+        /// themselves. Two-sided groups ("+R Hand and +L Hand") route by subcategory:
+        /// shields go left-hand, other hand items right-hand, and forearm/upperarm
+        /// pieces mirror onto both sides.
+        /// </summary>
+        static string[] ResolveAttachBones(string group, string sub)
+        {
+            int andIdx = group.IndexOf(" and ", StringComparison.OrdinalIgnoreCase);
+            if (andIdx < 0) return new[] { group };
+
+            string a = group.Substring(0, andIdx).Trim();
+            string b = group.Substring(andIdx + 5).Trim();
+            bool isHand = group.IndexOf("Hand", StringComparison.OrdinalIgnoreCase) >= 0;
+            if (!isHand) return new[] { a, b }; // bracers / shoulders mirror both sides
+
+            string right = a.IndexOf("+R", StringComparison.OrdinalIgnoreCase) >= 0 ? a : b;
+            string left = a.IndexOf("+L", StringComparison.OrdinalIgnoreCase) >= 0 ? a : b;
+            bool isShield = sub.IndexOf("Shield", StringComparison.OrdinalIgnoreCase) >= 0;
+            return new[] { isShield ? left : right };
+        }
+
+        static string Slug(string s) =>
+            s.Replace("+", "").Trim().Replace(' ', '_').Replace("(", "").Replace(")", "").ToLowerInvariant();
 
         // ---- Monster visuals: auto-derive the state map from each own controller ----
 
@@ -285,6 +441,115 @@ namespace RankE.Editor
                 && !string.Equals(s, exclude, StringComparison.OrdinalIgnoreCase));
         }
 
+        // ---- Skill VFX: scan the pack, map prefabs to abilities/cues by keyword ----
+
+        /// <summary>
+        /// Build the <see cref="AbilityVfxRegistry"/> by scanning the imported VFX pack and
+        /// matching prefab names to abilities/cues with keyword heuristics (same spirit as
+        /// the monster controller scanner). Slots with no match stay null and are skipped
+        /// gracefully at runtime — the asset is meant to be fine-tuned in the Inspector
+        /// afterward, this just gives a sensible starting mapping. Returns null (no asset
+        /// written) if the pack isn't imported.
+        /// </summary>
+        static AbilityVfxRegistry BuildVfxRegistry()
+        {
+            if (!AssetDatabase.IsValidFolder(CfxRoot))
+            {
+                Debug.LogWarning($"[ArtSetup] VFX pack not found at {CfxRoot} — skipping VFX " +
+                    "registry. Import Cartoon FX Remaster Free, then re-run Build Art Setup.");
+                return null;
+            }
+
+            var prefabs = new List<(string name, GameObject go)>();
+            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { CfxRoot }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (go != null) prefabs.Add((Path.GetFileNameWithoutExtension(path), go));
+            }
+            prefabs.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
+            if (prefabs.Count == 0)
+            {
+                Debug.LogWarning($"[ArtSetup] No prefabs under {CfxRoot} — skipping VFX registry.");
+                return null;
+            }
+
+            var reg = ScriptableObject.CreateInstance<AbilityVfxRegistry>();
+
+            // Fireball — travels hand→enemy with a cast aura + impact.
+            var fireProjectile = Find(prefabs, prefer: new[] { "fireball", "fire trail", "flame", "fire" },
+                exclude: new[] { "explosion", "impact", "muzzle", "aura", "ground", "hit", "breath" });
+            var fireImpact = Find(prefabs, prefer: new[] { "explosion", "impact", "burst" }, must: new[] { "fire" })
+                ?? Find(prefabs, prefer: new[] { "explosion", "burst" });
+            var fireMuzzle = Find(prefabs, prefer: new[] { "muzzle", "cast", "charge" }, must: new[] { "fire" })
+                ?? Find(prefabs, prefer: new[] { "muzzle", "magic charge", "cast", "flash" });
+            var fireAura = Find(prefabs, prefer: new[] { "aura", "loop" }, must: new[] { "fire" })
+                ?? Find(prefabs, prefer: new[] { "magic aura", "aura" });
+
+            // Falling Star — descends onto the enemy on the delayed hit.
+            var starProjectile = Find(prefabs, prefer: new[] { "falling star", "meteor", "comet", "star", "sparkle", "magic" });
+            var starImpact = Find(prefabs, prefer: new[] { "explosion", "sparkle", "burst" }, must: new[] { "star" })
+                ?? Find(prefabs, prefer: new[] { "firework", "sparkle explosion", "light explosion", "explosion", "burst" });
+
+            // Shared melee swing flash (neutral white swoosh; magic/fire variants left for tuning).
+            var slashFx = Find(prefabs, prefer: new[] { "sword trail plain", "sword trail", "slash", "sword", "cut", "swing" });
+
+            // Vampiro — channelled poison/dark aura + a release poof.
+            var vampAura = Find(prefabs, prefer: new[] { "poison", "dark", "green", "nature", "magic aura", "aura" });
+            var vampMuzzle = Find(prefabs, prefer: new[] { "dark magic", "green magic", "magic poof", "magic" });
+
+            reg.Abilities.Add(Vfx(PocContent.FireballId, ProjectileMode.Travel, fireAura, fireMuzzle, fireProjectile, fireImpact));
+            reg.Abilities.Add(Vfx(PocContent.FallingStarId, ProjectileMode.Fall, null, null, starProjectile, starImpact));
+            reg.Abilities.Add(Vfx(PocContent.VampiroId, ProjectileMode.None, vampAura, vampMuzzle, null, null));
+            foreach (var id in new[] { PocContent.SlashId, PocContent.BashId, PocContent.AutoAttackId,
+                PocContent.LungeId, PocContent.KickId, PocContent.InterruptCastId })
+                reg.Abilities.Add(Vfx(id, ProjectileMode.None, null, slashFx, null, null));
+
+            // Reaction cues (always listed so empty ones are easy to fill in the Inspector).
+            reg.Cues.Add(Cue(VfxCue.Hit, Find(prefabs, prefer: new[] { "hit", "impact", "blood" }, exclude: new[] { "explosion", "fire", "electric", "ice", "leaves" })));
+            reg.Cues.Add(Cue(VfxCue.Heal, Find(prefabs, prefer: new[] { "heal", "cure", "lightglow", "glow", "leaves", "shiny" }, exclude: new[] { "ambient" })));
+            reg.Cues.Add(Cue(VfxCue.Parry, Find(prefabs, prefer: new[] { "spark", "clash", "metal", "shield", "block", "flash" })));
+            reg.Cues.Add(Cue(VfxCue.Break, Find(prefabs, prefer: new[] { "shockwave", "wham", "boom", "explosion", "burst" })));
+            reg.Cues.Add(Cue(VfxCue.Riposte, Find(prefabs, prefer: new[] { "critical", "sword hit plain", "sword hit", "slash", "flash" })));
+            reg.Cues.Add(Cue(VfxCue.Death, Find(prefabs, prefer: new[] { "souls", "poof", "skull", "death", "smoke source" })));
+
+            return reg;
+        }
+
+        /// <summary>
+        /// First prefab whose lowercased name contains one of <paramref name="prefer"/>
+        /// (keyword priority order), optionally also containing every <paramref name="must"/>
+        /// term and none of the <paramref name="exclude"/> terms.
+        /// </summary>
+        static GameObject Find(List<(string name, GameObject go)> prefabs,
+            string[] prefer, string[] must = null, string[] exclude = null)
+        {
+            foreach (var key in prefer)
+                foreach (var (name, go) in prefabs)
+                {
+                    string n = name.ToLowerInvariant();
+                    if (!n.Contains(key)) continue;
+                    if (must != null && !must.All(m => n.Contains(m))) continue;
+                    if (exclude != null && exclude.Any(x => n.Contains(x))) continue;
+                    return go;
+                }
+            return null;
+        }
+
+        static AbilityVfxDef Vfx(string id, ProjectileMode mode, GameObject aura,
+            GameObject muzzle, GameObject projectile, GameObject impact) =>
+            new AbilityVfxDef
+            {
+                AbilityId = id,
+                Mode = mode,
+                CastAura = aura,
+                Muzzle = muzzle,
+                Projectile = projectile,
+                Impact = impact,
+            };
+
+        static CueVfx Cue(VfxCue cue, GameObject prefab) => new CueVfx { Cue = cue, Prefab = prefab };
+
         // ---- small helpers ----
 
         /// <summary>
@@ -294,25 +559,10 @@ namespace RankE.Editor
         /// </summary>
         static void ComputeFit(GameObject prefab, float targetHeight, out float scale, out float yOffset)
         {
-            scale = 1f;
-            yOffset = 0f;
             var inst = (GameObject)UnityEngine.Object.Instantiate(prefab);
             inst.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
             inst.transform.localScale = Vector3.one;
-
-            bool any = false;
-            Bounds b = new Bounds(Vector3.zero, Vector3.zero);
-            foreach (var r in inst.GetComponentsInChildren<Renderer>())
-            {
-                if (r is ParticleSystemRenderer) continue;
-                if (!any) { b = r.bounds; any = true; }
-                else b.Encapsulate(r.bounds);
-            }
-            if (any && b.size.y > 0.0001f)
-            {
-                scale = Mathf.Clamp(targetHeight / b.size.y, 0.1f, 8f);
-                yOffset = -scale * b.min.y;
-            }
+            ModelFit.Measure(inst, targetHeight, out scale, out yOffset);
             UnityEngine.Object.DestroyImmediate(inst);
         }
 

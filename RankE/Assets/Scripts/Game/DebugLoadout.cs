@@ -41,6 +41,20 @@ namespace RankE.Game
         public int PlayerVisualIndex;
         public int EnemyVisualIndex;
 
+        // Character creator: when on, FighterStage assembles the player from Appearance
+        // (modular base + accessories) instead of spawning a sample prefab.
+        public bool UseCustomAppearance;
+
+        CharacterPartCatalogue partsCache;
+        CharacterPartCatalogue Parts =>
+            partsCache != null ? partsCache : (partsCache = CharacterPartCatalogue.Load());
+
+        CharacterAppearance appearance;
+        public CharacterAppearance Appearance =>
+            appearance ?? (appearance = CharacterAppearance.Default(Parts));
+
+        public CharacterPartCatalogue Catalogue => Parts;
+
         public int PlayerVisualCount => Visuals != null ? Visuals.Players.Count : 0;
         public int EnemyVisualCount => Visuals != null ? Visuals.Monsters.Count : 0;
 

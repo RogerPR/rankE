@@ -87,7 +87,10 @@ namespace RankE.UI
         {
             var panel = UiFactory.Panel("PauseOverlay", parent, new Color(0f, 0f, 0f, 0.6f));
             UiFactory.PlaceStretch((RectTransform)panel.transform);
-            var label = UiFactory.Label("Label", panel.transform,
+            var box = UiFactory.Frame("PauseBox", panel.transform);
+            UiFactory.PlaceFixed((RectTransform)box.transform, new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(760f, 300f));
+            var label = UiFactory.Label("Label", box.transform,
                 "PAUSED\n(Esc / Start to resume)", 60, Color.white);
             UiFactory.PlaceStretch((RectTransform)label.transform);
             return panel.gameObject;

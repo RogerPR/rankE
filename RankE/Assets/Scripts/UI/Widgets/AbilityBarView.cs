@@ -28,8 +28,16 @@ namespace RankE.UI
         RectTransform barRoot;
         readonly List<Slot> slots = new List<Slot>();
 
+        // Flat-look slot tints (no skin); themed slots use the lighter pair so the
+        // wooden frame sprite shows through.
         static readonly Color ReadyBg = new Color(0.15f, 0.15f, 0.2f, 0.9f);
         static readonly Color BlockedBg = new Color(0.3f, 0.1f, 0.1f, 0.9f);
+        static readonly Color ReadyBgThemed = Color.white;
+        static readonly Color BlockedBgThemed = new Color(1f, 0.55f, 0.55f, 1f);
+
+        bool themed;
+        Color readyColor;
+        Color blockedColor;
 
         public void Init(BattleDriver driver, Transform parent)
         {
@@ -49,19 +57,40 @@ namespace RankE.UI
             var battle = driver != null ? driver.Battle : null;
             if (battle == null) return;
 
+            var skin = UiFactory.Skin;
+            var slotFrame = skin != null ? skin.SlotFrame : null;
+            themed = slotFrame != null;
+            readyColor = themed ? ReadyBgThemed : ReadyBg;
+            blockedColor = themed ? BlockedBgThemed : BlockedBg;
+
             var abilities = battle.Fighters[0].Abilities;
             for (int i = 0; i < abilities.Count && i < 6; i++)
             {
                 // Visual gap between the 4 main slots and the 2 quick slots.
                 float x = (i - 2.5f) * (SlotSize + 10f) + (i >= 4 ? 24f : 0f);
-                var bg = UiFactory.Panel($"Slot{i}", barRoot, ReadyBg);
+                var bg = themed
+                    ? UiFactory.Frame($"Slot{i}", barRoot, slotFrame)
+                    : UiFactory.Panel($"Slot{i}", barRoot, ReadyBg);
+                bg.color = readyColor;
                 UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(0.5f, 0f),
                     new Vector2(x, 30f), new Vector2(SlotSize, SlotSize));
 
                 var def = abilities[i].Def;
-                var name = UiFactory.Label("Name", bg.transform, def.Name, 16, Color.white);
-                UiFactory.PlaceFixed((RectTransform)name.transform, new Vector2(0.5f, 0.5f),
-                    Vector2.zero, new Vector2(SlotSize, 20f));
+
+                // Icon if mapped; otherwise fall back to the ability name label.
+                var icon = skin != null ? skin.IconFor(def.Id) : null;
+                if (icon != null)
+                {
+                    var iconImg = UiFactory.Icon("Icon", bg.transform, icon);
+                    UiFactory.PlaceFixed((RectTransform)iconImg.transform, new Vector2(0.5f, 0.5f),
+                        Vector2.zero, new Vector2(SlotSize - 18f, SlotSize - 18f));
+                }
+                else
+                {
+                    var name = UiFactory.Label("Name", bg.transform, def.Name, 16, Color.white);
+                    UiFactory.PlaceFixed((RectTransform)name.transform, new Vector2(0.5f, 0.5f),
+                        Vector2.zero, new Vector2(SlotSize, 20f));
+                }
 
                 if (def.GemCost > 0)
                 {
@@ -129,7 +158,7 @@ namespace RankE.UI
                     || f.IsWindingUp
                     || f.SpellGems < def.GemCost
                     || (f.IsCasting && !def.UsableWhileCasting);
-                slot.Background.color = blocked ? BlockedBg : ReadyBg;
+                slot.Background.color = blocked ? blockedColor : readyColor;
             }
         }
     }

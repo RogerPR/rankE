@@ -3,7 +3,8 @@
     "rootNamespace": "RankE.Editor",
     "references": [
         "RankE.Sim",
-        "RankE.Game"
+        "RankE.Game",
+        "RankE.UI"
     ],
     "includePlatforms": [
         "Editor"

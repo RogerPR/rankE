@@ -114,12 +114,20 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       (rigged, sim-reactive animation by semantic state name), **plus** a modular
       character creator and **skill VFX** (Cartoon FX Remaster Free) — reactive,
       data-driven registries built by `ArtSetupBuilder`. (commits through 3064c03)
+- [x] Wooden-UI + icon theming pass: data-driven `UiSkin` (Resources/RankE/UiSkin.asset,
+      built by `UiSkinBuilder`) skins the programmatic HUD/menus — `UiFactory` is now
+      sprite-aware (framed panels/buttons via SpriteSwap, wooden bar troughs + tintable
+      fills), the ability bar shows per-ability icons (`Assets/UI/Icons`, file name =
+      ability id). Fallback-safe to the flat look when a slot is unbuilt. 82 tests green.
+      Owed: drop game-icons.net PNGs in `Assets/UI/Icons` + re-run Build UI Skin; visual
+      Play-mode pass on the themed UI; final slot/icon tuning in the Inspector.
 - [ ] Tune timings by playing (GCD, parry window, locks) — sim stays data-driven.
 
-Next-session candidates (decide at session start): an in-play param-tweak screen to
-A/B combat configs, an ability→effect/anim authoring tool, downloading + wiring UI
-assets, more TBD. Before the gate sign-off: run the 82 EditMode tests headless and do
-the CFXR URP pink-material check.
+Next-session candidates (decide at session start): remaining parry juice (hitstop /
+camera shake / slow-mo riposte), BROKEN payoff, combo tracker + finisher UI, an SFX
+layer (AbilitySfxRegistry + FighterSfx), an in-play param-tweak screen, an
+ability→effect/anim authoring tool, more TBD. Before the gate sign-off: re-run the 82
+EditMode tests and do the CFXR URP pink-material check.
 
 **DoD (subjective gate):** you play 10 fights and *want more*. Parry feels great on
 controller. If not fun, iterate here — do NOT proceed to content.

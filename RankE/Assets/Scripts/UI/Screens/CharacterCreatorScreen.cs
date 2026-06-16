@@ -50,8 +50,8 @@ namespace RankE.UI
             UiFactory.PlaceStretch((RectTransform)panel.transform);
             root = panel.gameObject;
 
-            // Left slot panel (semi-opaque so the preview shows through on the right).
-            var side = UiFactory.Panel("SidePanel", panel.transform, new Color(0.06f, 0.06f, 0.1f, 0.92f));
+            // Left slot panel (framed; the 3D preview shows through on the right).
+            var side = UiFactory.Frame("SidePanel", panel.transform);
             UiFactory.PlaceFixed((RectTransform)side.transform, new Vector2(0f, 0.5f),
                 new Vector2(PanelWidth * 0.5f, 0f), new Vector2(PanelWidth, 1080f));
 

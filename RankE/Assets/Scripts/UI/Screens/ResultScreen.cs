@@ -21,16 +21,21 @@ namespace RankE.UI
             UiFactory.PlaceStretch((RectTransform)panel.transform);
             root = panel.gameObject;
 
-            title = UiFactory.Label("Title", panel.transform, "", 84, Color.white);
+            // Framed content box centred over the dim overlay.
+            var box = UiFactory.Frame("ResultBox", panel.transform);
+            UiFactory.PlaceFixed((RectTransform)box.transform, new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(900f, 560f));
+
+            title = UiFactory.Label("Title", box.transform, "", 84, Color.white);
             UiFactory.PlaceFixed((RectTransform)title.transform, new Vector2(0.5f, 0.5f),
                 new Vector2(0f, 160f), new Vector2(800f, 100f));
 
-            rematchButton = UiFactory.TextButton("Rematch", panel.transform, "REMATCH", 32,
+            rematchButton = UiFactory.TextButton("Rematch", box.transform, "REMATCH", 32,
                 () => match.Rematch());
             UiFactory.PlaceFixed((RectTransform)rematchButton.transform, new Vector2(0.5f, 0.5f),
                 new Vector2(0f, 0f), new Vector2(340f, 70f));
 
-            var loadout = UiFactory.TextButton("ChangeLoadout", panel.transform, "CHANGE LOADOUT", 32,
+            var loadout = UiFactory.TextButton("ChangeLoadout", box.transform, "CHANGE LOADOUT", 32,
                 () => match.BackToLoadout());
             UiFactory.PlaceFixed((RectTransform)loadout.transform, new Vector2(0.5f, 0.5f),
                 new Vector2(0f, -100f), new Vector2(340f, 70f));

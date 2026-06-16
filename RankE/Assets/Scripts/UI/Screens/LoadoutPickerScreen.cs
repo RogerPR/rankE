@@ -24,7 +24,7 @@ namespace RankE.UI
         {
             this.match = match;
 
-            var panel = UiFactory.Panel("LoadoutPicker", parent, new Color(0.06f, 0.06f, 0.1f, 0.98f));
+            var panel = UiFactory.Frame("LoadoutPicker", parent);
             UiFactory.PlaceStretch((RectTransform)panel.transform);
             root = panel.gameObject;
 

@@ -66,7 +66,7 @@ namespace RankE.Editor
         {
             EditorGUILayout.HelpBox(
                 Application.isPlaying
-                    ? "Sim edits apply on the NEXT fight (Rematch). Presentation knobs apply live."
+                    ? "Sim edits apply on the NEXT fight — press Restart fight. Presentation knobs apply live."
                     : "Enter Play to tune a running fight. Values reset on domain reload — use Copy values to keep good ones.",
                 Application.isPlaying ? MessageType.Info : MessageType.Warning);
         }
@@ -174,13 +174,11 @@ namespace RankE.Editor
                     profile.ResetToDefaults();
 
                 var match = FindFirstObjectByType<MatchController>();
-                bool canRematch = match != null &&
-                    (match.State == MatchState.Result || match.State == MatchState.Loadout);
-                using (new EditorGUI.DisabledScope(!canRematch))
+                using (new EditorGUI.DisabledScope(match == null))
                 {
-                    if (GUILayout.Button(new GUIContent("Rematch",
-                        "Apply sim edits now (only from the Result/Loadout screen).")) && match != null)
-                        match.Rematch();
+                    if (GUILayout.Button(new GUIContent("Restart fight",
+                        "Rebuild the fight now (from any state) so sim edits apply immediately.")) && match != null)
+                        match.RestartFight();
                 }
 
                 if (GUILayout.Button("Copy values"))

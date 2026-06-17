@@ -54,7 +54,22 @@ namespace RankE.Game
         public void StartMatch()
         {
             if (State != MatchState.Loadout && State != MatchState.Result) return;
+            BeginFight();
+        }
 
+        public void Rematch() => StartMatch();
+
+        /// <summary>
+        /// Dev/tuning: rebuild the fight immediately from ANY state. Tuning edits apply on the
+        /// next fight (each fight clones the live TuningProfile in BattleDriver.Begin), so this
+        /// is how the Combat Tuning window applies a change without playing the current fight
+        /// out to its end. Pure flow — no sim/gameplay logic here.
+        /// </summary>
+        public void RestartFight() => BeginFight();
+
+        /// <summary>Build both configs + a fresh battle and run the countdown. No state guard.</summary>
+        void BeginFight()
+        {
             var player = Loadout.BuildPlayerConfig();
             var enemy = PocContent.DefaultConfig(Loadout.EnemyVisualName);
             Driver.Begin(player, enemy, new PocBehaviorProfile(), EnemyTelegraphTicks, seeds.Next());
@@ -64,8 +79,6 @@ namespace RankE.Game
             CountdownRemaining = CountdownSeconds;
             SetState(MatchState.Countdown);
         }
-
-        public void Rematch() => StartMatch();
 
         public void BackToLoadout()
         {

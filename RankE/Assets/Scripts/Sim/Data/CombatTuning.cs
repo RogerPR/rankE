@@ -34,5 +34,8 @@ namespace RankE.Sim
 
         /// <summary>Safety cap for headless runs; fights hitting it count as draws.</summary>
         public int MaxTicks = 24000;
+
+        /// <summary>Flat copy so the tuning tool edits a source each new fight clones from.</summary>
+        public CombatTuning Clone() => (CombatTuning)MemberwiseClone();
     }
 }

@@ -48,6 +48,17 @@ namespace RankE.Sim
 
         public int DurationTicks;
 
+        /// <summary>Independent copy (the tuning tools edit clones so the live fight is untouched).</summary>
+        public EffectDef Clone() => new EffectDef
+        {
+            Target = Target,
+            Kind = Kind,
+            Amount = Amount,
+            School = School,
+            StatusId = StatusId,
+            DurationTicks = DurationTicks,
+        };
+
         public static EffectDef Damage(int amount, string school = Schools.Physical) =>
             new EffectDef { Kind = EffectKinds.Damage, Target = EffectTarget.Opponent, Amount = amount, School = school };
 

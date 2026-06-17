@@ -121,13 +121,23 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       ability id). Fallback-safe to the flat look when a slot is unbuilt. 82 tests green.
       Owed: drop game-icons.net PNGs in `Assets/UI/Icons` + re-run Build UI Skin; visual
       Play-mode pass on the themed UI; final slot/icon tuning in the Inspector.
-- [ ] Tune timings by playing (GCD, parry window, locks) — sim stays data-driven.
+- [~] Tune timings by playing (GCD, parry window, locks) — sim stays data-driven.
+      (Tooling in: **Combat Tuning** window `Tools ▸ RANK E ▸ Combat Tuning` edits a held
+      `TuningProfile` — CombatTuning globals + per-ability cd/cast/lock/effect amounts +
+      presentation knobs. Sim edits apply on the **next fight** (each fight clones the
+      profile in `BattleDriver.Begin`, keeping fights deterministic); Rematch to feel a
+      change. Still owed: the actual play-and-tune pass to find good numbers.)
+- [x] Combat-tweak authoring: **Ability Authoring** window `Tools ▸ RANK E ▸ Ability
+      Authoring` — per-ability Animator-state pickers (`FighterVisualDef.AbilityStates`)
+      + VFX slot pickers (`AbilityVfxRegistry`), reaction cues, feel knobs, icon map.
+      Replaces hand-editing the registry `.asset` files / re-running keyword heuristics.
+      Sim Clone() helpers (`CombatTuning`/`AbilityDef`/`EffectDef`) added; 84 tests green.
 
 Next-session candidates (decide at session start): remaining parry juice (hitstop /
 camera shake / slow-mo riposte), BROKEN payoff, combo tracker + finisher UI, an SFX
-layer (AbilitySfxRegistry + FighterSfx), an in-play param-tweak screen, an
-ability→effect/anim authoring tool, more TBD. Before the gate sign-off: re-run the 82
-EditMode tests and do the CFXR URP pink-material check.
+layer (AbilitySfxRegistry + FighterSfx), the in-fight HUD redesign with the wooden kit,
+more TBD. Before the gate sign-off: re-run the EditMode tests (84) and do the CFXR URP
+pink-material check.
 
 **DoD (subjective gate):** you play 10 fights and *want more*. Parry feels great on
 controller. If not fun, iterate here — do NOT proceed to content.

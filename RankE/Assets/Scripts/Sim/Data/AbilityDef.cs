@@ -63,5 +63,31 @@ namespace RankE.Sim
         public bool UsableWhileCasting;
 
         public List<EffectDef> Effects = new List<EffectDef>();
+
+        /// <summary>Deep copy (incl. Effects) so the tuning tools edit a source the live fight clones from.</summary>
+        public AbilityDef Clone()
+        {
+            var copy = new AbilityDef
+            {
+                Id = Id,
+                Name = Name,
+                Gcd = Gcd,
+                CooldownTicks = CooldownTicks,
+                CastTicks = CastTicks,
+                Interruptible = Interruptible,
+                DelayTicks = DelayTicks,
+                PreLockTicks = PreLockTicks,
+                PostLockTicks = PostLockTicks,
+                ComboTag = ComboTag,
+                Parriable = Parriable,
+                IsMelee = IsMelee,
+                GemCost = GemCost,
+                UsableWhileCasting = UsableWhileCasting,
+                Effects = new List<EffectDef>(Effects.Count),
+            };
+            for (int i = 0; i < Effects.Count; i++)
+                copy.Effects.Add(Effects[i].Clone());
+            return copy;
+        }
     }
 }

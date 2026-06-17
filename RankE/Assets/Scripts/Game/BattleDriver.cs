@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using RankE.Sim;
 using UnityEngine;
 
@@ -39,12 +40,41 @@ namespace RankE.Game
         public void Begin(FighterConfig player, FighterConfig enemy, IBehavior enemyAi,
             int telegraphTicks, int seed)
         {
-            Battle = new Battle(player, enemy, PocContent.CreateContent(), PocContent.CreateTuning(), seed);
+            // Apply the live tuning profile by CLONING it into this fight (the source the
+            // Combat Tuning window edits). Cloning keeps the running fight deterministic —
+            // editing the profile mid-fight lands on the next Begin (Rematch), not this one.
+            var profile = TuningProfile.Active;
+            var content = PocContent.CreateContent();
+            ApplyProfileToContent(profile, content);
+            ApplyProfileToConfig(profile, player);
+            ApplyProfileToConfig(profile, enemy);
+
+            Battle = new Battle(player, enemy, content, profile.Tuning.Clone(), seed);
             EnemyBehavior = new TelegraphBehavior(enemyAi, telegraphTicks);
             EnemyTelegraphTicksTotal = telegraphTicks;
             accumulator = 0f;
             eventCursor = 0;
             Running = false; // MatchController flips this when the countdown ends
+        }
+
+        /// <summary>Overwrite content ability entries (e.g. riposte lookup) with tuned clones.</summary>
+        static void ApplyProfileToContent(TuningProfile profile, ContentDb content)
+        {
+            var ids = new List<string>(content.Abilities.Keys);
+            foreach (var id in ids)
+            {
+                var tuned = profile.CloneAbility(id);
+                if (tuned != null) content.Abilities[id] = tuned;
+            }
+        }
+
+        /// <summary>Overwrite a fighter's loadout + auto-attack with tuned clones.</summary>
+        static void ApplyProfileToConfig(TuningProfile profile, FighterConfig config)
+        {
+            if (config == null) return;
+            profile.ApplyTo(config.Abilities);
+            var auto = profile.CloneAbility(config.AutoAttack?.Id);
+            if (auto != null) config.AutoAttack = auto;
         }
 
         void Update()

@@ -179,6 +179,47 @@ namespace RankE.UI
             return t;
         }
 
+        /// <summary>
+        /// A vertical scroll list: returns the ScrollRect and (out) its content transform,
+        /// which carries a top-anchored VerticalLayoutGroup + ContentSizeFitter so rows added
+        /// to <paramref name="content"/> stack and the viewport scrolls. Used by the in-game
+        /// tuning panel; ordinary screens place widgets by hand.
+        /// </summary>
+        public static ScrollRect ScrollView(string name, Transform parent, out RectTransform content)
+        {
+            var viewport = Rect(name, parent);
+            var vpImg = viewport.gameObject.AddComponent<Image>();
+            vpImg.color = new Color(0f, 0f, 0f, 0.001f); // near-invisible, just a raycast/mask target
+            viewport.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+
+            content = Rect("Content", viewport);
+            content.anchorMin = new Vector2(0f, 1f);
+            content.anchorMax = new Vector2(1f, 1f);
+            content.pivot = new Vector2(0.5f, 1f);
+            content.anchoredPosition = Vector2.zero;
+            content.sizeDelta = new Vector2(0f, 0f);
+
+            var layout = content.gameObject.AddComponent<VerticalLayoutGroup>();
+            layout.childControlWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandWidth = true;
+            layout.childForceExpandHeight = false;
+            layout.spacing = 6f;
+            layout.padding = new RectOffset(14, 14, 12, 12);
+
+            var fitter = content.gameObject.AddComponent<ContentSizeFitter>();
+            fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            var scroll = viewport.gameObject.AddComponent<ScrollRect>();
+            scroll.content = content;
+            scroll.viewport = viewport;
+            scroll.horizontal = false;
+            scroll.vertical = true;
+            scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 24f;
+            return scroll;
+        }
+
         public static Button TextButton(string name, Transform parent, string label,
             int fontSize, UnityAction onClick)
         {

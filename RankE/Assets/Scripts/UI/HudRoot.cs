@@ -1,5 +1,7 @@
 using RankE.Game;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace RankE.UI
 {
@@ -22,6 +24,8 @@ namespace RankE.UI
         CountdownOverlay countdown;
         ResultScreen result;
         GameObject pauseOverlay;
+        Button pauseFirstButton;
+        TuningPanelScreen tuning;
 
         void Start()
         {
@@ -69,6 +73,13 @@ namespace RankE.UI
 
             // Overlays/screens, on top of the HUD in hierarchy order.
             pauseOverlay = BuildPauseOverlay(canvas.transform);
+            tuning = canvas.gameObject.AddComponent<TuningPanelScreen>();
+            tuning.Init(match, canvas.transform); // on top of the pause overlay when opened
+            tuning.Closed = () => // hand controller selection back to the pause menu
+            {
+                if (EventSystem.current != null)
+                    EventSystem.current.SetSelectedGameObject(pauseFirstButton.gameObject);
+            };
             countdown = canvas.gameObject.AddComponent<CountdownOverlay>();
             countdown.Init(match, canvas.transform);
             result = canvas.gameObject.AddComponent<ResultScreen>();
@@ -83,17 +94,36 @@ namespace RankE.UI
             OnStateChanged(match.State);
         }
 
-        static GameObject BuildPauseOverlay(Transform parent)
+        GameObject BuildPauseOverlay(Transform parent)
         {
             var panel = UiFactory.Panel("PauseOverlay", parent, new Color(0f, 0f, 0f, 0.6f));
+            panel.raycastTarget = true; // swallow clicks so they don't reach HUD widgets behind
             UiFactory.PlaceStretch((RectTransform)panel.transform);
             var box = UiFactory.Frame("PauseBox", panel.transform);
             UiFactory.PlaceFixed((RectTransform)box.transform, new Vector2(0.5f, 0.5f),
-                Vector2.zero, new Vector2(760f, 300f));
-            var label = UiFactory.Label("Label", box.transform,
-                "PAUSED\n(Esc / Start to resume)", 60, Color.white);
-            UiFactory.PlaceStretch((RectTransform)label.transform);
+                Vector2.zero, new Vector2(620f, 560f));
+
+            var title = UiFactory.Label("Title", box.transform, "PAUSED", 56,
+                new Color(1f, 0.86f, 0.5f));
+            UiFactory.PlaceFixed((RectTransform)title.transform, new Vector2(0.5f, 1f),
+                new Vector2(0f, -40f), new Vector2(500f, 70f));
+
+            // Resume / Tune / Restart Fight / Back to Loadout, stacked.
+            pauseFirstButton = PauseButton(box.transform, "RESUME", 150f, () => match.TogglePause());
+            PauseButton(box.transform, "TUNE…", 60f, () => tuning.Show(true));
+            PauseButton(box.transform, "RESTART FIGHT", -30f, () => match.RestartFight());
+            PauseButton(box.transform, "BACK TO LOADOUT", -120f, () => match.QuitToLoadout());
+
             return panel.gameObject;
+        }
+
+        static Button PauseButton(Transform box, string label, float y,
+            UnityEngine.Events.UnityAction onClick)
+        {
+            var btn = UiFactory.TextButton(label, box, label, 30, onClick);
+            UiFactory.PlaceFixed((RectTransform)btn.transform, new Vector2(0.5f, 0.5f),
+                new Vector2(0f, y), new Vector2(440f, 70f));
+            return btn;
         }
 
         void OnDestroy()
@@ -109,6 +139,10 @@ namespace RankE.UI
             countdown.Show(state == MatchState.Countdown);
             result.Show(state == MatchState.Result);
             pauseOverlay.SetActive(state == MatchState.Paused);
+            if (state != MatchState.Paused) tuning.Show(false); // tuning lives inside pause
+
+            if (state == MatchState.Paused && EventSystem.current != null)
+                EventSystem.current.SetSelectedGameObject(pauseFirstButton.gameObject);
 
             if (state == MatchState.Countdown)
             {

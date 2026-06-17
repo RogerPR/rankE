@@ -126,7 +126,16 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       `TuningProfile` — CombatTuning globals + per-ability cd/cast/lock/effect amounts +
       presentation knobs. Sim edits apply on the **next fight** (each fight clones the
       profile in `BattleDriver.Begin`, keeping fights deterministic); Rematch to feel a
-      change. Still owed: the actual play-and-tune pass to find good numbers.)
+      change. **In-game twin added**: the ESC pause menu is now a real menu (Resume / Tune /
+      Restart Fight / Back to Loadout) and **Tune…** opens `TuningPanelScreen` — a
+      controller-friendly runtime panel editing the same `TuningProfile.Active` + VFX feel
+      knobs, with **Apply & Restart** (`MatchController.RestartFight`) to feel a sim edit
+      without alt-tabbing to the editor window. Still owed: the actual play-and-tune pass to
+      find good numbers.)
+- [x] Arena dressing (`Tools ▸ RANK E ▸ Build Arena`): the backdrop is no longer a bare
+      gradient — gradient sky + two arched-colonnade silhouettes (depth) + horizon contact
+      band + camera-space vignette, all generated/asset-free and re-runnable. Run it on the
+      CombatScene and save. (CFXR URP pink-material check still owed.)
 - [x] Combat-tweak authoring: **Ability Authoring** window `Tools ▸ RANK E ▸ Ability
       Authoring` — per-ability Animator-state pickers (`FighterVisualDef.AbilityStates`)
       + VFX slot pickers (`AbilityVfxRegistry`), reaction cues, feel knobs, icon map.

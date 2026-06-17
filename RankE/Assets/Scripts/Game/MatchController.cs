@@ -86,6 +86,17 @@ namespace RankE.Game
             SetState(MatchState.Loadout);
         }
 
+        /// <summary>
+        /// Abandon the current fight from the pause menu and return to the loadout screen.
+        /// Unlike <see cref="BackToLoadout"/> (Result-only), this is reachable mid-fight; it
+        /// just stops the driver and changes state — no sim/gameplay logic.
+        /// </summary>
+        public void QuitToLoadout()
+        {
+            Driver.Running = false;
+            SetState(MatchState.Loadout);
+        }
+
         public void TogglePause()
         {
             if (State == MatchState.Fighting)

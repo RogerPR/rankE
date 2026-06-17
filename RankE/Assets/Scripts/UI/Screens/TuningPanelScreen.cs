@@ -25,6 +25,7 @@ namespace RankE.UI
     {
         MatchController match;
         GameObject root;
+        RectTransform content;
         Button applyButton;
 
         /// <summary>Raised when the user dismisses the panel via Close (not a state-change hide),
@@ -56,14 +57,15 @@ namespace RankE.UI
                 new Vector2(0f, -18f), new Vector2(1000f, 56f));
 
             // Scroll list fills the box between the title and the footer buttons.
-            UiFactory.ScrollView("TuningScroll", box.transform, out var content);
+            UiFactory.ScrollView("TuningScroll", box.transform, out content);
             var vp = (RectTransform)content.parent;
             vp.anchorMin = Vector2.zero;
             vp.anchorMax = Vector2.one;
             vp.offsetMin = new Vector2(22f, 96f);
             vp.offsetMax = new Vector2(-22f, -84f);
 
-            BuildRows(content);
+            try { BuildRows(content); }
+            catch (System.Exception e) { Debug.LogError("TuningPanel BuildRows failed: " + e); }
             BuildFooter(box.transform);
 
             root.SetActive(false);
@@ -163,6 +165,11 @@ namespace RankE.UI
             root.SetActive(on);
             if (!on) return;
             RefreshAll();
+            // The panel is built then deactivated in the same frame (HudRoot.Start), so the
+            // layout group / ContentSizeFitter never got their end-of-frame rebuild and the
+            // content sits at zero height. Force it now that we're visible.
+            if (content != null)
+                LayoutRebuilder.ForceRebuildLayoutImmediate(content);
             if (EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(applyButton.gameObject);
         }

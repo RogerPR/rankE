@@ -189,8 +189,8 @@ namespace RankE.UI
         {
             var viewport = Rect(name, parent);
             var vpImg = viewport.gameObject.AddComponent<Image>();
-            vpImg.color = new Color(0f, 0f, 0f, 0.001f); // near-invisible, just a raycast/mask target
-            viewport.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+            vpImg.color = new Color(0f, 0f, 0f, 0.001f); // transparent raycast target for drag-scroll
+            viewport.gameObject.AddComponent<RectMask2D>(); // rect clip — no stencil/alpha pitfalls
 
             content = Rect("Content", viewport);
             content.anchorMin = new Vector2(0f, 1f);

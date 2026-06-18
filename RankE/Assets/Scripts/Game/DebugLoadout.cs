@@ -1,38 +1,21 @@
-using System;
-using System.Collections.Generic;
-using RankE.Sim;
-
 namespace RankE.Game
 {
     /// <summary>
-    /// Debug-only loadout selection over the PoC content pools (Phase 2 checkbox).
-    /// Real acquisition arrives via run rewards in Phase 4; this just lets a tester
-    /// assemble a FighterConfig. Plain C# so screens stay dumb.
+    /// Debug-only loadout selection (Phase 2 checkbox). Owns the <b>presentation</b> choices
+    /// for the picker — player/enemy visual prefab + the modular character appearance — and
+    /// exposes the player <b>build</b> (stats/abilities/gear) by delegating to
+    /// <see cref="TuningProfile.Active"/>.<see cref="TuningProfile.Player"/>, so the picker and
+    /// the in-game tuning panel edit one shared player build. Real acquisition arrives via run
+    /// rewards in Phase 4. Plain C# so screens stay dumb.
     /// </summary>
     public sealed class DebugLoadout
     {
-        static readonly Func<GearDef>[] Stances =
-            { PocContent.StanceRock, PocContent.StanceWind, PocContent.StanceWater };
-        static readonly Func<GearDef>[] Weapons =
-            { PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand };
-        static readonly Func<GearDef>[] Armors =
-            { PocContent.ArmorLight, PocContent.ArmorMedium, PocContent.ArmorHeavy };
-
-        /// <summary>Pool for the 4 main bar slots; quick slots are fixed Parry+Kick.</summary>
-        static readonly Func<AbilityDef>[] AbilityPool =
-        {
-            PocContent.Slash, PocContent.Bash, PocContent.Fireball,
-            PocContent.Vampiro, PocContent.FallingStar, PocContent.Lunge,
-        };
-
-        public int StanceIndex;
-        public int WeaponIndex;
-        public int ArmorIndex;
-        public readonly int[] AbilityIndices = { 0, 1, 2, 3 };
+        TuningProfile Profile => TuningProfile.Active;
+        FighterBuild Build => Profile.Player;
 
         // Presentation-only model selection (player character + enemy monster). These
-        // pick which prefab FighterStage spawns; they don't touch the sim FighterConfig,
-        // except the enemy's display name is taken from the chosen monster.
+        // pick which prefab FighterStage spawns; they don't touch the sim build, except
+        // the enemy's display name is taken from the chosen monster.
         // Lazy: Resources.Load can't run from a field initializer/constructor.
         FighterVisualRegistry visualsCache;
         FighterVisualRegistry Visuals =>
@@ -63,10 +46,11 @@ namespace RankE.Game
         public string EnemyVisualName =>
             EnemyVisualCount > 0 ? Visuals.MonsterAt(EnemyVisualIndex).DisplayName : "Bandit";
 
-        public string StanceName => Stances[StanceIndex]().Name;
-        public string WeaponName => Weapons[WeaponIndex]().Name;
-        public string ArmorName => Armors[ArmorIndex]().Name;
-        public string AbilityName(int slot) => AbilityPool[AbilityIndices[slot]]().Name;
+        // Build view — reads/writes the shared player build via the loadout pools.
+        public string StanceName => LoadoutPools.GearName(Build.Gear, LoadoutPools.Stances);
+        public string WeaponName => LoadoutPools.GearName(Build.Gear, LoadoutPools.Weapons);
+        public string ArmorName => LoadoutPools.GearName(Build.Gear, LoadoutPools.Armors);
+        public string AbilityName(int slot) => Build.AbilityName(Profile, slot);
 
         public void CyclePlayerVisual(int dir)
         {
@@ -78,58 +62,13 @@ namespace RankE.Game
             if (EnemyVisualCount > 0) EnemyVisualIndex = Wrap(EnemyVisualIndex + dir, EnemyVisualCount);
         }
 
-        public void CycleStance(int dir) => StanceIndex = Wrap(StanceIndex + dir, Stances.Length);
-        public void CycleWeapon(int dir) => WeaponIndex = Wrap(WeaponIndex + dir, Weapons.Length);
-        public void CycleArmor(int dir) => ArmorIndex = Wrap(ArmorIndex + dir, Armors.Length);
+        public void CycleStance(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Stances, dir);
+        public void CycleWeapon(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Weapons, dir);
+        public void CycleArmor(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Armors, dir);
 
-        /// <summary>Cycle one bar slot, skipping abilities already in other slots.</summary>
-        public void CycleAbility(int slot, int dir)
-        {
-            int idx = AbilityIndices[slot];
-            for (int hop = 0; hop < AbilityPool.Length; hop++)
-            {
-                idx = Wrap(idx + dir, AbilityPool.Length);
-                if (!Taken(idx, slot))
-                {
-                    AbilityIndices[slot] = idx;
-                    return;
-                }
-            }
-        }
-
-        bool Taken(int poolIndex, int exceptSlot)
-        {
-            for (int s = 0; s < AbilityIndices.Length; s++)
-                if (s != exceptSlot && AbilityIndices[s] == poolIndex) return true;
-            return false;
-        }
-
-        public FighterConfig BuildPlayerConfig(string name = "Player")
-        {
-            var abilities = new List<AbilityDef>();
-            foreach (var i in AbilityIndices)
-                abilities.Add(AbilityPool[i]());
-            abilities.Add(PocContent.Parry());
-            abilities.Add(PocContent.Kick());
-
-            return new FighterConfig
-            {
-                Name = name,
-                MaxHp = 500,
-                SpellGems = 8,
-                AutoAttack = PocContent.AutoAttack(),
-                Abilities = abilities,
-                Build = new BuildState
-                {
-                    Gear = new List<GearDef>
-                    {
-                        Stances[StanceIndex](),
-                        Weapons[WeaponIndex](),
-                        Armors[ArmorIndex](),
-                    },
-                },
-            };
-        }
+        /// <summary>Cycle one main bar slot, skipping abilities already in other main slots.</summary>
+        public void CycleAbility(int slot, int dir) =>
+            LoadoutPools.CycleAbility(Build.AbilityIds, slot, dir, Build.MainSlotCount);
 
         static int Wrap(int v, int n) => ((v % n) + n) % n;
     }

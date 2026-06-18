@@ -20,8 +20,14 @@ namespace RankE.Game
     {
         public CombatTuning Tuning;
 
-        /// <summary>Ability id → editable definition (cooldowns, cast/lock ticks, effect amounts).</summary>
+        /// <summary>Ability id → editable definition (cooldowns, cast/lock ticks, effect amounts).
+        /// The shared library both builds select from.</summary>
         public readonly Dictionary<string, AbilityDef> Abilities = new Dictionary<string, AbilityDef>();
+
+        /// <summary>The two per-character builds (stats + ability selection + gear). Distinct from
+        /// the shared globals/library above; each fight resolves these into FighterConfigs.</summary>
+        public FighterBuild Player;
+        public FighterBuild Adversary;
 
         static TuningProfile active;
 
@@ -33,6 +39,8 @@ namespace RankE.Game
             var profile = new TuningProfile { Tuning = PocContent.CreateTuning() };
             foreach (var kv in PocContent.CreateContent().Abilities)
                 profile.Abilities[kv.Key] = kv.Value.Clone();
+            profile.Player = FighterBuild.DefaultPlayer();
+            profile.Adversary = FighterBuild.DefaultAdversary();
             return profile;
         }
 
@@ -43,6 +51,8 @@ namespace RankE.Game
             Abilities.Clear();
             foreach (var kv in PocContent.CreateContent().Abilities)
                 Abilities[kv.Key] = kv.Value.Clone();
+            Player = FighterBuild.DefaultPlayer();
+            Adversary = FighterBuild.DefaultAdversary();
         }
 
         /// <summary>A fresh clone of the tuned definition for an ability, or null if unknown.</summary>

@@ -70,8 +70,12 @@ namespace RankE.Game
         /// <summary>Build both configs + a fresh battle and run the countdown. No state guard.</summary>
         void BeginFight()
         {
-            var player = Loadout.BuildPlayerConfig();
-            var enemy = PocContent.DefaultConfig(Loadout.EnemyVisualName);
+            // Both fighters resolve from their editable builds on the tuning profile (stats +
+            // ability selection + gear); the enemy keeps the chosen monster's display name.
+            var profile = TuningProfile.Active;
+            var player = profile.Player.ToConfig(profile);
+            var enemy = profile.Adversary.ToConfig(profile);
+            enemy.Name = Loadout.EnemyVisualName;
             Driver.Begin(player, enemy, new PocBehaviorProfile(), EnemyTelegraphTicks, seeds.Next());
             Input.SetLoadout(player.Abilities);
             Input.Buffer.Clear();

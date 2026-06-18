@@ -77,21 +77,12 @@ namespace RankE.UI
         {
             var profile = TuningProfile.Active;
 
-            AddHeader(content, "Combat globals");
-            foreach (var f in typeof(CombatTuning).GetFields(BindingFlags.Public | BindingFlags.Instance))
-            {
-                if (f.FieldType == typeof(int))
-                    AddStepper(content, ObjectNames(f.Name),
-                        () => (int)f.GetValue(profile.Tuning),
-                        v => f.SetValue(profile.Tuning, (int)Math.Round(v)), 1, true);
-                else if (f.FieldType == typeof(double))
-                    AddStepper(content, ObjectNames(f.Name),
-                        () => (double)f.GetValue(profile.Tuning),
-                        v => f.SetValue(profile.Tuning, v), 0.05, false);
-                // string ids (status/ability lookups) aren't feel knobs — skipped, like the window.
-            }
+            // 1) Global rules — system-wide, applies to both fighters, not build-dependent.
+            AddHeader(content, "Global rules");
+            ReflectFields(content, typeof(CombatTuning), () => profile.Tuning);
 
-            AddHeader(content, "Per-ability (ticks · 20/s)");
+            // 2) Ability library — one shared definition per ability; builds select these.
+            AddHeader(content, "Ability library (ticks · 20/s)");
             var ids = new List<string>(profile.Abilities.Keys);
             ids.Sort();
             foreach (var id in ids)
@@ -110,6 +101,14 @@ namespace RankE.UI
                     AddIntField(content, dmg.Kind == EffectKinds.BreakDamage ? "Break amount" : "Damage",
                         () => dmg.Amount, v => dmg.Amount = v);
             }
+
+            // 3) & 4) Per-character builds — stats + which abilities each fighter carries.
+            // Resolve the build lazily so Reset (which replaces the build objects) is reflected.
+            AddHeader(content, "Player build");
+            BuildFighterBlock(content, profile, () => profile.Player);
+
+            AddHeader(content, "Adversary build");
+            BuildFighterBlock(content, profile, () => profile.Adversary);
 
             var vfx = AbilityVfxRegistry.Load();
             if (vfx != null)
@@ -132,6 +131,46 @@ namespace RankE.UI
                     return e;
             }
             return null;
+        }
+
+        /// <summary>Emit a stepper per public int/double field of a plain-data object (the same
+        /// reflection used for the global rules and a build's stat sheet). The target is fetched
+        /// lazily so Reset (which swaps in fresh objects) is picked up by every row.</summary>
+        void ReflectFields(Transform content, Type type, Func<object> target)
+        {
+            foreach (var f in type.GetFields(BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (f.FieldType == typeof(int))
+                    AddStepper(content, ObjectNames(f.Name),
+                        () => (int)f.GetValue(target()),
+                        v => f.SetValue(target(), (int)Math.Round(v)), 1, true);
+                else if (f.FieldType == typeof(double))
+                    AddStepper(content, ObjectNames(f.Name),
+                        () => (double)f.GetValue(target()),
+                        v => f.SetValue(target(), v), 0.05, false);
+                // string ids aren't feel knobs — skipped, like the editor window.
+            }
+        }
+
+        /// <summary>One per-character build block: HP/gems, the stat sheet, and a cycler per
+        /// swappable main ability slot. The build is resolved lazily (via <paramref name="get"/>)
+        /// so Reset is reflected; slot count is fixed at build time (no add/remove UI).</summary>
+        void BuildFighterBlock(Transform content, TuningProfile profile, Func<FighterBuild> get)
+        {
+            var build = get();
+            if (build == null) return;
+            AddIntField(content, "Max HP", () => get().MaxHp, v => get().MaxHp = v);
+            AddIntField(content, "Spell gems", () => get().SpellGems, v => get().SpellGems = v);
+            ReflectFields(content, typeof(StatSheet), () => get().Stats);
+
+            int slots = Math.Min(build.MainSlotCount, build.AbilityIds.Count);
+            for (int i = 0; i < slots; i++)
+            {
+                int slot = i;
+                AddCycler(content, "Ability " + (slot + 1),
+                    () => get().AbilityName(profile, slot),
+                    dir => LoadoutPools.CycleAbility(get().AbilityIds, slot, dir, get().MainSlotCount));
+            }
         }
 
         void BuildFooter(Transform box)
@@ -206,6 +245,27 @@ namespace RankE.UI
             inc.onClick.AddListener(() => up());
             dec.gameObject.AddComponent<HoldRepeat>().OnRepeat = down;
             inc.gameObject.AddComponent<HoldRepeat>().OnRepeat = up;
+
+            refresh();
+            refreshers.Add(refresh);
+        }
+
+        // A discrete left/right selector: [label] [<] name [>]. The string twin of AddStepper,
+        // used for picking an ability slot out of the shared library.
+        void AddCycler(Transform parent, string label, Func<string> getName, Action<int> cycle)
+        {
+            var row = AddRow(parent, 46f);
+            var lbl = UiFactory.Label("L", row, label, 24, LabelColor, TextAnchor.MiddleLeft);
+            Flexible(lbl.rectTransform);
+
+            var dec = StepButton(row, "<");
+            var valT = UiFactory.Label("V", row, "", 22, Color.white);
+            FixedWidth(valT.rectTransform, 280f);
+            var inc = StepButton(row, ">");
+
+            Action refresh = () => valT.text = getName();
+            dec.onClick.AddListener(() => { cycle(-1); refresh(); });
+            inc.onClick.AddListener(() => { cycle(+1); refresh(); });
 
             refresh();
             refreshers.Add(refresh);

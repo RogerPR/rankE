@@ -130,7 +130,14 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       Restart Fight / Back to Loadout) and **Tune…** opens `TuningPanelScreen` — a
       controller-friendly runtime panel editing the same `TuningProfile.Active` + VFX feel
       knobs, with **Apply & Restart** (`MatchController.RestartFight`) to feel a sim edit
-      without alt-tabbing to the editor window. Still owed: the actual play-and-tune pass to
+      without alt-tabbing to the editor window. **Reorganized into four tiers** so global vs
+      per-character knobs tune separately: *Global rules* (`CombatTuning`), *Ability library*
+      (shared `AbilityDef` numbers), *Player build* and *Adversary build* — each a
+      `FighterBuild` (`TuningProfile.Player`/`.Adversary`) with editable stats (HP/gems +
+      `StatSheet`) and a per-slot ability selection from the shared library. The adversary is
+      now a first-class editable build (replaces the hardcoded `PocContent.DefaultConfig`), so
+      asymmetric end-game test fights can be crafted; the loadout picker edits the same
+      `profile.Player` (one source of truth). Still owed: the actual play-and-tune pass to
       find good numbers.)
 - [x] Arena dressing (`Tools ▸ RANK E ▸ Build Arena`): the backdrop is no longer a bare
       gradient — gradient sky + two arched-colonnade silhouettes (depth) + horizon contact

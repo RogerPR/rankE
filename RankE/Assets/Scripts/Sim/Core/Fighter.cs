@@ -193,37 +193,10 @@ namespace RankE.Sim
         /// gets cloned with adjusted damage amounts.</summary>
         static AbilityDef CloneWithDamage(AbilityDef def, int damage)
         {
-            var effects = new List<EffectDef>();
-            foreach (var e in def.Effects)
-            {
-                effects.Add(new EffectDef
-                {
-                    Target = e.Target,
-                    Kind = e.Kind,
-                    Amount = e.Kind == EffectKinds.Damage ? damage : e.Amount,
-                    School = e.School,
-                    StatusId = e.StatusId,
-                    DurationTicks = e.DurationTicks,
-                });
-            }
-            return new AbilityDef
-            {
-                Id = def.Id,
-                Name = def.Name,
-                Gcd = def.Gcd,
-                CooldownTicks = def.CooldownTicks,
-                CastTicks = def.CastTicks,
-                Interruptible = def.Interruptible,
-                DelayTicks = def.DelayTicks,
-                PreLockTicks = def.PreLockTicks,
-                PostLockTicks = def.PostLockTicks,
-                ComboTag = def.ComboTag,
-                Parriable = def.Parriable,
-                IsMelee = def.IsMelee,
-                GemCost = def.GemCost,
-                UsableWhileCasting = def.UsableWhileCasting,
-                Effects = effects,
-            };
+            var copy = def.Clone();
+            foreach (var e in copy.Effects)
+                if (e.Kind == EffectKinds.Damage) e.Amount = damage;
+            return copy;
         }
     }
 }

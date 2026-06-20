@@ -41,6 +41,7 @@ namespace RankE.Game
                 profile.Abilities[kv.Key] = kv.Value.Clone();
             profile.Player = FighterBuild.DefaultPlayer();
             profile.Adversary = FighterBuild.DefaultAdversary();
+            ApplyPaceDefaults(profile);
             return profile;
         }
 
@@ -53,6 +54,26 @@ namespace RankE.Game
                 Abilities[kv.Key] = kv.Value.Clone();
             Player = FighterBuild.DefaultPlayer();
             Adversary = FighterBuild.DefaultAdversary();
+            ApplyPaceDefaults(this);
+        }
+
+        /// <summary>
+        /// The game's shipped tuning sits a notch slower than the raw PoC reference numbers in
+        /// <see cref="PocContent"/> (which stays PoC-faithful for the sim tests). This is the one
+        /// place the slower-pace defaults live; the control panel edits them further. Keeps the
+        /// enemy's ~3s Slash rhythm honest (Slash is off cooldown by the next beat).
+        /// </summary>
+        static void ApplyPaceDefaults(TuningProfile profile)
+        {
+            profile.Tuning.GcdTicks = 30; // 1.5s normal GCD (PoC 1.0s) — calmer player cadence
+            SetCooldown(profile, PocContent.SlashId, 60);      // 3s — aligns with the enemy beat
+            SetCooldown(profile, PocContent.AutoAttackId, 60); // 3s — slower chip damage
+        }
+
+        static void SetCooldown(TuningProfile profile, string id, int ticks)
+        {
+            if (profile.Abilities.TryGetValue(id, out var def) && def != null)
+                def.CooldownTicks = ticks;
         }
 
         /// <summary>A fresh clone of the tuned definition for an ability, or null if unknown.</summary>

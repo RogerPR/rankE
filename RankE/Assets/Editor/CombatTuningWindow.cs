@@ -30,6 +30,7 @@ namespace RankE.Editor
         bool showGlobals = true;
         bool showAbilities = true;
         bool showPresentation = true;
+        string presetName = "";
         readonly HashSet<string> expandedAbilities = new HashSet<string>();
 
         [MenuItem("Tools/RANK E/Combat Tuning")]
@@ -59,7 +60,35 @@ namespace RankE.Editor
             if (showPresentation) DrawPresentation();
 
             EditorGUILayout.EndScrollView();
+            DrawPresets(profile);
             DrawFooter(profile);
+        }
+
+        // Save/load the same named fixtures the in-game control panel uses (committed JSON under
+        // RankE/TuningPresets). Captures/applies the current profile + the live loadout's visuals.
+        void DrawPresets(TuningProfile profile)
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Presets (RankE/TuningPresets)", EditorStyles.boldLabel);
+            var loadout = FindFirstObjectByType<MatchController>()?.Loadout;
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                presetName = EditorGUILayout.TextField(presetName);
+                using (new EditorGUI.DisabledScope(string.IsNullOrWhiteSpace(presetName)))
+                {
+                    if (GUILayout.Button("Save", GUILayout.Width(70)))
+                        TuningPresetStore.Save(presetName, TuningPreset.Capture(profile, loadout));
+                    using (new EditorGUI.DisabledScope(!TuningPresetStore.Exists(presetName)))
+                        if (GUILayout.Button("Load", GUILayout.Width(70)))
+                        {
+                            var p = TuningPresetStore.Load(presetName);
+                            if (p != null) { p.Apply(profile, loadout); Repaint(); }
+                        }
+                }
+            }
+            var names = TuningPresetStore.List();
+            if (names.Count > 0)
+                EditorGUILayout.LabelField("Saved: " + string.Join(", ", names), EditorStyles.miniLabel);
         }
 
         void DrawHeader()

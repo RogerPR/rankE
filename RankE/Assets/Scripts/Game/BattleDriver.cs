@@ -19,6 +19,10 @@ namespace RankE.Game
         public Battle Battle { get; private set; }
         public TelegraphBehavior EnemyBehavior { get; private set; }
 
+        /// <summary>The enemy's planned non-quick actions (when its brain exposes a plan), for
+        /// the HUD's upcoming-actions panel. Null if the enemy doesn't publish a plan.</summary>
+        public IActionPlan EnemyPlan { get; private set; }
+
         /// <summary>Telegraph hold length of the current enemy, for intent-bar fills.</summary>
         public int EnemyTelegraphTicksTotal { get; private set; }
         public PlayerIntentBuffer PlayerBuffer { get; set; }
@@ -51,6 +55,7 @@ namespace RankE.Game
 
             Battle = new Battle(player, enemy, content, profile.Tuning.Clone(), seed);
             EnemyBehavior = new TelegraphBehavior(enemyAi, telegraphTicks);
+            EnemyPlan = enemyAi as IActionPlan;
             EnemyTelegraphTicksTotal = telegraphTicks;
             accumulator = 0f;
             eventCursor = 0;

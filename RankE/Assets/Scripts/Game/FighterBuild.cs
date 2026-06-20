@@ -66,11 +66,13 @@ namespace RankE.Game
             };
         }
 
-        /// <summary>Display name of the ability in a slot (from the library), or the id.</summary>
+        /// <summary>Display name of the ability in a slot (from the library), or "(none)" when
+        /// the slot is empty/unknown.</summary>
         public string AbilityName(TuningProfile profile, int slot)
         {
             if (AbilityIds == null || slot < 0 || slot >= AbilityIds.Count) return "(none)";
             var id = AbilityIds[slot];
+            if (string.IsNullOrWhiteSpace(id)) return "(none)";
             if (profile != null && profile.Abilities.TryGetValue(id, out var def) && def != null)
                 return def.Name ?? id;
             return id;
@@ -98,7 +100,13 @@ namespace RankE.Game
         public static FighterBuild DefaultAdversary() => new FighterBuild
         {
             Name = "Adversary",
-            AbilityIds = DefaultLoadoutIds(),
+            // Slow, readable sparring opponent: one main attack (Slash) on a telegraphed
+            // rhythm plus the two reactive quick slots. One main + two quick.
+            MainSlotCount = 1,
+            AbilityIds = new List<string>
+            {
+                PocContent.SlashId, PocContent.ParryId, PocContent.KickId,
+            },
             Gear = new List<GearDef>(),
         };
     }
@@ -109,19 +117,48 @@ namespace RankE.Game
     /// </summary>
     public static class LoadoutPools
     {
-        /// <summary>Swappable main-slot abilities (quick slots Parry/Kick stay fixed).</summary>
+        /// <summary>The empty-slot sentinel: an ability id of "" means the slot carries nothing.</summary>
+        public const string NoneId = "";
+
+        /// <summary>Abilities pickable in a main slot.</summary>
         public static readonly string[] MainAbilities =
         {
             PocContent.SlashId, PocContent.BashId, PocContent.FireballId,
             PocContent.VampiroId, PocContent.FallingStarId, PocContent.LungeId,
         };
 
+        /// <summary>Abilities pickable in a quick slot (GcdClass.Quick).</summary>
+        public static readonly string[] QuickAbilities =
+        {
+            PocContent.ParryId, PocContent.KickId,
+        };
+
         public static readonly Func<GearDef>[] Stances =
             { PocContent.StanceRock, PocContent.StanceWind, PocContent.StanceWater };
         public static readonly Func<GearDef>[] Weapons =
-            { PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand };
+            { PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand, PocContent.WeaponGreataxe };
         public static readonly Func<GearDef>[] Armors =
             { PocContent.ArmorLight, PocContent.ArmorMedium, PocContent.ArmorHeavy };
+
+        /// <summary>Every gear factory keyed by id, so a saved build can be rebuilt from ids.</summary>
+        static readonly Func<GearDef>[] AllGear =
+        {
+            PocContent.StanceRock, PocContent.StanceWind, PocContent.StanceWater,
+            PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand, PocContent.WeaponGreataxe,
+            PocContent.ArmorLight, PocContent.ArmorMedium, PocContent.ArmorHeavy,
+        };
+
+        /// <summary>A fresh gear def for an id (from <see cref="AllGear"/>), or null if unknown.</summary>
+        public static GearDef GearById(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return null;
+            foreach (var make in AllGear)
+            {
+                var g = make();
+                if (g.Id == id) return g;
+            }
+            return null;
+        }
 
         public static int Wrap(int v, int n) => n <= 0 ? 0 : ((v % n) + n) % n;
 
@@ -143,6 +180,43 @@ namespace RankE.Game
         {
             int n = Math.Min(mainCount, ids.Count);
             for (int s = 0; s < n; s++)
+                if (s != exceptSlot && ids[s] == id) return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Cycle one slot through <paramref name="pool"/> plus a "(none)" option, skipping any
+        /// id already used in a sibling slot of the same kind (the range
+        /// [<paramref name="kindStart"/>, <paramref name="kindEnd"/>)). Empty slots are allowed,
+        /// so a fighter can carry fewer than the full kit.
+        /// </summary>
+        public static void CycleSlot(List<string> ids, int slot, int dir, string[] pool,
+            int kindStart, int kindEnd)
+        {
+            if (ids == null || slot < 0 || slot >= ids.Count || pool == null) return;
+
+            var options = new List<string> { NoneId };
+            options.AddRange(pool);
+            int n = options.Count;
+
+            int idx = options.IndexOf(ids[slot] ?? NoneId);
+            if (idx < 0) idx = 0;
+            for (int hop = 0; hop < n; hop++)
+            {
+                idx = Wrap(idx + dir, n);
+                string cand = options[idx];
+                if (cand == NoneId || !UsedInSiblingSlot(ids, cand, slot, kindStart, kindEnd))
+                {
+                    ids[slot] = cand;
+                    return;
+                }
+            }
+        }
+
+        static bool UsedInSiblingSlot(List<string> ids, string id, int exceptSlot, int start, int end)
+        {
+            end = Math.Min(end, ids.Count);
+            for (int s = Math.Max(0, start); s < end; s++)
                 if (s != exceptSlot && ids[s] == id) return true;
             return false;
         }

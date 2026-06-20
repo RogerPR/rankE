@@ -26,6 +26,9 @@ namespace RankE.Game
         /// <summary>≈0.5s enemy attack telegraph (GAME_DESIGN §1 enemy AI).</summary>
         public int EnemyTelegraphTicks = 10;
 
+        /// <summary>Enemy non-quick cadence: ~one telegraphed beat every 3s (60 ticks).</summary>
+        public int EnemyActionIntervalTicks = 60;
+
         public DebugLoadout Loadout { get; } = new DebugLoadout();
         public MatchState State { get; private set; } = MatchState.Loadout;
         public float CountdownRemaining { get; private set; }
@@ -76,7 +79,11 @@ namespace RankE.Game
             var player = profile.Player.ToConfig(profile);
             var enemy = profile.Adversary.ToConfig(profile);
             enemy.Name = Loadout.EnemyVisualName;
-            Driver.Begin(player, enemy, new PocBehaviorProfile(), EnemyTelegraphTicks, seeds.Next());
+            // Readable enemy: a steady, telegraphed Slash rhythm (data-driven rotation), with
+            // reactive Parry/Kick between beats. The rotation grows later as content lands.
+            var enemyBrain = new ScriptedRhythmBehavior(
+                new[] { PocContent.SlashId }, EnemyActionIntervalTicks);
+            Driver.Begin(player, enemy, enemyBrain, EnemyTelegraphTicks, seeds.Next());
             Input.SetLoadout(player.Abilities);
             Input.Buffer.Clear();
 

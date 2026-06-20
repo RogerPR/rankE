@@ -39,12 +39,12 @@ namespace RankE.UI
         Color readyColor;
         Color blockedColor;
 
-        public void Init(BattleDriver driver, Transform parent)
+        public void Init(BattleDriver driver, Transform parent, HudPlacement placement)
         {
             this.driver = driver;
+            // Bottom-left ability grid (sketch): main abilities on top, quick actions below.
             barRoot = UiFactory.Rect("AbilityBar", parent);
-            UiFactory.PlaceFixed(barRoot, new Vector2(0.5f, 0f), new Vector2(0f, 24f),
-                new Vector2(7f * (SlotSize + 10f), SlotSize + 30f));
+            placement.Apply(barRoot);
         }
 
         /// <summary>Rebuild the slots from the current battle's player loadout.</summary>
@@ -64,18 +64,23 @@ namespace RankE.UI
             blockedColor = themed ? BlockedBgThemed : BlockedBg;
 
             var abilities = battle.Fighters[0].Abilities;
-            for (int i = 0; i < abilities.Count && i < 6; i++)
+            int mainCol = 0, quickCol = 0;
+            for (int i = 0; i < abilities.Count && i < 8; i++)
             {
-                // Visual gap between the 4 main slots and the 2 quick slots.
-                float x = (i - 2.5f) * (SlotSize + 10f) + (i >= 4 ? 24f : 0f);
+                var def = abilities[i].Def;
+
+                // Quick actions form the bottom row; main abilities the top row.
+                bool quick = def.Gcd == GcdClass.Quick;
+                int row = quick ? 0 : 1;
+                int col = quick ? quickCol++ : mainCol++;
+                float x = col * (SlotSize + 12f);
+                float y = row * (SlotSize + 14f);
                 var bg = themed
                     ? UiFactory.Frame($"Slot{i}", barRoot, slotFrame)
                     : UiFactory.Panel($"Slot{i}", barRoot, ReadyBg);
                 bg.color = readyColor;
-                UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(0.5f, 0f),
-                    new Vector2(x, 30f), new Vector2(SlotSize, SlotSize));
-
-                var def = abilities[i].Def;
+                UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(0f, 0f),
+                    new Vector2(x, y), new Vector2(SlotSize, SlotSize));
 
                 // Icon if mapped; otherwise fall back to the ability name label.
                 var icon = skin != null ? skin.IconFor(def.Id) : null;

@@ -13,19 +13,23 @@ namespace RankE.UI
     /// </summary>
     public sealed class HudRoot : MonoBehaviour
     {
+        [Tooltip("Move/resize each HUD panel here — applied when the HUD is built. " +
+            "No recompile needed; edits persist in the scene.")]
+        [SerializeField] HudLayout layout = new HudLayout();
+
         MatchController match;
         BattleDriver driver;
 
         GameObject hudGroup;
         AbilityBarView abilityBar;
         FloatingCombatTextSpawner floatingText;
-        LoadoutPickerScreen picker;
+        ControlPanelScreen controlPanel;
+        AbilitiesEditorScreen abilities;
         CharacterCreatorScreen creator;
         CountdownOverlay countdown;
         ResultScreen result;
         GameObject pauseOverlay;
         Button pauseFirstButton;
-        TuningPanelScreen tuning;
 
         void Start()
         {
@@ -54,41 +58,39 @@ namespace RankE.UI
             UiFactory.PlaceStretch(hudRt);
             hudGroup = hudRt.gameObject;
 
-            hudGroup.AddComponent<HpBarView>().Init(driver, hudRt);
+            if (layout == null) layout = new HudLayout();
+
+            hudGroup.AddComponent<TopStatusBar>().Init(driver, match, hudRt, layout.topBarHeight);
             hudGroup.AddComponent<BreakBarView>().Init(driver, hudRt, bodies);
+            // Only the player gets a cast bar near their fighter; the enemy's casting/telegraph
+            // is shown by the upcoming-actions panel instead.
             var playerCast = hudGroup.AddComponent<CastBarView>();
-            playerCast.Init(driver, hudRt, 0);
-            var enemyCast = hudGroup.AddComponent<CastBarView>();
-            enemyCast.Init(driver, hudRt, 1);
+            playerCast.Init(driver, hudRt, 0, layout.playerCast);
             abilityBar = hudGroup.AddComponent<AbilityBarView>();
-            abilityBar.Init(driver, hudRt);
+            abilityBar.Init(driver, hudRt, layout.abilityBar);
             var playerStatuses = hudGroup.AddComponent<StatusColumnView>();
-            playerStatuses.Init(driver, hudRt, 0);
+            playerStatuses.Init(driver, hudRt, 0, layout.playerStatuses);
             var enemyStatuses = hudGroup.AddComponent<StatusColumnView>();
-            enemyStatuses.Init(driver, hudRt, 1);
-            hudGroup.AddComponent<EnemyIntentView>().Init(driver, hudRt);
-            hudGroup.AddComponent<ComboRiposteView>().Init(driver, hudRt);
+            enemyStatuses.Init(driver, hudRt, 1, layout.enemyStatuses);
+            hudGroup.AddComponent<NextActionsView>().Init(driver, hudRt, layout.nextActions);
+            hudGroup.AddComponent<ComboRiposteView>().Init(driver, hudRt, layout.combo);
             floatingText = hudGroup.AddComponent<FloatingCombatTextSpawner>();
             floatingText.Init(driver, hudRt, bodies);
 
             // Overlays/screens, on top of the HUD in hierarchy order.
             pauseOverlay = BuildPauseOverlay(canvas.transform);
-            tuning = canvas.gameObject.AddComponent<TuningPanelScreen>();
-            tuning.Init(match, canvas.transform); // on top of the pause overlay when opened
-            tuning.Closed = () => // hand controller selection back to the pause menu
-            {
-                if (EventSystem.current != null)
-                    EventSystem.current.SetSelectedGameObject(pauseFirstButton.gameObject);
-            };
             countdown = canvas.gameObject.AddComponent<CountdownOverlay>();
             countdown.Init(match, canvas.transform);
             result = canvas.gameObject.AddComponent<ResultScreen>();
             result.Init(match, canvas.transform);
-            picker = canvas.gameObject.AddComponent<LoadoutPickerScreen>();
-            picker.Init(match, canvas.transform);
+            controlPanel = canvas.gameObject.AddComponent<ControlPanelScreen>();
+            controlPanel.Init(match, canvas.transform);
+            abilities = canvas.gameObject.AddComponent<AbilitiesEditorScreen>();
+            abilities.Init(canvas.transform); // pre-fight ability-number editor, opened from the panel
             creator = canvas.gameObject.AddComponent<CharacterCreatorScreen>();
             creator.Init(match, canvas.transform);
-            picker.SetCreator(creator);
+            controlPanel.SetAbilitiesScreen(abilities);
+            controlPanel.SetCreator(creator);
 
             match.StateChanged += OnStateChanged;
             OnStateChanged(match.State);
@@ -108,11 +110,10 @@ namespace RankE.UI
             UiFactory.PlaceFixed((RectTransform)title.transform, new Vector2(0.5f, 1f),
                 new Vector2(0f, -40f), new Vector2(500f, 70f));
 
-            // Resume / Tune / Restart Fight / Back to Loadout, stacked.
-            pauseFirstButton = PauseButton(box.transform, "RESUME", 150f, () => match.TogglePause());
-            PauseButton(box.transform, "TUNE…", 60f, () => tuning.Show(true));
-            PauseButton(box.transform, "RESTART FIGHT", -30f, () => match.RestartFight());
-            PauseButton(box.transform, "BACK TO LOADOUT", -120f, () => match.QuitToLoadout());
+            // Return to combat / Restart combat / Return to initial screen, stacked.
+            pauseFirstButton = PauseButton(box.transform, "RETURN TO COMBAT", 130f, () => match.TogglePause());
+            PauseButton(box.transform, "RESTART COMBAT", 30f, () => match.RestartFight());
+            PauseButton(box.transform, "RETURN TO INITIAL SCREEN", -70f, () => match.QuitToLoadout());
 
             return panel.gameObject;
         }
@@ -134,12 +135,11 @@ namespace RankE.UI
         void OnStateChanged(MatchState state)
         {
             hudGroup.SetActive(state != MatchState.Loadout);
-            picker.Show(state == MatchState.Loadout);
-            if (state != MatchState.Loadout) creator.Hide();
+            controlPanel.Show(state == MatchState.Loadout);
+            if (state != MatchState.Loadout) { creator.Hide(); abilities.Hide(); }
             countdown.Show(state == MatchState.Countdown);
             result.Show(state == MatchState.Result);
             pauseOverlay.SetActive(state == MatchState.Paused);
-            if (state != MatchState.Paused) tuning.Show(false); // tuning lives inside pause
 
             if (state == MatchState.Paused && EventSystem.current != null)
                 EventSystem.current.SetSelectedGameObject(pauseFirstButton.gameObject);

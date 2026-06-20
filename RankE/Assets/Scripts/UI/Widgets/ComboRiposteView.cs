@@ -20,13 +20,13 @@ namespace RankE.UI
         static readonly Color DotOn = new Color(0.85f, 0.5f, 1f);
         static readonly Color PipOn = new Color(1f, 0.95f, 0.3f);
 
-        public void Init(BattleDriver driver, Transform parent)
+        public void Init(BattleDriver driver, Transform parent, HudPlacement placement)
         {
             this.driver = driver;
 
+            // Bottom-left, sitting just above the ability grid.
             var root = UiFactory.Rect("ComboTracker", parent);
-            UiFactory.PlaceFixed(root, new Vector2(0f, 0f), new Vector2(70f, 30f),
-            new Vector2(320f, 110f));
+            placement.Apply(root);
 
             for (int i = 0; i < 2; i++)
             {

@@ -15,22 +15,35 @@ namespace RankE.UI
         int index;
         GameObject root;
         Image fill;
+        Image icon;
         Text label;
         float interruptedFlash;
 
         static readonly Color CastColor = new Color(0.95f, 0.85f, 0.3f);
 
-        public void Init(BattleDriver driver, Transform parent, int fighterIndex)
+        public void Init(BattleDriver driver, Transform parent, int fighterIndex, HudPlacement placement)
         {
             this.driver = driver;
             index = fighterIndex;
             bool left = fighterIndex == 0;
 
-            fill = UiFactory.Bar($"CastBar{fighterIndex}", parent,
+            // The caster's casting indicator sits near their fighter (sketch: icon + bar by the
+            // player). The icon shows which spell is being cast.
+            var group = UiFactory.Rect($"CastGroup{fighterIndex}", parent);
+            placement.Apply(group);
+            root = group.gameObject;
+
+            var iconFrame = UiFactory.Frame("CastIcon", group);
+            UiFactory.PlaceFixed((RectTransform)iconFrame.transform, new Vector2(left ? 0f : 1f, 0.5f),
+                Vector2.zero, new Vector2(56f, 56f));
+            icon = UiFactory.Icon("Icon", iconFrame.transform, null);
+            UiFactory.PlaceFixed((RectTransform)icon.transform, new Vector2(0.5f, 0.5f),
+                Vector2.zero, new Vector2(44f, 44f));
+
+            fill = UiFactory.Bar($"CastBar{fighterIndex}", group,
                 new Color(0f, 0f, 0f, 0.6f), CastColor, Image.FillMethod.Horizontal, out var bg);
-            root = bg.gameObject;
-            UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(left ? 0f : 1f, 1f),
-                new Vector2(left ? 70f : -70f, -120f), new Vector2(380f, 26f));
+            UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(left ? 0f : 1f, 0.5f),
+                new Vector2(left ? 66f : -66f, 0f), new Vector2(354f, 28f));
 
             label = UiFactory.Label("CastLabel", bg.transform, "", 20, Color.white);
             UiFactory.PlaceStretch((RectTransform)label.transform);
@@ -75,6 +88,10 @@ namespace RankE.UI
             fill.fillAmount = total > 0 ? 1f - Mathf.Clamp01((float)f.CastRemaining / total) : 1f;
             fill.color = CastColor;
             label.text = f.Casting.Def.Name;
+            var skin = UiFactory.Skin;
+            var sprite = skin != null ? skin.IconFor(f.Casting.Def.Id) : null;
+            icon.sprite = sprite;
+            icon.enabled = sprite != null;
         }
     }
 }

@@ -1,0 +1,601 @@
+{
+    "name": "Base",
+    "tuning": [
+        {
+            "name": "GcdTicks",
+            "value": 20.0
+        },
+        {
+            "name": "QuickGcdTicks",
+            "value": 6.0
+        },
+        {
+            "name": "ParryRiposteGain",
+            "value": 2.0
+        },
+        {
+            "name": "RiposteCounterMax",
+            "value": 8.0
+        },
+        {
+            "name": "ParryBreakToAttacker",
+            "value": 15.0
+        },
+        {
+            "name": "BreakMax",
+            "value": 100.0
+        },
+        {
+            "name": "BreakDecayGraceTicks",
+            "value": 60.0
+        },
+        {
+            "name": "BreakDecayIntervalTicks",
+            "value": 10.0
+        },
+        {
+            "name": "BreakDecayAmount",
+            "value": 1.0
+        },
+        {
+            "name": "BrokenDurationTicks",
+            "value": 50.0
+        },
+        {
+            "name": "ComboWindowTicks",
+            "value": 80.0
+        },
+        {
+            "name": "FinisherEffectMult",
+            "value": 1.5
+        },
+        {
+            "name": "FinisherBonusBreak",
+            "value": 10.0
+        },
+        {
+            "name": "FinisherGemRefund",
+            "value": 1.0
+        },
+        {
+            "name": "MaxTicks",
+            "value": 24000.0
+        }
+    ],
+    "abilities": [
+        {
+            "id": "auto_attack",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 60.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 5,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "bash",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 600.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 5,
+                    "durationTicks": 0
+                },
+                {
+                    "index": 1,
+                    "amount": 0,
+                    "durationTicks": 80
+                },
+                {
+                    "index": 2,
+                    "amount": 20,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "falling_star",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 200.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 60.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 1.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 30,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "fireball",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 160.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 40.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 1.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 40,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "interrupt_cast",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 0,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "kick",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 240.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 2,
+                    "durationTicks": 0
+                },
+                {
+                    "index": 1,
+                    "amount": 0,
+                    "durationTicks": 60
+                }
+            ]
+        },
+        {
+            "id": "lunge",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 100.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 0,
+                    "durationTicks": 0
+                },
+                {
+                    "index": 1,
+                    "amount": 0,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "parry",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 120.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 0,
+                    "durationTicks": 12
+                }
+            ]
+        },
+        {
+            "id": "riposte",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 40,
+                    "durationTicks": 0
+                },
+                {
+                    "index": 1,
+                    "amount": 0,
+                    "durationTicks": 100
+                },
+                {
+                    "index": 2,
+                    "amount": 30,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "slash",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 40.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 10,
+                    "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "vampiro",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 240.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 60.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 1.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 0,
+                    "durationTicks": 120
+                },
+                {
+                    "index": 1,
+                    "amount": 0,
+                    "durationTicks": 160
+                }
+            ]
+        }
+    ],
+    "player": {
+        "name": "Player",
+        "maxHp": 500,
+        "spellGems": 8,
+        "stats": [
+            {
+                "name": "Attack",
+                "value": 0.0
+            },
+            {
+                "name": "Magic",
+                "value": 0.0
+            },
+            {
+                "name": "Defense",
+                "value": 0.0
+            },
+            {
+                "name": "CritChance",
+                "value": 0.0
+            },
+            {
+                "name": "CritDamage",
+                "value": 1.5
+            },
+            {
+                "name": "Haste",
+                "value": 0.0
+            },
+            {
+                "name": "BreakPower",
+                "value": 1.0
+            },
+            {
+                "name": "GemRegenIntervalTicks",
+                "value": 0.0
+            }
+        ],
+        "autoAttackId": "auto_attack",
+        "mainSlotCount": 4,
+        "abilityIds": [
+            "slash",
+            "bash",
+            "fireball",
+            "vampiro",
+            "parry",
+            "kick"
+        ],
+        "gearIds": [
+            "stance_rock",
+            "weapon_sword",
+            "armor_light"
+        ]
+    },
+    "adversary": {
+        "name": "Adversary",
+        "maxHp": 500,
+        "spellGems": 8,
+        "stats": [
+            {
+                "name": "Attack",
+                "value": 0.0
+            },
+            {
+                "name": "Magic",
+                "value": 0.0
+            },
+            {
+                "name": "Defense",
+                "value": 0.0
+            },
+            {
+                "name": "CritChance",
+                "value": 0.0
+            },
+            {
+                "name": "CritDamage",
+                "value": 1.5
+            },
+            {
+                "name": "Haste",
+                "value": 0.0
+            },
+            {
+                "name": "BreakPower",
+                "value": 1.0
+            },
+            {
+                "name": "GemRegenIntervalTicks",
+                "value": 0.0
+            }
+        ],
+        "autoAttackId": "auto_attack",
+        "mainSlotCount": 1,
+        "abilityIds": [
+            "slash",
+            "parry",
+            "kick"
+        ],
+        "gearIds": []
+    },
+    "playerVisualName": "Archer",
+    "enemyVisualName": "Imp Devil"
+}

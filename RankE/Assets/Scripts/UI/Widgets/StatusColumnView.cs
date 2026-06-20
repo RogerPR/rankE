@@ -35,15 +35,15 @@ namespace RankE.UI
             { "distance", new Color(0.4f, 0.6f, 1f) },
         };
 
-        public void Init(BattleDriver driver, Transform parent, int fighterIndex)
+        public void Init(BattleDriver driver, Transform parent, int fighterIndex, HudPlacement placement)
         {
             this.driver = driver;
             index = fighterIndex;
-            bool left = fighterIndex == 0;
 
+            // Down each side edge, below the top bar (and, on the right, below the
+            // upcoming-actions panel) — the sketch's buff/debuff columns.
             column = UiFactory.Rect($"Statuses{fighterIndex}", parent);
-            UiFactory.PlaceFixed(column, new Vector2(left ? 0f : 1f, 1f),
-                new Vector2(left ? 70f : -70f, -170f), new Vector2(220f, 500f));
+            placement.Apply(column);
         }
 
         void Update()

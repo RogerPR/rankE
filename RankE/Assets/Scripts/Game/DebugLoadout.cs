@@ -62,6 +62,23 @@ namespace RankE.Game
             if (EnemyVisualCount > 0) EnemyVisualIndex = Wrap(EnemyVisualIndex + dir, EnemyVisualCount);
         }
 
+        /// <summary>Select the player visual whose display name matches (preset restore); no-op
+        /// if the roster has no such entry, so old presets degrade gracefully.</summary>
+        public void SetPlayerVisualByName(string name)
+        {
+            if (string.IsNullOrEmpty(name) || Visuals == null) return;
+            int i = Visuals.Players.FindIndex(p => p != null && p.DisplayName == name);
+            if (i >= 0) PlayerVisualIndex = i;
+        }
+
+        /// <summary>Select the enemy monster whose display name matches (preset restore).</summary>
+        public void SetEnemyVisualByName(string name)
+        {
+            if (string.IsNullOrEmpty(name) || Visuals == null) return;
+            int i = Visuals.Monsters.FindIndex(m => m != null && m.DisplayName == name);
+            if (i >= 0) EnemyVisualIndex = i;
+        }
+
         public void CycleStance(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Stances, dir);
         public void CycleWeapon(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Weapons, dir);
         public void CycleArmor(int dir) => LoadoutPools.CycleGear(Build.Gear, LoadoutPools.Armors, dir);

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 namespace RankE.Sim
 {
     /// <summary>
-    /// The PoC roster transcribed from functional_POC/constants.py + abilities_impl.py,
-    /// extended with the GAME_DESIGN §1 PROPOSED additions (break damage, combo tags,
-    /// Falling Star, Lunge). This is dev/reference content; real content arrives in
-    /// Phase 6 and will likely live in ScriptableObject-backed data.
+    /// The game's default content roster — abilities, statuses, gear, and the cross-cutting
+    /// <see cref="CombatTuning"/>. Originally transcribed from functional_POC/constants.py +
+    /// abilities_impl.py, extended with the GAME_DESIGN §1 PROPOSED additions (break damage,
+    /// combo tags, Falling Star, Lunge), and since tuned for the shipped game — this is the
+    /// single source of truth for combat numbers. The control panel / <c>TuningProfile</c>
+    /// clone and edit these per fight. Richer authored content arrives in Phase 6 and will
+    /// likely live in ScriptableObject-backed data.
     /// </summary>
-    public static class PocContent
+    public static class DefaultContent
     {
         // ability ids
         public const string SlashId = "slash";
@@ -63,7 +66,7 @@ namespace RankE.Sim
             Id = SlashId,
             Name = "Slash",
             Gcd = GcdClass.Normal,
-            CooldownTicks = 80,
+            CooldownTicks = 60, // 3s — matches the enemy's telegraphed Slash beat
             Parriable = true,
             IsMelee = true,
             ComboTag = ComboTags.Opener,
@@ -167,7 +170,7 @@ namespace RankE.Sim
             Id = AutoAttackId,
             Name = "Auto-attack",
             Gcd = GcdClass.None,
-            CooldownTicks = 40, // interval
+            CooldownTicks = 60, // interval (3s) — slower chip damage
             Parriable = true,
             IsMelee = true,
             Effects = new List<EffectDef> { EffectDef.Damage(5) },

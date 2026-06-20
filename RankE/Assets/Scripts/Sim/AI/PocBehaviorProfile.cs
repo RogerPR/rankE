@@ -35,28 +35,28 @@ namespace RankE.Sim
                 // Redraw instead of resetting to 0: a mutual stun can re-synchronize
                 // two mirrored profiles, and a fresh offset breaks the lockstep again.
                 decisions = battle.Rng.Next(ForcedSlashDecisions);
-                return PocContent.SlashId;
+                return DefaultContent.SlashId;
             }
 
-            if (IsReady(me, PocContent.ParryId))
-                return PocContent.ParryId;
+            if (IsReady(me, DefaultContent.ParryId))
+                return DefaultContent.ParryId;
 
-            if (opp.IsCasting && IsReady(me, PocContent.KickId))
+            if (opp.IsCasting && IsReady(me, DefaultContent.KickId))
             {
                 // PoC: kick chance rises as the opponent's cast nears completion.
                 return battle.Rng.NextDouble() < 0.2 / (opp.CastRemaining + 1)
-                    ? PocContent.KickId
+                    ? DefaultContent.KickId
                     : null;
             }
 
-            if (me.Hp < me.MaxHp * 0.6 && IsReady(me, PocContent.VampiroId) && me.SpellGems > 0)
-                return PocContent.VampiroId;
+            if (me.Hp < me.MaxHp * 0.6 && IsReady(me, DefaultContent.VampiroId) && me.SpellGems > 0)
+                return DefaultContent.VampiroId;
 
-            if (IsReady(me, PocContent.FireballId) && !me.IsCasting && me.SpellGems > 1)
-                return PocContent.FireballId;
+            if (IsReady(me, DefaultContent.FireballId) && !me.IsCasting && me.SpellGems > 1)
+                return DefaultContent.FireballId;
 
-            if (IsReady(me, PocContent.BashId))
-                return PocContent.BashId;
+            if (IsReady(me, DefaultContent.BashId))
+                return DefaultContent.BashId;
 
             return null;
         }

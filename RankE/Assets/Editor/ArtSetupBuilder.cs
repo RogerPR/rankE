@@ -198,17 +198,17 @@ namespace RankE.Editor
                 },
                 AbilityStates = new List<AbilityAnim>
                 {
-                    Ab(PocContent.SlashId, "Attack_Slash"),
-                    Ab(PocContent.BashId, "Attack_Cut"),
-                    Ab(PocContent.FireballId, "Cast"),
-                    Ab(PocContent.VampiroId, "Cast"),
-                    Ab(PocContent.FallingStarId, "Cast"),
-                    Ab(PocContent.LungeId, "Attack_Stab"),
-                    Ab(PocContent.AutoAttackId, "Attack_Slash"),
-                    Ab(PocContent.KickId, "Attack_Cut"),
-                    Ab(PocContent.InterruptCastId, "Attack_Stab"),
-                    Ab(PocContent.RiposteId, "Attack_Stab"),
-                    Ab(PocContent.ParryId, "Block"),
+                    Ab(DefaultContent.SlashId, "Attack_Slash"),
+                    Ab(DefaultContent.BashId, "Attack_Cut"),
+                    Ab(DefaultContent.FireballId, "Cast"),
+                    Ab(DefaultContent.VampiroId, "Cast"),
+                    Ab(DefaultContent.FallingStarId, "Cast"),
+                    Ab(DefaultContent.LungeId, "Attack_Stab"),
+                    Ab(DefaultContent.AutoAttackId, "Attack_Slash"),
+                    Ab(DefaultContent.KickId, "Attack_Cut"),
+                    Ab(DefaultContent.InterruptCastId, "Attack_Stab"),
+                    Ab(DefaultContent.RiposteId, "Attack_Stab"),
+                    Ab(DefaultContent.ParryId, "Block"),
                 },
             };
 
@@ -371,16 +371,16 @@ namespace RankE.Editor
                     },
                     AbilityStates = new List<AbilityAnim>
                     {
-                        Ab(PocContent.SlashId, atk),
-                        Ab(PocContent.BashId, atk),
-                        Ab(PocContent.KickId, atk),
-                        Ab(PocContent.LungeId, atk),
-                        Ab(PocContent.AutoAttackId, atk),
-                        Ab(PocContent.InterruptCastId, atk),
-                        Ab(PocContent.FireballId, castOrAtk),
-                        Ab(PocContent.VampiroId, castOrAtk),
-                        Ab(PocContent.FallingStarId, castOrAtk),
-                        Ab(PocContent.RiposteId, atk2),
+                        Ab(DefaultContent.SlashId, atk),
+                        Ab(DefaultContent.BashId, atk),
+                        Ab(DefaultContent.KickId, atk),
+                        Ab(DefaultContent.LungeId, atk),
+                        Ab(DefaultContent.AutoAttackId, atk),
+                        Ab(DefaultContent.InterruptCastId, atk),
+                        Ab(DefaultContent.FireballId, castOrAtk),
+                        Ab(DefaultContent.VampiroId, castOrAtk),
+                        Ab(DefaultContent.FallingStarId, castOrAtk),
+                        Ab(DefaultContent.RiposteId, atk2),
                     },
                 };
                 if (!string.IsNullOrEmpty(spawn)) def.Actions.Add(A(AnimAction.Spawn, spawn));
@@ -498,11 +498,11 @@ namespace RankE.Editor
             var vampAura = Find(prefabs, prefer: new[] { "poison", "dark", "green", "nature", "magic aura", "aura" });
             var vampMuzzle = Find(prefabs, prefer: new[] { "dark magic", "green magic", "magic poof", "magic" });
 
-            reg.Abilities.Add(Vfx(PocContent.FireballId, ProjectileMode.Travel, fireAura, fireMuzzle, fireProjectile, fireImpact));
-            reg.Abilities.Add(Vfx(PocContent.FallingStarId, ProjectileMode.Fall, null, null, starProjectile, starImpact));
-            reg.Abilities.Add(Vfx(PocContent.VampiroId, ProjectileMode.None, vampAura, vampMuzzle, null, null));
-            foreach (var id in new[] { PocContent.SlashId, PocContent.BashId, PocContent.AutoAttackId,
-                PocContent.LungeId, PocContent.KickId, PocContent.InterruptCastId })
+            reg.Abilities.Add(Vfx(DefaultContent.FireballId, ProjectileMode.Travel, fireAura, fireMuzzle, fireProjectile, fireImpact));
+            reg.Abilities.Add(Vfx(DefaultContent.FallingStarId, ProjectileMode.Fall, null, null, starProjectile, starImpact));
+            reg.Abilities.Add(Vfx(DefaultContent.VampiroId, ProjectileMode.None, vampAura, vampMuzzle, null, null));
+            foreach (var id in new[] { DefaultContent.SlashId, DefaultContent.BashId, DefaultContent.AutoAttackId,
+                DefaultContent.LungeId, DefaultContent.KickId, DefaultContent.InterruptCastId })
                 reg.Abilities.Add(Vfx(id, ProjectileMode.None, null, slashFx, null, null));
 
             // Reaction cues (always listed so empty ones are easy to fill in the Inspector).

@@ -6,8 +6,23 @@ namespace RankE.Sim.Tests
     /// <summary>Shared helpers + tiny custom abilities for exercising single mechanics.</summary>
     public static class TestKit
     {
+        /// <summary>
+        /// Reference GCD the mechanic tests pin (1.0s). Tests own their combat numbers so they
+        /// exercise the rules, not the shipped balance in <see cref="DefaultContent"/> — retuning the
+        /// game's GCD never breaks a timing assertion here.
+        /// </summary>
+        public const int RefGcdTicks = 20;
+
+        /// <summary>The shipped tuning with the GCD pinned to the test reference.</summary>
+        public static CombatTuning RefTuning()
+        {
+            var t = DefaultContent.CreateTuning();
+            t.GcdTicks = RefGcdTicks;
+            return t;
+        }
+
         public static Battle Duel(FighterConfig a, FighterConfig b, int seed = 1)
-            => new Battle(a, b, PocContent.CreateContent(), PocContent.CreateTuning(), seed);
+            => new Battle(a, b, DefaultContent.CreateContent(), RefTuning(), seed);
 
         /// <summary>500 HP, 8 gems, no auto-attack (tests opt in explicitly).</summary>
         public static FighterConfig Config(string name, params AbilityDef[] abilities)
@@ -59,7 +74,7 @@ namespace RankE.Sim.Tests
             CooldownTicks = 14,
             Effects = new List<EffectDef>
             {
-                EffectDef.Status(EffectTarget.Self, PocContent.ParryStatus, 12),
+                EffectDef.Status(EffectTarget.Self, DefaultContent.ParryStatus, 12),
             },
         };
 
@@ -69,7 +84,7 @@ namespace RankE.Sim.Tests
             Gcd = GcdClass.Quick,
             Effects = new List<EffectDef>
             {
-                EffectDef.Status(EffectTarget.Opponent, PocContent.StunStatus, durationTicks),
+                EffectDef.Status(EffectTarget.Opponent, DefaultContent.StunStatus, durationTicks),
             },
         };
 
@@ -86,7 +101,7 @@ namespace RankE.Sim.Tests
             Gcd = GcdClass.Quick,
             Effects = new List<EffectDef>
             {
-                EffectDef.Status(EffectTarget.Opponent, PocContent.DistanceStatus, durationTicks),
+                EffectDef.Status(EffectTarget.Opponent, DefaultContent.DistanceStatus, durationTicks),
             },
         };
 
@@ -105,7 +120,7 @@ namespace RankE.Sim.Tests
             Gcd = GcdClass.Quick,
             Effects = new List<EffectDef>
             {
-                EffectDef.Status(EffectTarget.Opponent, PocContent.PoisonStatus, 160),
+                EffectDef.Status(EffectTarget.Opponent, DefaultContent.PoisonStatus, 160),
             },
         };
 
@@ -115,7 +130,7 @@ namespace RankE.Sim.Tests
             Gcd = GcdClass.Quick,
             Effects = new List<EffectDef>
             {
-                EffectDef.Status(EffectTarget.Self, PocContent.RegenStatus, 120),
+                EffectDef.Status(EffectTarget.Self, DefaultContent.RegenStatus, 120),
             },
         };
 

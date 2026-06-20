@@ -48,7 +48,7 @@ namespace RankE.Game
             // Combat Tuning window edits). Cloning keeps the running fight deterministic —
             // editing the profile mid-fight lands on the next Begin (Rematch), not this one.
             var profile = TuningProfile.Active;
-            var content = PocContent.CreateContent();
+            var content = DefaultContent.CreateContent();
             ApplyProfileToContent(profile, content);
             ApplyProfileToConfig(profile, player);
             ApplyProfileToConfig(profile, enemy);

@@ -82,7 +82,7 @@ namespace RankE.Game
             // Readable enemy: a steady, telegraphed Slash rhythm (data-driven rotation), with
             // reactive Parry/Kick between beats. The rotation grows later as content lands.
             var enemyBrain = new ScriptedRhythmBehavior(
-                new[] { PocContent.SlashId }, EnemyActionIntervalTicks);
+                new[] { DefaultContent.SlashId }, EnemyActionIntervalTicks);
             Driver.Begin(player, enemy, enemyBrain, EnemyTelegraphTicks, seeds.Next());
             Input.SetLoadout(player.Abilities);
             Input.Buffer.Clear();

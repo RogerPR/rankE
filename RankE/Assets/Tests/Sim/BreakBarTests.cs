@@ -8,10 +8,10 @@ namespace RankE.Sim.Tests
         public void BreakDamage_Accumulates()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Bash()),
+                TestKit.Config("A", DefaultContent.Bash()),
                 TestKit.Config("B"));
 
-            TestKit.UseAt(b, 0, 0, PocContent.BashId);
+            TestKit.UseAt(b, 0, 0, DefaultContent.BashId);
             Assert.AreEqual(20, b.Fighters[1].BreakBar);
         }
 
@@ -46,28 +46,28 @@ namespace RankE.Sim.Tests
         public void BrokenAt100_StunnedVulnerable_BarResets()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", TestKit.Smash(), PocContent.Slash()),
-                TestKit.Config("B", PocContent.Slash()));
+                TestKit.Config("A", TestKit.Smash(), DefaultContent.Slash()),
+                TestKit.Config("B", DefaultContent.Slash()));
 
             TestKit.UseAt(b, 0, 0, "test_smash");
             TestKit.UseAt(b, 1, 0, "test_smash"); // 120 ≥ 100 → BROKEN
 
             Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.Broken).Count);
             Assert.AreEqual(0, b.Fighters[1].BreakBar);
-            Assert.IsTrue(b.Fighters[1].HasStatus(PocContent.BrokenStatus));
+            Assert.IsTrue(b.Fighters[1].HasStatus(DefaultContent.BrokenStatus));
 
             // Broken fighter can't act…
-            TestKit.UseAt(b, 5, 1, PocContent.SlashId);
-            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId));
+            TestKit.UseAt(b, 5, 1, DefaultContent.SlashId);
+            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId));
 
             // …and takes +50% damage.
-            TestKit.UseAt(b, 10, 0, PocContent.SlashId); // after A's own quick GCD
+            TestKit.UseAt(b, 10, 0, DefaultContent.SlashId); // after A's own quick GCD
 
             Assert.AreEqual(485, b.Fighters[1].Hp); // 10 × 1.5
 
             // BROKEN lasts 2.5s (50t from tick 1).
             TestKit.StepUntil(b, 52);
-            Assert.IsFalse(b.Fighters[1].HasStatus(PocContent.BrokenStatus));
+            Assert.IsFalse(b.Fighters[1].HasStatus(DefaultContent.BrokenStatus));
         }
     }
 }

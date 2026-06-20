@@ -56,7 +56,7 @@ namespace RankE.Editor
             skin = AssetDatabase.LoadAssetAtPath<UiSkin>(SkinPath);
 
             abilityList.Clear();
-            foreach (var kv in PocContent.CreateContent().Abilities)
+            foreach (var kv in DefaultContent.CreateContent().Abilities)
                 abilityList.Add((kv.Key, kv.Value.Name));
         }
 

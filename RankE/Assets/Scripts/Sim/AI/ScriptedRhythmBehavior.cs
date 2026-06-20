@@ -81,8 +81,8 @@ namespace RankE.Sim
 
             // Reactive quick defense between beats (never advances the rotation / plan).
             var opp = battle.Fighters[1 - selfIndex];
-            if (IsReady(me, PocContent.ParryId)) return PocContent.ParryId;
-            if (opp.IsCasting && IsReady(me, PocContent.KickId)) return PocContent.KickId;
+            if (IsReady(me, DefaultContent.ParryId)) return DefaultContent.ParryId;
+            if (opp.IsCasting && IsReady(me, DefaultContent.KickId)) return DefaultContent.KickId;
 
             return null;
         }

@@ -6,8 +6,8 @@ namespace RankE.Sim.Tests
     public class ComboTests
     {
         static Battle ComboDuel() => TestKit.Duel(
-            TestKit.Config("A", PocContent.Slash(), PocContent.Bash(),
-                PocContent.Fireball(), PocContent.Parry()),
+            TestKit.Config("A", DefaultContent.Slash(), DefaultContent.Bash(),
+                DefaultContent.Fireball(), DefaultContent.Parry()),
             TestKit.Config("B"));
 
         [Test]
@@ -15,14 +15,14 @@ namespace RankE.Sim.Tests
         {
             var b = ComboDuel();
 
-            TestKit.UseAt(b, 0, 0, PocContent.SlashId);    // Opener
-            TestKit.UseAt(b, 20, 0, PocContent.BashId);    // Linker
-            TestKit.UseAt(b, 40, 0, PocContent.FireballId); // Finisher (cast → lands tick 80)
+            TestKit.UseAt(b, 0, 0, DefaultContent.SlashId);    // Opener
+            TestKit.UseAt(b, 20, 0, DefaultContent.BashId);    // Linker
+            TestKit.UseAt(b, 40, 0, DefaultContent.FireballId); // Finisher (cast → lands tick 80)
             TestKit.StepUntil(b, 81);
 
             Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.ComboCompleted).Count);
 
-            var fireballHits = TestKit.EventsOf(b, SimEventType.Damaged, PocContent.FireballId);
+            var fireballHits = TestKit.EventsOf(b, SimEventType.Damaged, DefaultContent.FireballId);
             Assert.AreEqual(60, fireballHits.Single().Amount); // 40 × 1.5
 
             // Finisher bonus break (+10) landed on top of bash's 20.
@@ -37,13 +37,13 @@ namespace RankE.Sim.Tests
         {
             var b = ComboDuel();
 
-            TestKit.UseAt(b, 0, 0, PocContent.SlashId);
-            TestKit.UseAt(b, 100, 0, PocContent.BashId);     // > 80t after opener → reset
-            TestKit.UseAt(b, 120, 0, PocContent.FireballId); // chain is cold
+            TestKit.UseAt(b, 0, 0, DefaultContent.SlashId);
+            TestKit.UseAt(b, 100, 0, DefaultContent.BashId);     // > 80t after opener → reset
+            TestKit.UseAt(b, 120, 0, DefaultContent.FireballId); // chain is cold
             TestKit.StepUntil(b, 161);
 
             Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.ComboCompleted));
-            Assert.AreEqual(40, TestKit.EventsOf(b, SimEventType.Damaged, PocContent.FireballId)
+            Assert.AreEqual(40, TestKit.EventsOf(b, SimEventType.Damaged, DefaultContent.FireballId)
                 .Single().Amount);
         }
 
@@ -52,13 +52,13 @@ namespace RankE.Sim.Tests
         {
             var b = ComboDuel();
 
-            TestKit.UseAt(b, 0, 0, PocContent.SlashId);     // Opener
-            TestKit.UseAt(b, 20, 0, PocContent.FireballId); // Finisher ≠ expected Linker
+            TestKit.UseAt(b, 0, 0, DefaultContent.SlashId);     // Opener
+            TestKit.UseAt(b, 20, 0, DefaultContent.FireballId); // Finisher ≠ expected Linker
             TestKit.StepUntil(b, 61);
 
             Assert.IsTrue(TestKit.EventsOf(b, SimEventType.ComboReset).Count > 0);
             Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.ComboCompleted));
-            Assert.AreEqual(40, TestKit.EventsOf(b, SimEventType.Damaged, PocContent.FireballId)
+            Assert.AreEqual(40, TestKit.EventsOf(b, SimEventType.Damaged, DefaultContent.FireballId)
                 .Single().Amount);
         }
 
@@ -67,14 +67,14 @@ namespace RankE.Sim.Tests
         {
             var b = ComboDuel();
 
-            TestKit.UseAt(b, 0, 0, PocContent.SlashId);
-            TestKit.UseAt(b, 2, 0, PocContent.ParryId);    // quick: neither advances nor resets
-            TestKit.UseAt(b, 20, 0, PocContent.BashId);
-            TestKit.UseAt(b, 40, 0, PocContent.FireballId);
+            TestKit.UseAt(b, 0, 0, DefaultContent.SlashId);
+            TestKit.UseAt(b, 2, 0, DefaultContent.ParryId);    // quick: neither advances nor resets
+            TestKit.UseAt(b, 20, 0, DefaultContent.BashId);
+            TestKit.UseAt(b, 40, 0, DefaultContent.FireballId);
             TestKit.StepUntil(b, 81);
 
             Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.ComboCompleted).Count);
-            Assert.AreEqual(60, TestKit.EventsOf(b, SimEventType.Damaged, PocContent.FireballId)
+            Assert.AreEqual(60, TestKit.EventsOf(b, SimEventType.Damaged, DefaultContent.FireballId)
                 .Single().Amount);
         }
 
@@ -83,14 +83,14 @@ namespace RankE.Sim.Tests
         {
             var b = ComboDuel();
 
-            TestKit.UseAt(b, 0, 0, PocContent.SlashId);   // Opener (chain 1)
-            TestKit.UseAt(b, 80, 0, PocContent.SlashId);  // wrong tag mid-chain → restarts as Opener
-            TestKit.UseAt(b, 100, 0, PocContent.BashId);  // Linker
-            TestKit.UseAt(b, 120, 0, PocContent.FireballId);
+            TestKit.UseAt(b, 0, 0, DefaultContent.SlashId);   // Opener (chain 1)
+            TestKit.UseAt(b, 80, 0, DefaultContent.SlashId);  // wrong tag mid-chain → restarts as Opener
+            TestKit.UseAt(b, 100, 0, DefaultContent.BashId);  // Linker
+            TestKit.UseAt(b, 120, 0, DefaultContent.FireballId);
             TestKit.StepUntil(b, 161);
 
             Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.ComboCompleted).Count);
-            Assert.AreEqual(60, TestKit.EventsOf(b, SimEventType.Damaged, PocContent.FireballId)
+            Assert.AreEqual(60, TestKit.EventsOf(b, SimEventType.Damaged, DefaultContent.FireballId)
                 .Single().Amount);
         }
     }

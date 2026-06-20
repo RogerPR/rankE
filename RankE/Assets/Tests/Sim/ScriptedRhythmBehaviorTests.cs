@@ -69,12 +69,12 @@ namespace RankE.Sim.Tests
         public void QuickDefense_StaysReactive_WithoutAdvancingThePlan()
         {
             var ai = new ScriptedRhythmBehavior(new[] { "beat_a" }, 40);
-            var cfg = TestKit.Config("E", Beat("beat_a"), PocContent.Parry());
+            var cfg = TestKit.Config("E", Beat("beat_a"), DefaultContent.Parry());
             var b = TestKit.Duel(cfg, TestKit.Config("T"));
 
             // Before any beat fires, a ready Parry is used reactively...
             Drive(b, ai, 5);
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.ParryId).Count);
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.ParryId).Count);
             // ...and the plan is untouched (still pointing at the same beat).
             CollectionAssert.AreEqual(new[] { "beat_a" }, ai.Upcoming(1));
             Assert.AreEqual(0, TestKit.EventsOf(b, SimEventType.AbilityUsed, "beat_a").Count);

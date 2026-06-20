@@ -26,7 +26,7 @@ namespace RankE.Game
         /// <summary>Editable base stat sheet; gear deltas layer on at battle start (Fighter ctor).</summary>
         public StatSheet Stats = new StatSheet();
 
-        public string AutoAttackId = PocContent.AutoAttackId;
+        public string AutoAttackId = DefaultContent.AutoAttackId;
 
         /// <summary>How many of <see cref="AbilityIds"/> are swappable main slots; the tail
         /// (Parry/Kick) are fixed quick slots.</summary>
@@ -80,8 +80,8 @@ namespace RankE.Game
 
         static List<string> DefaultLoadoutIds() => new List<string>
         {
-            PocContent.SlashId, PocContent.BashId, PocContent.FireballId,
-            PocContent.VampiroId, PocContent.ParryId, PocContent.KickId,
+            DefaultContent.SlashId, DefaultContent.BashId, DefaultContent.FireballId,
+            DefaultContent.VampiroId, DefaultContent.ParryId, DefaultContent.KickId,
         };
 
         /// <summary>The Phase-2 default player build (Rock / Sword / Light, neutral stats).</summary>
@@ -91,12 +91,12 @@ namespace RankE.Game
             AbilityIds = DefaultLoadoutIds(),
             Gear = new List<GearDef>
             {
-                PocContent.StanceRock(), PocContent.WeaponSword(), PocContent.ArmorLight(),
+                DefaultContent.StanceRock(), DefaultContent.WeaponSword(), DefaultContent.ArmorLight(),
             },
         };
 
         /// <summary>The default sparring opponent (no gear, neutral stats) — the editable
-        /// twin of the old hardcoded <c>PocContent.DefaultConfig</c>.</summary>
+        /// twin of the old hardcoded <c>DefaultContent.DefaultConfig</c>.</summary>
         public static FighterBuild DefaultAdversary() => new FighterBuild
         {
             Name = "Adversary",
@@ -105,7 +105,7 @@ namespace RankE.Game
             MainSlotCount = 1,
             AbilityIds = new List<string>
             {
-                PocContent.SlashId, PocContent.ParryId, PocContent.KickId,
+                DefaultContent.SlashId, DefaultContent.ParryId, DefaultContent.KickId,
             },
             Gear = new List<GearDef>(),
         };
@@ -123,29 +123,29 @@ namespace RankE.Game
         /// <summary>Abilities pickable in a main slot.</summary>
         public static readonly string[] MainAbilities =
         {
-            PocContent.SlashId, PocContent.BashId, PocContent.FireballId,
-            PocContent.VampiroId, PocContent.FallingStarId, PocContent.LungeId,
+            DefaultContent.SlashId, DefaultContent.BashId, DefaultContent.FireballId,
+            DefaultContent.VampiroId, DefaultContent.FallingStarId, DefaultContent.LungeId,
         };
 
         /// <summary>Abilities pickable in a quick slot (GcdClass.Quick).</summary>
         public static readonly string[] QuickAbilities =
         {
-            PocContent.ParryId, PocContent.KickId,
+            DefaultContent.ParryId, DefaultContent.KickId,
         };
 
         public static readonly Func<GearDef>[] Stances =
-            { PocContent.StanceRock, PocContent.StanceWind, PocContent.StanceWater };
+            { DefaultContent.StanceRock, DefaultContent.StanceWind, DefaultContent.StanceWater };
         public static readonly Func<GearDef>[] Weapons =
-            { PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand, PocContent.WeaponGreataxe };
+            { DefaultContent.WeaponSword, DefaultContent.WeaponDagger, DefaultContent.WeaponWand, DefaultContent.WeaponGreataxe };
         public static readonly Func<GearDef>[] Armors =
-            { PocContent.ArmorLight, PocContent.ArmorMedium, PocContent.ArmorHeavy };
+            { DefaultContent.ArmorLight, DefaultContent.ArmorMedium, DefaultContent.ArmorHeavy };
 
         /// <summary>Every gear factory keyed by id, so a saved build can be rebuilt from ids.</summary>
         static readonly Func<GearDef>[] AllGear =
         {
-            PocContent.StanceRock, PocContent.StanceWind, PocContent.StanceWater,
-            PocContent.WeaponSword, PocContent.WeaponDagger, PocContent.WeaponWand, PocContent.WeaponGreataxe,
-            PocContent.ArmorLight, PocContent.ArmorMedium, PocContent.ArmorHeavy,
+            DefaultContent.StanceRock, DefaultContent.StanceWind, DefaultContent.StanceWater,
+            DefaultContent.WeaponSword, DefaultContent.WeaponDagger, DefaultContent.WeaponWand, DefaultContent.WeaponGreataxe,
+            DefaultContent.ArmorLight, DefaultContent.ArmorMedium, DefaultContent.ArmorHeavy,
         };
 
         /// <summary>A fresh gear def for an id (from <see cref="AllGear"/>), or null if unknown.</summary>

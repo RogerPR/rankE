@@ -29,12 +29,12 @@ namespace RankE.Sim.Tests
         [Test]
         public void NormalAbility_HeldForTelegraphTicks_ThenCommitted()
         {
-            var b = TestKit.Duel(TestKit.Config("A", PocContent.Slash()), TestKit.Config("B"));
-            var tele = new TelegraphBehavior(new Scripted(PocContent.SlashId), 10);
+            var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Slash()), TestKit.Config("B"));
+            var tele = new TelegraphBehavior(new Scripted(DefaultContent.SlashId), 10);
 
             Drive(b, tele, null, 11);
 
-            var used = TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId);
+            var used = TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId);
             Assert.AreEqual(1, used.Count);
             Assert.AreEqual(10, used[0].Tick); // decided at tick 0, committed 10 ticks later
         }
@@ -42,47 +42,47 @@ namespace RankE.Sim.Tests
         [Test]
         public void PendingIntent_VisibleDuringHold_ClearedOnCommit()
         {
-            var b = TestKit.Duel(TestKit.Config("A", PocContent.Slash()), TestKit.Config("B"));
-            var tele = new TelegraphBehavior(new Scripted(PocContent.SlashId), 10);
+            var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Slash()), TestKit.Config("B"));
+            var tele = new TelegraphBehavior(new Scripted(DefaultContent.SlashId), 10);
 
             // Decision tick: intent captured, nothing submitted.
             b.SubmitIntent(0, tele.Decide(b, 0));
             b.Step();
-            Assert.AreEqual(PocContent.SlashId, tele.PendingIntent);
+            Assert.AreEqual(DefaultContent.SlashId, tele.PendingIntent);
             Assert.AreEqual(10, tele.TicksUntilCommit);
 
             Drive(b, tele, null, 9);
-            Assert.AreEqual(PocContent.SlashId, tele.PendingIntent);
+            Assert.AreEqual(DefaultContent.SlashId, tele.PendingIntent);
             Assert.AreEqual(1, tele.TicksUntilCommit);
 
             Drive(b, tele, null, 1);
             Assert.IsNull(tele.PendingIntent);
             Assert.AreEqual(0, tele.TicksUntilCommit);
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId).Count);
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId).Count);
         }
 
         [Test]
         public void QuickAbility_PassesThroughUntelegraphed()
         {
-            var b = TestKit.Duel(TestKit.Config("A", PocContent.Parry()), TestKit.Config("B"));
-            var tele = new TelegraphBehavior(new Scripted(PocContent.ParryId), 10);
+            var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Parry()), TestKit.Config("B"));
+            var tele = new TelegraphBehavior(new Scripted(DefaultContent.ParryId), 10);
 
             Drive(b, tele, null, 1);
 
             Assert.IsNull(tele.PendingIntent);
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.ParryId).Count);
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.ParryId).Count);
             Assert.AreEqual(0, b.Events.First(e => e.Type == SimEventType.AbilityUsed).Tick);
         }
 
         [Test]
         public void ZeroTelegraphTicks_BehavesLikeInner()
         {
-            var b = TestKit.Duel(TestKit.Config("A", PocContent.Slash()), TestKit.Config("B"));
-            var tele = new TelegraphBehavior(new Scripted(PocContent.SlashId), 0);
+            var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Slash()), TestKit.Config("B"));
+            var tele = new TelegraphBehavior(new Scripted(DefaultContent.SlashId), 0);
 
             Drive(b, tele, null, 1);
 
-            Assert.AreEqual(0, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId)[0].Tick);
+            Assert.AreEqual(0, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId)[0].Tick);
         }
 
         [Test]
@@ -91,8 +91,8 @@ namespace RankE.Sim.Tests
             string RunLog(int seed)
             {
                 var b = new Battle(
-                    PocContent.DefaultConfig("A"), PocContent.DefaultConfig("B"),
-                    PocContent.CreateContent(), PocContent.CreateTuning(), seed);
+                    DefaultContent.DefaultConfig("A"), DefaultContent.DefaultConfig("B"),
+                    DefaultContent.CreateContent(), DefaultContent.CreateTuning(), seed);
                 BattleRunner.RunSingle(b,
                     new TelegraphBehavior(new PocBehaviorProfile(), 10),
                     new TelegraphBehavior(new PocBehaviorProfile(), 10));

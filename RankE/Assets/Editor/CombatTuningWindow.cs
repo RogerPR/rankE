@@ -19,7 +19,7 @@ namespace RankE.Editor
     /// finish the fight / press Rematch to feel a change. Presentation knobs apply live (the
     /// view reads the assets per spawn) and persist (they're assets). The profile itself is
     /// in-memory and resets on a domain reload / play-exit — "Copy values" dumps the current
-    /// numbers so good ones can be pasted back into <c>PocContent</c>.
+    /// numbers so good ones can be pasted back into <c>DefaultContent</c>.
     /// </summary>
     public sealed class CombatTuningWindow : EditorWindow
     {

@@ -45,12 +45,12 @@ namespace RankE.Sim
             return Run(
                 fights,
                 seed,
-                () => PocContent.DefaultConfig("A"),
-                () => PocContent.DefaultConfig("B"),
+                () => DefaultContent.DefaultConfig("A"),
+                () => DefaultContent.DefaultConfig("B"),
                 () => new PocBehaviorProfile(),
                 () => new PocBehaviorProfile(),
-                PocContent.CreateContent(),
-                PocContent.CreateTuning());
+                DefaultContent.CreateContent(),
+                DefaultContent.CreateTuning());
         }
     }
 }

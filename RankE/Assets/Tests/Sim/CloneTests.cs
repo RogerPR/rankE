@@ -27,7 +27,7 @@ namespace RankE.Sim.Tests
         [Test]
         public void AbilityDef_Clone_DeepCopiesEffects()
         {
-            var src = PocContent.Bash(); // has Damage + Status + Break effects
+            var src = DefaultContent.Bash(); // has Damage + Status + Break effects
             var copy = src.Clone();
 
             Assert.AreEqual(src.Id, copy.Id);

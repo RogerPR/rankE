@@ -7,9 +7,12 @@ is tagged by the mechanism you use:
 - 🔵 **Unity Inspector** — select a scene object, edit fields; saved in the scene.
 - 🟡 **Code edit** — change a `.cs` file (recompiles on next play / focus).
 
-> Architecture reminder: the sim core (`Assets/Scripts/Sim`) is pure, deterministic C#
-> and **frozen to PoC-faithful constants** (the edit-mode tests assert them). Ship-tuning
-> goes in the **game layer** (`TuningProfile`) or the live panel — never in `PocContent`.
+> Architecture reminder: the sim core (`Assets/Scripts/Sim`) is pure, deterministic C#.
+> Combat numbers have **one source of truth** — `Sim/Data/DefaultContent.cs` (abilities,
+> statuses, gear) and `Sim/Data/CombatTuning.cs` (global rules). Edit those to change the
+> shipped defaults, or use the live panel for per-fight tweaks. The edit-mode tests pin
+> their *own* fixture numbers (see `Tests/Sim/TestKit.cs`), so retuning the game doesn't
+> break them.
 
 ---
 
@@ -29,11 +32,11 @@ profile at start, so "Start fight" is when they take effect).
 | Per-ability numbers (cooldown, cast, delay, pre/post-lock, gem cost, damage) | **"Edit abilities"** button → pick an ability → edit its fields |
 | Save/load a tuning set | **preset bar** (writes named fixtures to disk) |
 
-**Make a tuned value the permanent default** (so it survives without a preset): copy it
-into `TuningProfile.ApplyPaceDefaults` (`Assets/Scripts/Game/TuningProfile.cs`). This is
-the game-layer pace layer (currently GCD 30 ticks, Slash cooldown 60, auto-attack 60).
-Do **not** edit `Sim/Data/PocContent.cs` or `CombatTuning.cs` base values to retune — that
-breaks the reference test suite.
+**Make a tuned value the permanent default** (so it survives without a preset): edit the
+source of truth directly — `Sim/Data/DefaultContent.cs` for ability/gear numbers, or
+`Sim/Data/CombatTuning.cs` for global rules. Current shipped pace is GCD 30 ticks, Slash
+cooldown 60, auto-attack interval 60 (all defined there). The tests won't break — they pin
+their own fixture numbers in `Tests/Sim/TestKit.cs` and per-test.
 
 ---
 
@@ -67,10 +70,10 @@ Two different things:
   FIGHT SETUP panel.
 - **The enemy's scripted attack rotation** 🟡🔵 — the enemy does a fixed non-quick
   rotation on a cadence (with reactive Parry/Kick between beats). Grow the list in
-  `MatchController.cs` (`new[] { PocContent.SlashId }` → add more ids); change the cadence
+  `MatchController.cs` (`new[] { DefaultContent.SlashId }` → add more ids); change the cadence
   via **`EnemyActionIntervalTicks`** (Inspector field on the CombatBootstrap GameObject,
   default `60` = 3 s) and **`EnemyTelegraphTicks`** (wind-up before each hit, default `10`).
-- **Define a brand-new ability** 🟡 — add an `AbilityDef` in `Sim/Data/PocContent.cs` (the
+- **Define a brand-new ability** 🟡 — add an `AbilityDef` in `Sim/Data/DefaultContent.cs` (the
   library): a stable `Id`, its `Effects`, and `GcdClass` (None/Normal/Quick). It then shows
   up automatically in the panel slots and the ability-number editor. Keep it data-driven —
   don't branch on the id in logic.
@@ -117,9 +120,10 @@ are data-driven.
 |---|---|
 | Live tuning panel | `Assets/Scripts/UI/Screens/ControlPanelScreen.cs` |
 | Per-ability editor | `Assets/Scripts/UI/Screens/AbilitiesEditorScreen.cs` |
-| Game-layer pace defaults | `Assets/Scripts/Game/TuningProfile.cs` (`ApplyPaceDefaults`) |
-| Ability library (definitions) | `Assets/Scripts/Sim/Data/PocContent.cs` |
-| Global rule defaults | `Assets/Scripts/Sim/Data/CombatTuning.cs` |
+| Ability/gear/status defaults (source of truth) | `Assets/Scripts/Sim/Data/DefaultContent.cs` |
+| Global rule defaults (GCD, break, combo) | `Assets/Scripts/Sim/Data/CombatTuning.cs` |
+| Live tuning state (cloned per fight) | `Assets/Scripts/Game/TuningProfile.cs` |
+| Test fixture numbers | `Assets/Tests/Sim/TestKit.cs` |
 | Enemy rotation / cadence | `Assets/Scripts/Game/MatchController.cs` |
 | Enemy brain | `Assets/Scripts/Sim/AI/ScriptedRhythmBehavior.cs` |
 | Camera / lights / anchors | `Assets/Scenes/CombatScene.unity` (Inspector) |

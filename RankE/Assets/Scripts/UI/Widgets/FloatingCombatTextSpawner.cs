@@ -56,7 +56,7 @@ namespace RankE.UI
                     break;
                 case SimEventType.AbilityUsed:
                     if (battle != null && battle.Content.Abilities.TryGetValue(ev.AbilityId, out var def)
-                        && def.Id != PocContent.AutoAttackId)
+                        && def.Id != DefaultContent.AutoAttackId)
                         Spawn(ev.Actor, def.Name, new Color(1f, 1f, 1f, 0.85f), 22);
                     break;
                 case SimEventType.Parried:

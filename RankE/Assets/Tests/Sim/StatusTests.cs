@@ -15,7 +15,7 @@ namespace RankE.Sim.Tests
             TestKit.StepUntil(b, 200);
 
             Assert.AreEqual(476, b.Fighters[1].Hp); // 8 applications × 3
-            Assert.IsFalse(b.Fighters[1].HasStatus(PocContent.PoisonStatus));
+            Assert.IsFalse(b.Fighters[1].HasStatus(DefaultContent.PoisonStatus));
         }
 
         [Test]
@@ -38,44 +38,44 @@ namespace RankE.Sim.Tests
         public void Stun_BlocksActions_UntilExpiry()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Slash()),
+                TestKit.Config("A", DefaultContent.Slash()),
                 TestKit.Config("B", TestKit.Stunner()));
 
             TestKit.UseAt(b, 0, 1, "test_stunner"); // stun 30t on A
-            TestKit.UseAt(b, 5, 0, PocContent.SlashId);
-            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId));
+            TestKit.UseAt(b, 5, 0, DefaultContent.SlashId);
+            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId));
 
-            TestKit.UseAt(b, 30, 0, PocContent.SlashId); // stun expired this tick
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId).Count);
+            TestKit.UseAt(b, 30, 0, DefaultContent.SlashId); // stun expired this tick
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId).Count);
         }
 
         [Test]
         public void Reapply_RefreshesDuration()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Slash()),
+                TestKit.Config("A", DefaultContent.Slash()),
                 TestKit.Config("B", TestKit.Stunner()));
 
             TestKit.UseAt(b, 0, 1, "test_stunner");
             TestKit.UseAt(b, 10, 1, "test_stunner"); // refresh: now runs to tick 40
-            TestKit.UseAt(b, 35, 0, PocContent.SlashId);
-            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId));
+            TestKit.UseAt(b, 35, 0, DefaultContent.SlashId);
+            Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId));
 
-            TestKit.UseAt(b, 40, 0, PocContent.SlashId);
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, PocContent.SlashId).Count);
+            TestKit.UseAt(b, 40, 0, DefaultContent.SlashId);
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityUsed, DefaultContent.SlashId).Count);
         }
 
         [Test]
         public void Distance_MeleeWhiffs()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Slash()),
+                TestKit.Config("A", DefaultContent.Slash()),
                 TestKit.Config("B", TestKit.Net()));
 
             TestKit.UseAt(b, 0, 1, "test_net"); // Distance on A
-            TestKit.UseAt(b, 1, 0, PocContent.SlashId);
+            TestKit.UseAt(b, 1, 0, DefaultContent.SlashId);
 
-            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityWhiffed, PocContent.SlashId).Count);
+            Assert.AreEqual(1, TestKit.EventsOf(b, SimEventType.AbilityWhiffed, DefaultContent.SlashId).Count);
             Assert.AreEqual(500, b.Fighters[1].Hp);
         }
 
@@ -83,11 +83,11 @@ namespace RankE.Sim.Tests
         public void Distance_RangedStillLands()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Fireball()),
+                TestKit.Config("A", DefaultContent.Fireball()),
                 TestKit.Config("B", TestKit.Net()));
 
             TestKit.UseAt(b, 0, 1, "test_net");
-            TestKit.UseAt(b, 1, 0, PocContent.FireballId);
+            TestKit.UseAt(b, 1, 0, DefaultContent.FireballId);
             TestKit.StepUntil(b, 45);
 
             Assert.AreEqual(460, b.Fighters[1].Hp);
@@ -97,14 +97,14 @@ namespace RankE.Sim.Tests
         public void Distance_GapCloserClears()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Slash(), PocContent.Lunge()),
+                TestKit.Config("A", DefaultContent.Slash(), DefaultContent.Lunge()),
                 TestKit.Config("B", TestKit.Net()));
 
             TestKit.UseAt(b, 0, 1, "test_net");
-            TestKit.UseAt(b, 1, 0, PocContent.LungeId);
-            Assert.IsFalse(b.Fighters[0].HasStatus(PocContent.DistanceStatus));
+            TestKit.UseAt(b, 1, 0, DefaultContent.LungeId);
+            Assert.IsFalse(b.Fighters[0].HasStatus(DefaultContent.DistanceStatus));
 
-            TestKit.UseAt(b, 21, 0, PocContent.SlashId); // after GCD
+            TestKit.UseAt(b, 21, 0, DefaultContent.SlashId); // after GCD
             Assert.AreEqual(490, b.Fighters[1].Hp);
         }
 
@@ -112,11 +112,11 @@ namespace RankE.Sim.Tests
         public void Distance_EndsOnTimer()
         {
             var b = TestKit.Duel(
-                TestKit.Config("A", PocContent.Slash()),
+                TestKit.Config("A", DefaultContent.Slash()),
                 TestKit.Config("B", TestKit.Net(30)));
 
             TestKit.UseAt(b, 0, 1, "test_net");
-            TestKit.UseAt(b, 35, 0, PocContent.SlashId); // distance expired at tick 30
+            TestKit.UseAt(b, 35, 0, DefaultContent.SlashId); // distance expired at tick 30
 
             Assert.IsEmpty(TestKit.EventsOf(b, SimEventType.AbilityWhiffed));
             Assert.AreEqual(490, b.Fighters[1].Hp);

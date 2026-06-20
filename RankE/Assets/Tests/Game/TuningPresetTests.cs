@@ -16,8 +16,8 @@ namespace RankE.Game.Tests
             var p = TuningProfile.FromDefaults();
             p.Tuning.GcdTicks = 33;
             p.Tuning.FinisherEffectMult = 2.25;
-            p.Abilities[PocContent.SlashId].CooldownTicks = 999;
-            p.Abilities[PocContent.SlashId].Effects[0].Amount = 77; // Slash's Damage effect
+            p.Abilities[DefaultContent.SlashId].CooldownTicks = 999;
+            p.Abilities[DefaultContent.SlashId].Effects[0].Amount = 77; // Slash's Damage effect
             p.Player.MaxHp = 1234;
             p.Player.Stats.Attack = 42;
             p.Player.AbilityIds[0] = LoadoutPools.NoneId; // empty a main slot
@@ -31,8 +31,8 @@ namespace RankE.Game.Tests
         {
             Assert.AreEqual(33, target.Tuning.GcdTicks);
             Assert.AreEqual(2.25, target.Tuning.FinisherEffectMult, 1e-9);
-            Assert.AreEqual(999, target.Abilities[PocContent.SlashId].CooldownTicks);
-            Assert.AreEqual(77, target.Abilities[PocContent.SlashId].Effects[0].Amount);
+            Assert.AreEqual(999, target.Abilities[DefaultContent.SlashId].CooldownTicks);
+            Assert.AreEqual(77, target.Abilities[DefaultContent.SlashId].Effects[0].Amount);
             Assert.AreEqual(1234, target.Player.MaxHp);
             Assert.AreEqual(42, target.Player.Stats.Attack);
             Assert.AreEqual(LoadoutPools.NoneId, target.Player.AbilityIds[0]);

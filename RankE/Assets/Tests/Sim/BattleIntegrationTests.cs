@@ -8,10 +8,10 @@ namespace RankE.Sim.Tests
         static Battle RunAiFight(int seed)
         {
             var battle = new Battle(
-                PocContent.DefaultConfig("A"),
-                PocContent.DefaultConfig("B"),
-                PocContent.CreateContent(),
-                PocContent.CreateTuning(),
+                DefaultContent.DefaultConfig("A"),
+                DefaultContent.DefaultConfig("B"),
+                DefaultContent.CreateContent(),
+                DefaultContent.CreateTuning(),
                 seed);
             return BattleRunner.RunSingle(battle, new PocBehaviorProfile(), new PocBehaviorProfile());
         }
@@ -53,7 +53,7 @@ namespace RankE.Sim.Tests
             Assert.Greater(stats.WinsA, 0);
             Assert.Greater(stats.WinsB, 0);
             Assert.Greater(stats.Parries, 0);
-            Assert.IsTrue(stats.AbilityUses.ContainsKey(PocContent.FireballId));
+            Assert.IsTrue(stats.AbilityUses.ContainsKey(DefaultContent.FireballId));
 
             TestContext.WriteLine($"1000 fights in {sw.ElapsedMilliseconds} ms");
             TestContext.WriteLine(stats.Summary());

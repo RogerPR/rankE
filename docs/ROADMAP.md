@@ -135,7 +135,7 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       (shared `AbilityDef` numbers), *Player build* and *Adversary build* — each a
       `FighterBuild` (`TuningProfile.Player`/`.Adversary`) with editable stats (HP/gems +
       `StatSheet`) and a per-slot ability selection from the shared library. The adversary is
-      now a first-class editable build (replaces the hardcoded `PocContent.DefaultConfig`), so
+      now a first-class editable build (replaces the hardcoded `DefaultContent.DefaultConfig`), so
       asymmetric end-game test fights can be crafted; the loadout picker edits the same
       `profile.Player` (one source of truth). Still owed: the actual play-and-tune pass to
       find good numbers.)

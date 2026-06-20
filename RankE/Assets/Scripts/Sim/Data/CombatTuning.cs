@@ -2,13 +2,14 @@ namespace RankE.Sim
 {
     /// <summary>
     /// Cross-cutting combat numbers (everything not owned by a single ability/status).
-    /// Defaults are the PoC constants plus the GAME_DESIGN §1 PROPOSED values for the
-    /// break bar and combos. All times in ticks (20/s).
+    /// Defaults are the game's shipping values (a notch slower than the original PoC) plus
+    /// the GAME_DESIGN §1 PROPOSED values for the break bar and combos. All times in
+    /// ticks (20/s).
     /// </summary>
     public sealed class CombatTuning
     {
-        // GCD (PoC: 1.0s / 0.3s)
-        public int GcdTicks = 20;
+        // GCD — 1.5s normal / 0.3s quick (a calmer cadence than the PoC's 1.0s).
+        public int GcdTicks = 30;
         public int QuickGcdTicks = 6;
 
         // Parry → riposte (PoC counter + GAME_DESIGN break numbers)

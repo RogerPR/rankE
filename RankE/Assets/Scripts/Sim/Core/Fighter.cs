@@ -67,7 +67,6 @@ namespace RankE.Sim
         /// <summary>Pre-effect animation lock in progress (instant ability wind-up).</summary>
         public AbilityState Windup;
         public int WindupRemaining;
-        public bool WindupEmpowered;
 
         public AbilityState AutoAttack; // null = none
         public int AutoAttackInterval;
@@ -75,10 +74,19 @@ namespace RankE.Sim
 
         public int RiposteCounter;
 
-        /// <summary>Completed steps in the current combo chain (0–2).</summary>
-        public int ComboStep;
+        /// <summary>True only for the human player: runs the colour-sequence combo.</summary>
+        public bool UsesComboSystem;
 
-        public int ComboDeadlineTick = -1;
+        /// <summary>The colour order the player must currently press to land a combo (empty
+        /// until the first colour ability is used). Only populated when <see cref="UsesComboSystem"/>.</summary>
+        public readonly List<string> ComboSequence = new List<string>();
+
+        /// <summary>How many leading colours of <see cref="ComboSequence"/> have been matched.</summary>
+        public int ComboProgress;
+
+        /// <summary>Set when a combo completes; the empowered status is granted after the
+        /// completing ability resolves, so that ability isn't doubled — the next one is.</summary>
+        public bool PendingEmpowerGrant;
 
         public readonly List<AbilityState> Abilities = new List<AbilityState>();
         public readonly List<StatusInstance> Statuses = new List<StatusInstance>();
@@ -90,6 +98,7 @@ namespace RankE.Sim
         {
             Index = index;
             Name = cfg.Name;
+            UsesComboSystem = cfg.UsesComboSystem;
 
             // Apply gear sequentially with integer truncation per step (PoC parity).
             int maxHp = cfg.MaxHp;
@@ -161,6 +170,36 @@ namespace RankE.Sim
                     if (s.Def.BlocksActions) return false;
                 return true;
             }
+        }
+
+        /// <summary>True while any active status blocks actions (stun or broken) — the view
+        /// uses this to hold a clear "stunned" presentation for the whole duration.</summary>
+        public bool HasBlockingStatus
+        {
+            get
+            {
+                foreach (var s in Statuses)
+                    if (s.Def.BlocksActions) return true;
+                return false;
+            }
+        }
+
+        /// <summary>Product of every active status's <see cref="StatusDef.DamageDealtMult"/>
+        /// (EMPOWERED doubles outgoing damage). 1.0 = no buff active.</summary>
+        public double DamageDealtMult()
+        {
+            double mult = 1.0;
+            foreach (var s in Statuses)
+                mult *= s.Def.DamageDealtMult;
+            return mult;
+        }
+
+        /// <summary>Spend one-shot outgoing-damage buffs (EMPOWERED) after a damaging hit lands.</summary>
+        public void ConsumeDamageDealtBuffs()
+        {
+            for (int s = Statuses.Count - 1; s >= 0; s--)
+                if (Statuses[s].Def.ConsumeOnDamageDealt)
+                    Statuses.RemoveAt(s);
         }
 
         public AbilityState GetAbility(string id)

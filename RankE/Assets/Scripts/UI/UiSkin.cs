@@ -84,5 +84,23 @@ namespace RankE.UI
                     return Icons[i].Icon;
             return null;
         }
+
+        /// <summary>Map a sim combo-colour id (e.g. "red"/"yellow") to its on-screen colour.
+        /// The single place colour ids become RGB; spare hues are pre-mapped for future
+        /// abilities. Unknown ids fall back to neutral grey. Static so widgets can call it
+        /// without a loaded skin.</summary>
+        public static Color ComboColorFor(string colorId)
+        {
+            switch (colorId)
+            {
+                case "red": return new Color(0.90f, 0.22f, 0.22f);
+                case "yellow": return new Color(0.96f, 0.82f, 0.20f);
+                case "green": return new Color(0.30f, 0.80f, 0.35f);
+                case "blue": return new Color(0.28f, 0.55f, 0.95f);
+                case "purple": return new Color(0.66f, 0.40f, 0.90f);
+                case "orange": return new Color(0.96f, 0.55f, 0.18f);
+                default: return new Color(0.6f, 0.6f, 0.6f);
+            }
+        }
     }
 }

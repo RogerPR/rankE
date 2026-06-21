@@ -18,7 +18,7 @@ namespace RankE.Sim.Tests
             Assert.AreEqual(src.GcdTicks, copy.GcdTicks);
             Assert.AreEqual(src.ParryRiposteGain, copy.ParryRiposteGain);
             Assert.AreEqual(src.BrokenDurationTicks, copy.BrokenDurationTicks);
-            Assert.AreEqual(src.FinisherEffectMult, copy.FinisherEffectMult);
+            Assert.AreEqual(src.EmpoweredDurationTicks, copy.EmpoweredDurationTicks);
 
             copy.GcdTicks = 999;
             Assert.AreNotEqual(copy.GcdTicks, src.GcdTicks, "Editing the clone must not touch the source.");

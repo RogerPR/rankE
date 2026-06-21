@@ -24,10 +24,9 @@ namespace RankE.UI
             { "BreakDecayIntervalTicks", "How often the break bar ticks down once decaying." },
             { "BreakDecayAmount", "Break removed per decay tick." },
             { "BrokenDurationTicks", "How long the Broken stagger lasts (takes +damage, can't act)." },
-            { "ComboWindowTicks", "Time allowed between combo steps before the chain resets." },
-            { "FinisherEffectMult", "Damage multiplier applied to a combo finisher." },
-            { "FinisherBonusBreak", "Extra break damage a finisher deals." },
-            { "FinisherGemRefund", "Spell gems refunded on landing a finisher." },
+            { "ComboMinLen", "Shortest random colour-sequence combo the player can be given." },
+            { "ComboMaxLen", "Longest random colour-sequence combo the player can be given." },
+            { "EmpoweredDurationTicks", "How long the empowered (next hit ×2) combo reward lasts." },
             { "MaxTicks", "Safety cap on fight length (headless sweeps); reached = draw." },
 
             // --- StatSheet (per-fighter) ---

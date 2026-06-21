@@ -15,7 +15,7 @@ namespace RankE.Game.Tests
         {
             var p = TuningProfile.FromDefaults();
             p.Tuning.GcdTicks = 33;
-            p.Tuning.FinisherEffectMult = 2.25;
+            p.Tuning.EmpoweredDurationTicks = 222;
             p.Abilities[DefaultContent.SlashId].CooldownTicks = 999;
             p.Abilities[DefaultContent.SlashId].Effects[0].Amount = 77; // Slash's Damage effect
             p.Player.MaxHp = 1234;
@@ -30,7 +30,7 @@ namespace RankE.Game.Tests
         static void AssertRestored(TuningProfile src, TuningProfile target)
         {
             Assert.AreEqual(33, target.Tuning.GcdTicks);
-            Assert.AreEqual(2.25, target.Tuning.FinisherEffectMult, 1e-9);
+            Assert.AreEqual(222, target.Tuning.EmpoweredDurationTicks);
             Assert.AreEqual(999, target.Abilities[DefaultContent.SlashId].CooldownTicks);
             Assert.AreEqual(77, target.Abilities[DefaultContent.SlashId].Effects[0].Amount);
             Assert.AreEqual(1234, target.Player.MaxHp);

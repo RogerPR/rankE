@@ -24,5 +24,9 @@ namespace RankE.Sim
         public List<AbilityDef> Abilities = new List<AbilityDef>();
 
         public BuildState Build = new BuildState();
+
+        /// <summary>Only the human player runs the colour-sequence combo system: they accrue a
+        /// combo sequence and earn the empowered hit. Enemies leave this false.</summary>
+        public bool UsesComboSystem;
     }
 }

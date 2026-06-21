@@ -341,7 +341,7 @@ namespace RankE.Editor
                 ComputeFit(prefab, MonsterTargetHeight, out float scale, out float yOff);
 
                 var states = ControllerStates(folderAbs);
-                string idle = Pick(states, exact: "Idle", contains: new[] { "Idle" }) ?? "Idle";
+                string idle = PickIdle(states);
                 string hit = Pick(states, contains: new[] { "Take Damage", "Damage", "Hit", "Hurt" }) ?? idle;
                 string die = Pick(states, contains: new[] { "Die", "Death" }) ?? hit;
                 string cast = Pick(states, contains: new[] { "Cast", "Spell" });
@@ -422,6 +422,23 @@ namespace RankE.Editor
                     if (m != null) return m;
                 }
             return null;
+        }
+
+        /// <summary>Pick a true resting/idle state for a monster. Broadened past "Idle" so
+        /// creatures whose rest pose is named Rest/Ready/Stand/Combat/Loop still map (the
+        /// previous code fell back to a literal "Idle" that didn't exist, so the animator
+        /// couldn't override the controller's default — leaving monsters stuck walking). As a
+        /// last resort take the first non-locomotion state rather than a walk/run.</summary>
+        static string PickIdle(List<string> states)
+        {
+            var m = Pick(states, exact: "Idle",
+                contains: new[] { "Idle", "Combat Idle", "Battle Idle", "Rest", "Ready", "Stand", "Loop" });
+            if (m != null) return m;
+
+            string[] loco = { "Walk", "Run", "Move", "Jog", "Sprint", "Fly", "Step", "Roam" };
+            var nonLoco = states.FirstOrDefault(s =>
+                !loco.Any(k => s.IndexOf(k, StringComparison.OrdinalIgnoreCase) >= 0));
+            return nonLoco ?? states.FirstOrDefault() ?? "Idle";
         }
 
         static string PickAttack(List<string> states, string exclude)

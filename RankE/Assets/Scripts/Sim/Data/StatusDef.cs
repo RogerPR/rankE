@@ -23,6 +23,14 @@ namespace RankE.Sim
         /// <summary>Multiplier on damage taken while active (BROKEN: 1.5).</summary>
         public double DamageTakenMult = 1.0;
 
+        /// <summary>Multiplier on damage *dealt* by the bearer while active (EMPOWERED: 2.0).
+        /// 1.0 = no effect (the default, so existing statuses are unchanged).</summary>
+        public double DamageDealtMult = 1.0;
+
+        /// <summary>If true, this status is removed the moment its bearer lands a damaging
+        /// ability — a one-shot buff (EMPOWERED: the next hit is doubled, then it's spent).</summary>
+        public bool ConsumeOnDamageDealt;
+
         /// <summary>Restrict <see cref="DamageTakenMult"/> and <see cref="AbsorbAmount"/> to a
         /// single damage school (a <c>Schools.*</c> id), e.g. a physical-only shield. Null =
         /// every school (the default, so existing statuses are unchanged).</summary>

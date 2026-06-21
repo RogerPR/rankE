@@ -12,6 +12,7 @@ namespace RankE.Sim.Tests
                 TestKit.Config("B"));
 
             TestKit.UseAt(b, 0, 0, DefaultContent.BashId);
+            TestKit.StepUntil(b, 12); // Bash has a 10t wind-up; its break lands at the effect frame
             Assert.AreEqual(20, b.Fighters[1].BreakBar);
         }
 

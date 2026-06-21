@@ -77,6 +77,7 @@ namespace RankE.Game
             // ability selection + gear); the enemy keeps the chosen monster's display name.
             var profile = TuningProfile.Active;
             var player = profile.Player.ToConfig(profile);
+            player.UsesComboSystem = true; // only the human player runs the colour-sequence combo
             var enemy = profile.Adversary.ToConfig(profile);
             enemy.Name = Loadout.EnemyVisualName;
 

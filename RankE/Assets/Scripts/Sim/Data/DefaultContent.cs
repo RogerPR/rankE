@@ -36,6 +36,11 @@ namespace RankE.Sim
         public const string DistanceStatus = "distance";
         public const string BlockPhysStatus = "block_phys";  // Block's −60% physical reduction
         public const string PhysShieldStatus = "phys_shield"; // Block's physical absorb pool
+        public const string EmpoweredStatus = "empowered";    // combo reward: next hit ×2
+
+        // combo colour ids (mapped to on-screen colours by the UI)
+        public const string ColorRed = "red";
+        public const string ColorYellow = "yellow";
 
         // passive ids
         public const string AutoAttackPassiveId = "auto_attack";
@@ -53,6 +58,7 @@ namespace RankE.Sim
                 .Add(new StatusDef { Id = DistanceStatus, Name = "Distance", IsDistance = true })
                 .Add(new StatusDef { Id = BlockPhysStatus, Name = "Block", DamageTakenMult = 0.4, DamageSchoolFilter = Schools.Physical })
                 .Add(new StatusDef { Id = PhysShieldStatus, Name = "Shield", DamageSchoolFilter = Schools.Physical })
+                .Add(new StatusDef { Id = EmpoweredStatus, Name = "Empowered", DamageDealtMult = 2.0, ConsumeOnDamageDealt = true })
                 .Add(Slash())
                 .Add(Bash())
                 .Add(Fireball())
@@ -67,8 +73,8 @@ namespace RankE.Sim
                 .Add(Lunge());
         }
 
-        // Combo tag assignment over the PoC kit is PROPOSED: Slash=Opener,
-        // Bash=Linker, Fireball=Finisher; Vampiro is neutral (support).
+        // Combo colours over the PoC kit: Slash=red, Bash=yellow (the tutorial's two colours).
+        // Other abilities are combo-neutral until they're assigned a colour.
 
         public static AbilityDef Slash() => new AbilityDef
         {
@@ -78,7 +84,7 @@ namespace RankE.Sim
             CooldownTicks = 60, // 3s — matches the enemy's telegraphed Slash beat
             Parriable = true,
             IsMelee = true,
-            ComboTag = ComboTags.Opener,
+            ComboColor = ColorRed,
             Effects = new List<EffectDef> { EffectDef.Damage(10) },
         };
 
@@ -87,10 +93,11 @@ namespace RankE.Sim
             Id = BashId,
             Name = "Bash",
             Gcd = GcdClass.Normal,
-            CooldownTicks = 600,
+            CooldownTicks = 160,    // ported from the tutorial preset
+            PreLockTicks = 10,      // 0.5s wind-up — the heavy hit lands after the swing
             Parriable = true,
             IsMelee = true,
-            ComboTag = ComboTags.Linker,
+            ComboColor = ColorYellow,
             Effects = new List<EffectDef>
             {
                 EffectDef.Damage(5),
@@ -108,7 +115,6 @@ namespace RankE.Sim
             CastTicks = 40,
             Interruptible = true,
             GemCost = 1,
-            ComboTag = ComboTags.Finisher,
             Effects = new List<EffectDef> { EffectDef.Damage(40, Schools.Magic) },
         };
 

@@ -22,6 +22,14 @@ namespace RankE.Game
         Die,
         Spawn,
         Victory,
+
+        /// <summary>Anticipation/charge pose held during an ability's pre-effect wind-up, so the
+        /// visible strike lands on the effect tick rather than on the button press.</summary>
+        Windup,
+
+        /// <summary>Sustained "stunned" pose held for the whole duration of a stun/broken
+        /// status (clearly reads as helpless). Falls back to Broken→Hit when unmapped.</summary>
+        Stunned,
     }
 
     [Serializable]

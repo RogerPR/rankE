@@ -27,11 +27,12 @@ namespace RankE.Sim
         public string BrokenStatusId = "broken";
         public int BrokenDurationTicks = 50;      // 2.5s
 
-        // Combos (GAME_DESIGN §1c PROPOSED)
-        public int ComboWindowTicks = 80;         // 4s between steps
-        public double FinisherEffectMult = 1.5;
-        public int FinisherBonusBreak = 10;
-        public int FinisherGemRefund = 1;
+        // Colour-sequence combo (player only). Completing the displayed colour order grants
+        // the EMPOWERED status; the next damaging ability is doubled, then it's consumed.
+        public int ComboMinLen = 3;               // shortest random sequence
+        public int ComboMaxLen = 5;               // longest random sequence
+        public string EmpoweredStatusId = "empowered";
+        public int EmpoweredDurationTicks = 600;  // 30s window to spend the empowered hit
 
         /// <summary>Safety cap for headless runs; fights hitting it count as draws.</summary>
         public int MaxTicks = 24000;

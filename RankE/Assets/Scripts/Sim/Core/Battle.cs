@@ -9,7 +9,6 @@ namespace RankE.Sim
         public int FireTick;
         public int Source;
         public AbilityDef Ability;
-        public bool Empowered;
     }
 
     /// <summary>
@@ -61,13 +60,13 @@ namespace RankE.Sim
             var auto = new AbilityDef[2];
             for (int i = 0; i < 2; i++) auto[i] = TryAutoAttack(Fighters[i]);
             for (int i = 0; i < 2; i++)
-                if (auto[i] != null) ApplyAbility(i, auto[i], false);
+                if (auto[i] != null) ApplyAbility(i, auto[i]);
 
             // Gather both committed actions, then apply both.
-            var acts = new ValueTuple<AbilityDef, bool>?[2];
+            var acts = new AbilityDef[2];
             for (int i = 0; i < 2; i++) acts[i] = ResolveAction(Fighters[i], intents[i]);
             for (int i = 0; i < 2; i++)
-                if (acts[i].HasValue) ApplyAbility(i, acts[i].Value.Item1, acts[i].Value.Item2);
+                if (acts[i] != null) ApplyAbility(i, acts[i]);
 
             // Delayed abilities whose timer expired.
             for (int p = 0; p < Pending.Count; )
@@ -77,7 +76,7 @@ namespace RankE.Sim
                     var pd = Pending[p];
                     Pending.RemoveAt(p);
                     Emit(SimEventType.DelayedFired, pd.Source, ability: pd.Ability.Id);
-                    ApplyEffectsNow(pd.Source, pd.Ability, pd.Empowered);
+                    ApplyEffectsNow(pd.Source, pd.Ability);
                 }
                 else p++;
             }
@@ -172,8 +171,8 @@ namespace RankE.Sim
 
         // ---- action resolution ----
 
-        /// <summary>Returns the ability (plus empowered flag) committed this tick, or null.</summary>
-        ValueTuple<AbilityDef, bool>? ResolveAction(Fighter f, string intent)
+        /// <summary>Returns the ability committed this tick, or null.</summary>
+        AbilityDef ResolveAction(Fighter f, string intent)
         {
             // Cast completion takes the slot; input is ignored that tick (PoC act()).
             if (f.IsCasting && f.CastRemaining <= 0)
@@ -183,11 +182,11 @@ namespace RankE.Sim
                 f.CastRemaining = 0;
                 st.CooldownRemaining = (int)(st.EffCooldownTicks * f.CooldownUseMult);
                 f.SpellGems -= st.Def.GemCost;
-                bool emp = CommitCombo(f, st.Def);
+                CommitColorCombo(f, st.Def);
                 f.LockRemaining = Math.Max(f.LockRemaining, st.Def.PostLockTicks);
                 Emit(SimEventType.CastCompleted, f.Index, ability: st.Def.Id);
                 Emit(SimEventType.AbilityUsed, f.Index, ability: st.Def.Id);
-                return (st.Def, emp);
+                return st.Def;
             }
 
             // Wind-up completion: effects fire at the effect frame.
@@ -197,13 +196,13 @@ namespace RankE.Sim
                 f.Windup = null;
                 f.WindupRemaining = 0;
                 f.LockRemaining = Math.Max(f.LockRemaining, st.Def.PostLockTicks);
-                return (st.Def, f.WindupEmpowered);
+                return st.Def;
             }
 
             return TryUse(f, intent);
         }
 
-        ValueTuple<AbilityDef, bool>? TryUse(Fighter f, string abilityId)
+        AbilityDef TryUse(Fighter f, string abilityId)
         {
             if (abilityId == null) return null;
             if (!f.CanAct) return null;
@@ -241,71 +240,89 @@ namespace RankE.Sim
             // Instant: commit now (cooldown, gems, combo), effects now or after wind-up.
             st.CooldownRemaining = (int)(st.EffCooldownTicks * f.CooldownUseMult);
             f.SpellGems -= st.Def.GemCost;
-            bool emp = CommitCombo(f, st.Def);
+            CommitColorCombo(f, st.Def);
             Emit(SimEventType.AbilityUsed, f.Index, ability: st.Def.Id);
 
             if (st.Def.PreLockTicks > 0)
             {
                 f.Windup = st;
                 f.WindupRemaining = st.Def.PreLockTicks;
-                f.WindupEmpowered = emp;
                 return null;
             }
 
             f.LockRemaining = Math.Max(f.LockRemaining, st.Def.PostLockTicks);
-            return (st.Def, emp);
+            return st.Def;
         }
 
-        /// <summary>Advances the O→L→F chain; returns true when this use is an
-        /// empowered finisher. Quick actions and untagged abilities are neutral.</summary>
-        bool CommitCombo(Fighter f, AbilityDef def)
+        /// <summary>The player's colour-sequence combo (player only). Pressing the displayed
+        /// colours in order advances the chain; finishing it grants the empowered status (the
+        /// next damaging hit is doubled). A wrong colour reshuffles into a fresh random sequence.
+        /// Combo-neutral abilities (no <see cref="AbilityDef.ComboColor"/>, and all quick
+        /// actions) are ignored — they neither advance nor reset.</summary>
+        void CommitColorCombo(Fighter f, AbilityDef def)
         {
-            if (def.Gcd != GcdClass.Normal || def.ComboTag == null) return false;
+            if (!f.UsesComboSystem || def.Gcd != GcdClass.Normal || def.ComboColor == null) return;
 
-            if (f.ComboStep > 0 && CurrentTick > f.ComboDeadlineTick)
+            if (f.ComboSequence.Count == 0)
+                GenerateComboSequence(f);
+            if (f.ComboSequence.Count == 0) return; // no coloured abilities → nothing to match
+
+            if (def.ComboColor == f.ComboSequence[f.ComboProgress])
             {
-                f.ComboStep = 0;
-                Emit(SimEventType.ComboReset, f.Index, ability: def.Id);
-            }
-
-            string expected = f.ComboStep == 0 ? ComboTags.Opener
-                : f.ComboStep == 1 ? ComboTags.Linker
-                : ComboTags.Finisher;
-
-            if (def.ComboTag == expected)
-            {
-                f.ComboStep++;
-                f.ComboDeadlineTick = CurrentTick + Tuning.ComboWindowTicks;
-                if (f.ComboStep == 3)
+                f.ComboProgress++;
+                if (f.ComboProgress >= f.ComboSequence.Count)
                 {
-                    f.ComboStep = 0;
-                    f.SpellGems = Math.Min(f.MaxSpellGems, f.SpellGems + Tuning.FinisherGemRefund);
+                    // Completed: arm the empowered grant (applied after this ability resolves so
+                    // the completing hit isn't the doubled one — the *next* ability is) and
+                    // reshuffle a fresh sequence to chase.
+                    f.PendingEmpowerGrant = true;
                     Emit(SimEventType.ComboCompleted, f.Index, ability: def.Id);
-                    return true;
+                    GenerateComboSequence(f);
                 }
-                Emit(SimEventType.ComboAdvanced, f.Index, ability: def.Id, amount: f.ComboStep);
-                return false;
+                else
+                {
+                    Emit(SimEventType.ComboAdvanced, f.Index, ability: def.Id, amount: f.ComboProgress);
+                }
+                return;
             }
 
-            if (f.ComboStep > 0)
-                Emit(SimEventType.ComboReset, f.Index, ability: def.Id);
-
-            if (def.ComboTag == ComboTags.Opener)
+            // Wrong colour: reshuffle. If the new sequence happens to open on this colour, count it.
+            Emit(SimEventType.ComboReset, f.Index, ability: def.Id);
+            GenerateComboSequence(f);
+            if (f.ComboSequence.Count > 0 && def.ComboColor == f.ComboSequence[0])
             {
-                f.ComboStep = 1;
-                f.ComboDeadlineTick = CurrentTick + Tuning.ComboWindowTicks;
+                f.ComboProgress = 1;
                 Emit(SimEventType.ComboAdvanced, f.Index, ability: def.Id, amount: 1);
             }
-            else
+        }
+
+        /// <summary>Builds a fresh random target sequence (length ComboMin..ComboMax) drawn only
+        /// from the distinct colours present on the fighter's abilities, and resets progress.
+        /// Uses the seeded <see cref="Rng"/>, so combos stay deterministic/replayable.</summary>
+        void GenerateComboSequence(Fighter f)
+        {
+            f.ComboSequence.Clear();
+            f.ComboProgress = 0;
+
+            var colors = new List<string>();
+            foreach (var a in f.Abilities)
             {
-                f.ComboStep = 0;
+                var c = a.Def.ComboColor;
+                if (c != null && a.Def.Gcd == GcdClass.Normal && !colors.Contains(c))
+                    colors.Add(c);
             }
-            return false;
+            if (colors.Count == 0) return;
+
+            int len = Tuning.ComboMinLen;
+            if (Tuning.ComboMaxLen > Tuning.ComboMinLen)
+                len += Rng.Next(Tuning.ComboMaxLen - Tuning.ComboMinLen + 1);
+            for (int i = 0; i < len; i++)
+                f.ComboSequence.Add(colors[Rng.Next(colors.Count)]);
         }
 
         // ---- effect application ----
 
-        void ApplyAbility(int src, AbilityDef def, bool empowered)
+        void ApplyAbility(int src, AbilityDef def)
         {
             if (def.DelayTicks > 0)
             {
@@ -314,15 +331,14 @@ namespace RankE.Sim
                     FireTick = CurrentTick + def.DelayTicks,
                     Source = src,
                     Ability = def,
-                    Empowered = empowered,
                 });
                 Emit(SimEventType.DelayedScheduled, src, ability: def.Id, amount: def.DelayTicks);
                 return;
             }
-            ApplyEffectsNow(src, def, empowered);
+            ApplyEffectsNow(src, def);
         }
 
-        void ApplyEffectsNow(int src, AbilityDef def, bool empowered)
+        void ApplyEffectsNow(int src, AbilityDef def)
         {
             var attacker = Fighters[src];
             var defender = Fighters[1 - src];
@@ -346,36 +362,44 @@ namespace RankE.Sim
                     defender.RiposteCounter = 0;
                     Emit(SimEventType.RiposteTriggered, defender.Index, target: src);
                     Emit(SimEventType.AbilityUsed, defender.Index, ability: riposteDef.Id);
-                    ApplyEffectsNow(defender.Index, riposteDef, false);
+                    ApplyEffectsNow(defender.Index, riposteDef);
                 }
             }
 
             bool negated = whiffed || parried;
+            bool dealtDamage = false;
             foreach (var e in def.Effects)
             {
                 bool toSelf = e.Target == EffectTarget.Self;
                 if (!toSelf && negated) continue;
-                ApplyEffect(src, def, e, toSelf ? attacker : defender, empowered);
+                ApplyEffect(src, def, e, toSelf ? attacker : defender);
+                if (e.Kind == EffectKinds.Damage && !toSelf) dealtDamage = true;
             }
 
-            if (empowered && !negated)
-                ApplyBreak(defender, Tuning.FinisherBonusBreak, src);
+            // Spend the empowered hit once it lands, then grant a freshly-earned one — so a combo
+            // completed by *this* ability empowers the next ability, not this one.
+            if (dealtDamage) attacker.ConsumeDamageDealtBuffs();
+            if (attacker.PendingEmpowerGrant)
+            {
+                attacker.PendingEmpowerGrant = false;
+                ApplyStatus(attacker, Tuning.EmpoweredStatusId, Tuning.EmpoweredDurationTicks, src);
+            }
         }
 
-        void ApplyEffect(int src, AbilityDef def, EffectDef e, Fighter target, bool empowered)
+        void ApplyEffect(int src, AbilityDef def, EffectDef e, Fighter target)
         {
-            double empMult = empowered ? Tuning.FinisherEffectMult : 1.0;
             switch (e.Kind)
             {
                 case EffectKinds.Damage:
                 {
                     // Derived damage (GAME_DESIGN §1): offense-scaled & crit core, then
                     // defense and damage-taken mults. Neutral stats reproduce flat PoC numbers.
+                    // DamageDealtMult folds in the empowered (×2) combo reward.
                     var attacker = Fighters[src];
                     int offense = OffenseFor(attacker, e.School);
                     double crit = RollCrit(attacker) ? attacker.Stats.CritDamage : 1.0;
                     double core = Math.Round(
-                        e.Amount * empMult * (1 + offense / 100.0) * crit,
+                        e.Amount * attacker.DamageDealtMult() * (1 + offense / 100.0) * crit,
                         MidpointRounding.AwayFromZero);
                     double defMult = 100.0 / Math.Max(1, 100 + target.Stats.Defense);
                     int dmg = (int)(core * defMult * target.DamageTakenMult * target.StatusDamageTakenMult(e.School));
@@ -391,7 +415,7 @@ namespace RankE.Sim
                     break;
                 }
                 case EffectKinds.BreakDamage:
-                    ApplyBreak(target, (int)(e.Amount * empMult), src);
+                    ApplyBreak(target, e.Amount, src);
                     break;
                 case EffectKinds.ApplyStatus:
                     ApplyStatus(target, e.StatusId, e.DurationTicks, src);

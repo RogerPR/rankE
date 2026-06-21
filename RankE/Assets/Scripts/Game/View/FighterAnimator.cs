@@ -8,8 +8,11 @@ namespace RankE.Game
     /// a clip, it asks the <see cref="FighterVisualDef"/> for the Animator state that
     /// represents a semantic action (or a specific ability id) and CrossFades to it.
     /// One-shots (attack/hit/block/riposte) hold for a tunable window then the poll in
-    /// <see cref="Update"/> returns to Idle / Cast / Broken based on read-only sim state.
-    /// Pure presentation — reads events and Fighter state, computes nothing.
+    /// <see cref="Update"/> returns to Idle / Cast / Stunned based on read-only sim state.
+    ///
+    /// <para>Timing-aware: an ability with a pre-effect wind-up (PreLock/Delay ticks) holds a
+    /// short anticipation pose and fires the strike one-shot so its contact lands on the effect
+    /// tick — read from the sim's ability data only, never written back. Pure presentation.</para>
     /// </summary>
     public sealed class FighterAnimator : MonoBehaviour
     {
@@ -21,6 +24,10 @@ namespace RankE.Game
         [SerializeField] float riposteSeconds = 0.85f;
         [SerializeField] float brokenSeconds = 2.5f;
 
+        /// <summary>How far into the strike clip the "contact" sits — the strike starts this
+        /// long before the effect tick so the swing connects when the hit lands.</summary>
+        [SerializeField] float strikeContactSeconds = 0.18f;
+
         Animator anim;
         BattleDriver driver;
         FighterVisualDef def;
@@ -28,8 +35,11 @@ namespace RankE.Game
 
         string currentState;
         float busyUntil;   // realtime; while > now, a one-shot is playing
-        float brokenUntil; // realtime; while > now, hold the Broken pose
         bool dead;
+
+        // Pending wind-up strike: a scheduled one-shot whose contact aligns with the effect tick.
+        string pendingStrikeState;
+        float pendingStrikeAt;
 
         public void Bind(BattleDriver driver, int index, FighterVisualDef def, Animator animator)
         {
@@ -39,7 +49,8 @@ namespace RankE.Game
             anim = animator;
             if (anim != null) anim.applyRootMotion = false; // sim owns position, not root motion
 
-            busyUntil = brokenUntil = 0f;
+            busyUntil = 0f;
+            pendingStrikeState = null;
             dead = false;
             currentState = null;
             PlayHard(def.StateFor(AnimAction.Idle));
@@ -54,8 +65,6 @@ namespace RankE.Game
 
         void OnSimEvent(SimEvent ev)
         {
-            if (anim == null || dead) { /* still allow death below */ }
-
             if (ev.Type == SimEventType.FighterDied && ev.Actor == index)
             {
                 dead = true;
@@ -67,11 +76,8 @@ namespace RankE.Game
             switch (ev.Type)
             {
                 case SimEventType.AbilityUsed when ev.Actor == index:
-                {
-                    var state = def.StateForAbility(ev.AbilityId) ?? def.StateFor(AnimAction.Attack);
-                    PlayOneShot(state, attackSeconds);
+                    BeginAttack(ev.AbilityId);
                     break;
-                }
                 case SimEventType.Parried when ev.Actor == index:
                     PlayOneShot(def.StateFor(AnimAction.Block), blockSeconds);
                     break;
@@ -79,25 +85,83 @@ namespace RankE.Game
                     PlayOneShot(def.StateFor(AnimAction.Riposte, def.StateFor(AnimAction.Attack)), riposteSeconds);
                     break;
                 case SimEventType.Damaged when ev.Target == index:
-                    PlayOneShot(def.StateFor(AnimAction.Hit), hitSeconds);
-                    break;
-                case SimEventType.Broken when ev.Target == index:
-                    brokenUntil = Time.time + brokenSeconds;
-                    PlayOneShot(def.StateFor(AnimAction.Broken, def.StateFor(AnimAction.Hit)), brokenSeconds);
+                    // Don't stomp the sustained stun pose with a fleeting hit reaction.
+                    if (!IsStunned()) PlayOneShot(def.StateFor(AnimAction.Hit), hitSeconds);
                     break;
             }
+        }
+
+        /// <summary>Play the strike now, or — for a wind-up/delayed ability — hold an anticipation
+        /// pose and schedule the strike so its contact lands on the effect tick.</summary>
+        void BeginAttack(string abilityId)
+        {
+            var state = def.StateForAbility(abilityId) ?? def.StateFor(AnimAction.Attack);
+            float lead = EffectLeadSeconds(abilityId);
+
+            if (lead > strikeContactSeconds)
+            {
+                // Anticipation now; strike later so the swing connects on the effect tick.
+                var windup = def.StateFor(AnimAction.Windup,
+                    def.StateFor(AnimAction.Cast, def.StateFor(AnimAction.Idle)));
+                pendingStrikeState = state;
+                pendingStrikeAt = Time.time + lead - strikeContactSeconds;
+                if (CrossFade(windup, force: true))
+                    busyUntil = pendingStrikeAt; // hold the anticipation until the strike fires
+            }
+            else
+            {
+                PlayOneShot(state, attackSeconds);
+            }
+        }
+
+        /// <summary>Seconds between the AbilityUsed event and the effect landing, from the sim's
+        /// ability data (read-only). Casts already emit AbilityUsed at completion, so their lead
+        /// is 0; wind-up/delayed instants lead by their PreLock/Delay ticks.</summary>
+        float EffectLeadSeconds(string abilityId)
+        {
+            var ab = Ability(abilityId);
+            if (ab == null) return 0f;
+            return (ab.PreLockTicks + ab.DelayTicks) * SimConstants.TickDuration;
+        }
+
+        AbilityDef Ability(string abilityId)
+        {
+            var content = driver != null && driver.Battle != null ? driver.Battle.Content : null;
+            if (content == null || string.IsNullOrEmpty(abilityId)) return null;
+            return content.Abilities.TryGetValue(abilityId, out var d) ? d : null;
+        }
+
+        bool IsStunned()
+        {
+            var f = driver != null && driver.Battle != null ? driver.Battle.Fighters[index] : null;
+            return f != null && f.HasBlockingStatus;
         }
 
         void Update()
         {
             if (anim == null || dead) return;
-            if (Time.time < busyUntil) return; // let the current one-shot finish
+
+            // Stun overrides one-shots: hold a clear stunned pose for the whole status duration.
+            if (IsStunned())
+            {
+                pendingStrikeState = null;
+                Ensure(def.StateFor(AnimAction.Stunned, def.StateFor(AnimAction.Broken, def.StateFor(AnimAction.Hit))));
+                return;
+            }
+
+            // Fire a scheduled wind-up strike once its time arrives.
+            if (pendingStrikeState != null && Time.time >= pendingStrikeAt)
+            {
+                var s = pendingStrikeState;
+                pendingStrikeState = null;
+                PlayOneShot(s, attackSeconds);
+            }
+
+            if (Time.time < busyUntil) return; // let the current one-shot / anticipation finish
 
             var f = driver != null && driver.Battle != null ? driver.Battle.Fighters[index] : null;
             if (f != null && f.IsCasting)
                 Ensure(def.StateFor(AnimAction.Cast));
-            else if (Time.time < brokenUntil)
-                Ensure(def.StateFor(AnimAction.Broken, def.StateFor(AnimAction.Hit)));
             else
                 Ensure(def.StateFor(AnimAction.Idle));
         }

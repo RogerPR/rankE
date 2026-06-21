@@ -14,14 +14,6 @@ namespace RankE.Sim
         Quick,
     }
 
-    /// <summary>Combo tags are open string ids (GAME_DESIGN §1c).</summary>
-    public static class ComboTags
-    {
-        public const string Opener = "opener";
-        public const string Linker = "linker";
-        public const string Finisher = "finisher";
-    }
-
     /// <summary>
     /// Pure data definition of an ability. All times are in ticks (20/s).
     /// </summary>
@@ -47,8 +39,10 @@ namespace RankE.Sim
         /// <summary>Animation lock after the effect frame (you can't act).</summary>
         public int PostLockTicks;
 
-        /// <summary>ComboTags.* or null (null = neutral: neither advances nor resets).</summary>
-        public string ComboTag;
+        /// <summary>Combo colour id (e.g. "red"/"yellow") used by the player's colour-sequence
+        /// combo. Open string id, mapped to an on-screen colour by the UI. Null = the ability is
+        /// combo-neutral: it neither advances nor resets the sequence.</summary>
+        public string ComboColor;
 
         /// <summary>A parry window on the defender negates this ability's opponent effects.</summary>
         public bool Parriable;
@@ -78,7 +72,7 @@ namespace RankE.Sim
                 DelayTicks = DelayTicks,
                 PreLockTicks = PreLockTicks,
                 PostLockTicks = PostLockTicks,
-                ComboTag = ComboTag,
+                ComboColor = ComboColor,
                 Parriable = Parriable,
                 IsMelee = IsMelee,
                 GemCost = GemCost,

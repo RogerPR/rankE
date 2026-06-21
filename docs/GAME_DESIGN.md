@@ -116,19 +116,23 @@ Three interacting systems. Quick actions live *outside* the combo system.
 **b) Break bar (Sekiro/Exp33) (PROPOSED numbers)**
 - Both fighters have a **Break bar, 0–100** (the bar under each character in the UI sketch).
 - Sources of break damage: dedicated abilities (e.g. Bash: 20), successful parries
-  (15 to the attacker), combo finishers (+10).
+  (15 to the attacker).
 - Bar decays slowly when out of pressure (-2/s after 3s without taking break damage).
 - At 100: **BROKEN** — stunned 2.5s, takes +50% damage, bar resets. Big audiovisual moment.
 
-**c) Ability-order combos (Neoverse) (PROPOSED)**
-- Non-quick abilities carry a tag: **Opener / Linker / Finisher**.
-- Using tags in order O → L → F, each within 4s of the previous, completes a combo:
-  the Finisher is empowered (+50% effect, +10 break) and refunds 1 spell gem.
-- Wrong-tag use resets the chain. Parry/Kick (quick actions) neither advance nor reset it.
-- **(PROPOSED** tag assignment for the dev kit: Slash = Opener, Bash = Linker,
-  Fireball = Finisher; Vampiro untagged (support casts are combo-neutral).**)**
-- UI: 3-slot combo tracker (bottom-left in sketch) for both fighters — you can read the
-  enemy's chain and decide when you *must* parry.
+**c) Colour-sequence combos (PROPOSED — replaces the earlier O→L→F tag combo)**
+- Each non-quick ability carries a **combo colour** (open string id, e.g. red/yellow).
+- The **player only** is shown a random target **sequence of 3–5 colours** drawn solely from
+  the colours their own abilities carry. Pressing abilities whose colours match the sequence
+  in order completes the combo.
+- Completing it grants the **Empowered** status: the **next damaging hit deals ×2** (then the
+  buff is spent). The completing hit itself is *not* doubled — the next one is.
+- A wrong colour **reshuffles** into a fresh random sequence. Quick actions and colourless
+  abilities are combo-neutral (neither advance nor reset).
+- The sequence is generated from the seeded sim RNG, so combos stay deterministic/replayable.
+- **(PROPOSED** colours for the dev/tutorial kit: Slash = red, Bash = yellow.**)**
+- UI: a **player-only** colour-sequence tracker (bottom-left) — matched colours read bright,
+  pending ones dim; the row flashes on completion. The opponent has no combo display.
 
 ### Statuses (PROPOSED v2)
 

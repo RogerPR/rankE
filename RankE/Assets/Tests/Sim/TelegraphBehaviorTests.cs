@@ -75,6 +75,21 @@ namespace RankE.Sim.Tests
         }
 
         [Test]
+        public void CastAbility_PassesThroughUntelegraphed()
+        {
+            // A cast ability already shows its wind-up on the cast bar, so it isn't telegraphed:
+            // it commits immediately and the fighter starts channelling at the decision tick.
+            var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Fireball()), TestKit.Config("B"));
+            var tele = new TelegraphBehavior(new Scripted(DefaultContent.FireballId), 10);
+
+            b.SubmitIntent(0, tele.Decide(b, 0));
+            b.Step();
+
+            Assert.IsNull(tele.PendingIntent, "cast ability must not be held as a telegraph");
+            Assert.IsTrue(b.Fighters[0].IsCasting, "fighter should be channelling the cast immediately");
+        }
+
+        [Test]
         public void ZeroTelegraphTicks_BehavesLikeInner()
         {
             var b = TestKit.Duel(TestKit.Config("A", DefaultContent.Slash()), TestKit.Config("B"));

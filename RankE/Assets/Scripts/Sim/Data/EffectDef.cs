@@ -17,6 +17,7 @@ namespace RankE.Sim
         public const string Damage = "damage";
         public const string BreakDamage = "break_damage";
         public const string ApplyStatus = "apply_status";
+        public const string ApplyShield = "apply_shield";
         public const string ClearStatus = "clear_status";
         public const string InterruptCast = "interrupt_cast";
     }
@@ -71,6 +72,18 @@ namespace RankE.Sim
                 Kind = EffectKinds.ApplyStatus,
                 Target = target,
                 StatusId = statusId,
+                DurationTicks = durationTicks,
+            };
+
+        /// <summary>Grant an absorb shield: applies <paramref name="statusId"/> with its absorb
+        /// pool set to <paramref name="amount"/> (so the pool size is tunable per ability).</summary>
+        public static EffectDef Shield(EffectTarget target, string statusId, int amount, int durationTicks) =>
+            new EffectDef
+            {
+                Kind = EffectKinds.ApplyShield,
+                Target = target,
+                StatusId = statusId,
+                Amount = amount,
                 DurationTicks = durationTicks,
             };
 

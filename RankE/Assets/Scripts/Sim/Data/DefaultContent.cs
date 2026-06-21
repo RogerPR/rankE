@@ -20,6 +20,7 @@ namespace RankE.Sim
         public const string VampiroId = "vampiro";
         public const string ParryId = "parry";
         public const string KickId = "kick";
+        public const string BlockId = "block";
         public const string RiposteId = "riposte";
         public const string InterruptCastId = "interrupt_cast";
         public const string AutoAttackId = "auto_attack";
@@ -33,6 +34,11 @@ namespace RankE.Sim
         public const string ParryStatus = "parry";
         public const string BrokenStatus = "broken";
         public const string DistanceStatus = "distance";
+        public const string BlockPhysStatus = "block_phys";  // Block's −60% physical reduction
+        public const string PhysShieldStatus = "phys_shield"; // Block's physical absorb pool
+
+        // passive ids
+        public const string AutoAttackPassiveId = "auto_attack";
 
         public static CombatTuning CreateTuning() => new CombatTuning();
 
@@ -45,12 +51,15 @@ namespace RankE.Sim
                 .Add(new StatusDef { Id = ParryStatus, Name = "Parry" })
                 .Add(new StatusDef { Id = BrokenStatus, Name = "Broken", BlocksActions = true, CancelsCast = true, DamageTakenMult = 1.5 })
                 .Add(new StatusDef { Id = DistanceStatus, Name = "Distance", IsDistance = true })
+                .Add(new StatusDef { Id = BlockPhysStatus, Name = "Block", DamageTakenMult = 0.4, DamageSchoolFilter = Schools.Physical })
+                .Add(new StatusDef { Id = PhysShieldStatus, Name = "Shield", DamageSchoolFilter = Schools.Physical })
                 .Add(Slash())
                 .Add(Bash())
                 .Add(Fireball())
                 .Add(Vampiro())
                 .Add(Parry())
                 .Add(Kick())
+                .Add(Block())
                 .Add(Riposte())
                 .Add(InterruptCast())
                 .Add(AutoAttack())
@@ -142,6 +151,23 @@ namespace RankE.Sim
             },
         };
 
+        /// <summary>PROPOSED quick defense vs physical: two independent layers for 2s — a −60%
+        /// physical-damage status and a small physical absorb shield (pool size = the shield
+        /// effect's Amount). Magic (e.g. Fireball) bypasses both, so Kick stays the answer to
+        /// casts. Numbers are tunable starting points.</summary>
+        public static AbilityDef Block() => new AbilityDef
+        {
+            Id = BlockId,
+            Name = "Block",
+            Gcd = GcdClass.Quick,
+            CooldownTicks = 120, // 6s
+            Effects = new List<EffectDef>
+            {
+                EffectDef.Status(EffectTarget.Self, BlockPhysStatus, 40),   // 2s, −60% physical
+                EffectDef.Shield(EffectTarget.Self, PhysShieldStatus, 10, 40), // 2s, soaks 10 physical
+            },
+        };
+
         /// <summary>Automatic counter at a full riposte bar; +30 break is PROPOSED.</summary>
         public static AbilityDef Riposte() => new AbilityDef
         {
@@ -164,6 +190,32 @@ namespace RankE.Sim
             UsableWhileCasting = true,
             Effects = new List<EffectDef> { EffectDef.InterruptSelf() },
         };
+
+        // ---- passives ----
+
+        /// <summary>The auto-attack passive: a periodic melee swing (<see cref="AutoAttack"/> is
+        /// the swing whose CooldownTicks is the interval). Carried by default fighters; the
+        /// tutorial fighters omit it, so they make no auto-attacks.</summary>
+        public static PassiveDef AutoAttackPassive() => new PassiveDef
+        {
+            Id = AutoAttackPassiveId,
+            Name = "Auto-attack",
+            Kind = PassiveKinds.AutoAttack,
+            AbilityId = AutoAttackId,
+        };
+
+        /// <summary>All known passive ids (for pickers/iteration). Grows with content.</summary>
+        public static readonly string[] PassiveIds = { AutoAttackPassiveId };
+
+        /// <summary>Resolve a passive id to its definition, or null if unknown.</summary>
+        public static PassiveDef Passive(string id)
+        {
+            switch (id)
+            {
+                case AutoAttackPassiveId: return AutoAttackPassive();
+                default: return null;
+            }
+        }
 
         public static AbilityDef AutoAttack() => new AbilityDef
         {

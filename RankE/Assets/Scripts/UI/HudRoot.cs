@@ -62,10 +62,12 @@ namespace RankE.UI
 
             hudGroup.AddComponent<TopStatusBar>().Init(driver, match, hudRt, layout.topBarHeight);
             hudGroup.AddComponent<BreakBarView>().Init(driver, hudRt, bodies);
-            // Only the player gets a cast bar near their fighter; the enemy's casting/telegraph
-            // is shown by the upcoming-actions panel instead.
+            // Both fighters get a timing bar near them. The player's only ever shows cast/lock;
+            // the enemy's also shows the telegraph wind-up (the NEXT panel still lists the queue).
             var playerCast = hudGroup.AddComponent<CastBarView>();
             playerCast.Init(driver, hudRt, 0, layout.playerCast);
+            var enemyCast = hudGroup.AddComponent<CastBarView>();
+            enemyCast.Init(driver, hudRt, 1, layout.enemyCast);
             abilityBar = hudGroup.AddComponent<AbilityBarView>();
             abilityBar.Init(driver, hudRt, layout.abilityBar);
             var playerStatuses = hudGroup.AddComponent<StatusColumnView>();

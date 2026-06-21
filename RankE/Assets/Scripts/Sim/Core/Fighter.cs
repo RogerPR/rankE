@@ -21,6 +21,10 @@ namespace RankE.Sim
     {
         public StatusDef Def;
         public int Remaining;
+
+        /// <summary>Absorb pool left on this instance (seeded from <see cref="StatusDef.AbsorbAmount"/>
+        /// on apply/refresh, depleted as it soaks damage). 0 for non-shield statuses.</summary>
+        public int AbsorbRemaining;
     }
 
     /// <summary>
@@ -173,12 +177,34 @@ namespace RankE.Sim
             return false;
         }
 
-        public double StatusDamageTakenMult()
+        /// <summary>Product of every active status's <see cref="StatusDef.DamageTakenMult"/> that
+        /// applies to <paramref name="school"/> (a status with a null filter affects all schools).</summary>
+        public double StatusDamageTakenMult(string school)
         {
             double mult = 1.0;
             foreach (var s in Statuses)
-                mult *= s.Def.DamageTakenMult;
+                if (s.Def.DamageSchoolFilter == null || s.Def.DamageSchoolFilter == school)
+                    mult *= s.Def.DamageTakenMult;
             return mult;
+        }
+
+        /// <summary>Soak up to <paramref name="damage"/> from active absorb shields matching
+        /// <paramref name="school"/> (null filter = any school); returns the amount soaked and
+        /// depletes the pools. Spent-out shields are left to expire on their own timer.</summary>
+        public int AbsorbDamage(string school, int damage)
+        {
+            int soaked = 0;
+            foreach (var s in Statuses)
+            {
+                if (damage <= 0) break;
+                if (s.AbsorbRemaining <= 0) continue;
+                if (s.Def.DamageSchoolFilter != null && s.Def.DamageSchoolFilter != school) continue;
+                int take = System.Math.Min(s.AbsorbRemaining, damage);
+                s.AbsorbRemaining -= take;
+                damage -= take;
+                soaked += take;
+            }
+            return soaked;
         }
 
         static int FirstDamageAmount(AbilityDef def)

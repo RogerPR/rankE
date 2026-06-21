@@ -1,0 +1,41 @@
+{
+    "id": "tutorial",
+    "displayName": "Sparring Mage",
+    "visualName": "Imp Devil",
+    "build": {
+        "name": "Sparring Mage",
+        "maxHp": 120,
+        "spellGems": 8,
+        "stats": [
+            {
+                "name": "GemRegenIntervalTicks",
+                "value": 60.0
+            }
+        ],
+        "passiveIds": [],
+        "mainSlotCount": 2,
+        "abilityIds": [
+            "slash",
+            "fireball",
+            "kick"
+        ],
+        "gearIds": []
+    },
+    "behavior": {
+        "intervalTicks": 60,
+        "telegraphTicks": 10,
+        "steps": [
+            {
+                "options": [
+                    { "id": "slash", "weight": 1.0 }
+                ]
+            },
+            {
+                "options": [
+                    { "id": "slash", "weight": 0.66 },
+                    { "id": "fireball", "weight": 0.34 }
+                ]
+            }
+        ]
+    }
+}

@@ -46,8 +46,12 @@ namespace RankE.UI
             switch (ev.Type)
             {
                 case SimEventType.Damaged:
-                    Spawn(ev.Target, $"-{ev.Amount}", new Color(1f, 0.35f, 0.3f),
-                        ev.StatusId != null ? 22 : 30);
+                    if (ev.Amount > 0)
+                        Spawn(ev.Target, $"-{ev.Amount}", new Color(1f, 0.35f, 0.3f),
+                            ev.StatusId != null ? 22 : 30);
+                    break;
+                case SimEventType.ShieldAbsorbed:
+                    Spawn(ev.Target, $"shield {ev.Amount}", new Color(0.45f, 0.8f, 1f), 22);
                     break;
                 case SimEventType.Healed:
                     if (ev.Amount > 0)

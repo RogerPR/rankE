@@ -1,9 +1,9 @@
 {
-    "name": "Base",
+    "name": "Tutorial",
     "tuning": [
         {
             "name": "GcdTicks",
-            "value": 20.0
+            "value": 30.0
         },
         {
             "name": "QuickGcdTicks",
@@ -104,7 +104,7 @@
             "numbers": [
                 {
                     "name": "CooldownTicks",
-                    "value": 600.0
+                    "value": 160.0
                 },
                 {
                     "name": "CastTicks",
@@ -116,7 +116,7 @@
                 },
                 {
                     "name": "PreLockTicks",
-                    "value": 0.0
+                    "value": 10.0
                 },
                 {
                     "name": "PostLockTicks",
@@ -142,6 +142,47 @@
                     "index": 2,
                     "amount": 20,
                     "durationTicks": 0
+                }
+            ]
+        },
+        {
+            "id": "block",
+            "numbers": [
+                {
+                    "name": "CooldownTicks",
+                    "value": 120.0
+                },
+                {
+                    "name": "CastTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "DelayTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PreLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "PostLockTicks",
+                    "value": 0.0
+                },
+                {
+                    "name": "GemCost",
+                    "value": 0.0
+                }
+            ],
+            "effects": [
+                {
+                    "index": 0,
+                    "amount": 0,
+                    "durationTicks": 40
+                },
+                {
+                    "index": 1,
+                    "amount": 10,
+                    "durationTicks": 40
                 }
             ]
         },
@@ -422,7 +463,7 @@
             "numbers": [
                 {
                     "name": "CooldownTicks",
-                    "value": 40.0
+                    "value": 60.0
                 },
                 {
                     "name": "CastTicks",
@@ -497,7 +538,7 @@
     ],
     "player": {
         "name": "Player",
-        "maxHp": 500,
+        "maxHp": 150,
         "spellGems": 8,
         "stats": [
             {
@@ -533,73 +574,65 @@
                 "value": 0.0
             }
         ],
-        "passiveIds": [
-            "auto_attack"
-        ],
-        "mainSlotCount": 4,
+        "passiveIds": [],
+        "mainSlotCount": 2,
         "abilityIds": [
             "slash",
             "bash",
-            "fireball",
-            "vampiro",
-            "parry",
-            "kick"
-        ],
-        "gearIds": [
-            "stance_rock",
-            "weapon_sword",
-            "armor_light"
-        ]
-    },
-    "adversary": {
-        "name": "Adversary",
-        "maxHp": 500,
-        "spellGems": 8,
-        "stats": [
-            {
-                "name": "Attack",
-                "value": 0.0
-            },
-            {
-                "name": "Magic",
-                "value": 0.0
-            },
-            {
-                "name": "Defense",
-                "value": 0.0
-            },
-            {
-                "name": "CritChance",
-                "value": 0.0
-            },
-            {
-                "name": "CritDamage",
-                "value": 1.5
-            },
-            {
-                "name": "Haste",
-                "value": 0.0
-            },
-            {
-                "name": "BreakPower",
-                "value": 1.0
-            },
-            {
-                "name": "GemRegenIntervalTicks",
-                "value": 0.0
-            }
-        ],
-        "passiveIds": [
-            "auto_attack"
-        ],
-        "mainSlotCount": 1,
-        "abilityIds": [
-            "slash",
-            "parry",
+            "block",
             "kick"
         ],
         "gearIds": []
     },
+    "adversary": {
+        "name": "Sparring Mage",
+        "maxHp": 120,
+        "spellGems": 8,
+        "stats": [
+            {
+                "name": "Attack",
+                "value": 0.0
+            },
+            {
+                "name": "Magic",
+                "value": 0.0
+            },
+            {
+                "name": "Defense",
+                "value": 0.0
+            },
+            {
+                "name": "CritChance",
+                "value": 0.0
+            },
+            {
+                "name": "CritDamage",
+                "value": 1.5
+            },
+            {
+                "name": "Haste",
+                "value": 0.0
+            },
+            {
+                "name": "BreakPower",
+                "value": 1.0
+            },
+            {
+                "name": "GemRegenIntervalTicks",
+                "value": 60.0
+            }
+        ],
+        "passiveIds": [],
+        "mainSlotCount": 2,
+        "abilityIds": [
+            "slash",
+            "fireball",
+            "kick",
+            ""
+        ],
+        "gearIds": []
+    },
     "playerVisualName": "Archer",
-    "enemyVisualName": "Imp Devil"
+    "enemyVisualName": "Imp Devil",
+    "opponentId": "tutorial"
 }

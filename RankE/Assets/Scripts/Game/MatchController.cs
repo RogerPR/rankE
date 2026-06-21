@@ -79,11 +79,23 @@ namespace RankE.Game
             var player = profile.Player.ToConfig(profile);
             var enemy = profile.Adversary.ToConfig(profile);
             enemy.Name = Loadout.EnemyVisualName;
-            // Readable enemy: a steady, telegraphed Slash rhythm (data-driven rotation), with
-            // reactive Parry/Kick between beats. The rotation grows later as content lands.
-            var enemyBrain = new ScriptedRhythmBehavior(
-                new[] { DefaultContent.SlashId }, EnemyActionIntervalTicks);
-            Driver.Begin(player, enemy, enemyBrain, EnemyTelegraphTicks, seeds.Next());
+
+            // Enemy brain: a referenced opponent supplies its own telegraphed, weighted rotation
+            // (data-driven, from Opponents/<id>.json). With no opponent loaded, fall back to the
+            // default sparring rhythm — a steady, telegraphed Slash with reactive Parry/Kick.
+            IBehavior enemyBrain;
+            int telegraphTicks = EnemyTelegraphTicks;
+            var opponent = profile.Opponent;
+            if (opponent != null && opponent.HasRotation)
+            {
+                enemyBrain = new WeightedRotationBehavior(opponent.ToRotationSteps(), opponent.behavior.intervalTicks);
+                telegraphTicks = opponent.behavior.telegraphTicks;
+            }
+            else
+            {
+                enemyBrain = new ScriptedRhythmBehavior(new[] { DefaultContent.SlashId }, EnemyActionIntervalTicks);
+            }
+            Driver.Begin(player, enemy, enemyBrain, telegraphTicks, seeds.Next());
             Input.SetLoadout(player.Abilities);
             Input.Buffer.Clear();
 

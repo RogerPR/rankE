@@ -149,10 +149,25 @@ Goal: the parry feels *satisfying*. Real 3D characters. The dance is fun.
       Replaces hand-editing the registry `.asset` files / re-running keyword heuristics.
       Sim Clone() helpers (`CombatTuning`/`AbilityDef`/`EffectDef`) added; 84 tests green.
 
+Tutorial-fight scaffolding (2026-06-21): added the mechanics + content for an early-game
+tutorial, all data-driven. **Block** quick action = two independent physical-only layers
+(−60% `block_phys` status + `phys_shield` absorb pool, pool size = a tunable shield effect
+amount; magic bypasses both). New sim bits: `StatusDef.DamageSchoolFilter`/`AbsorbAmount`,
+school-aware `StatusDamageTakenMult(school)` + `AbsorbDamage`, `EffectKinds.ApplyShield`,
+`ShieldAbsorbed` event. **Passives** are now first-class (`PassiveDef`/`PassiveKinds`,
+`FighterBuild.PassiveIds`); auto-attack is the one wired passive kind — empty list = no
+auto-attack (tutorial fighters). **Opponents** are a new data catalogue
+(`RankE/Opponents/*.json` via `OpponentStore`, build + AI logic + visual); a scenario
+references one by `opponentId`. New `WeightedRotationBehavior` (pre-rolled, seed-deterministic
+weighted steps) drives the tutorial opponent's Slash → (66% Slash / 33% Fireball). Input/bar
+now map slots by GCD class (mains→Q/W/E/R, quick→SPC/F). Shipped data: `Opponents/tutorial.json`
++ `TuningPresets/Tutorial.json`. 100 EditMode tests green; seed-42 sweep unchanged
+(default path untouched). Owed: in-panel opponent picker/save UI; play-and-tune the tutorial pace.
+
 Next-session candidates (decide at session start): remaining parry juice (hitstop /
 camera shake / slow-mo riposte), BROKEN payoff, combo tracker + finisher UI, an SFX
 layer (AbilitySfxRegistry + FighterSfx), the in-fight HUD redesign with the wooden kit,
-more TBD. Before the gate sign-off: re-run the EditMode tests (84) and do the CFXR URP
+more TBD. Before the gate sign-off: re-run the EditMode tests (100) and do the CFXR URP
 pink-material check.
 
 **DoD (subjective gate):** you play 10 fights and *want more*. Parry feels great on

@@ -378,7 +378,14 @@ namespace RankE.Sim
                         e.Amount * empMult * (1 + offense / 100.0) * crit,
                         MidpointRounding.AwayFromZero);
                     double defMult = 100.0 / Math.Max(1, 100 + target.Stats.Defense);
-                    int dmg = (int)(core * defMult * target.DamageTakenMult * target.StatusDamageTakenMult());
+                    int dmg = (int)(core * defMult * target.DamageTakenMult * target.StatusDamageTakenMult(e.School));
+                    // Absorb shields (e.g. Block's physical shield) soak what's left after reduction.
+                    int soaked = target.AbsorbDamage(e.School, dmg);
+                    if (soaked > 0)
+                    {
+                        dmg -= soaked;
+                        Emit(SimEventType.ShieldAbsorbed, src, target: target.Index, ability: def.Id, amount: soaked);
+                    }
                     target.Hp -= dmg;
                     Emit(SimEventType.Damaged, src, target: target.Index, ability: def.Id, amount: dmg);
                     break;
@@ -388,6 +395,9 @@ namespace RankE.Sim
                     break;
                 case EffectKinds.ApplyStatus:
                     ApplyStatus(target, e.StatusId, e.DurationTicks, src);
+                    break;
+                case EffectKinds.ApplyShield:
+                    ApplyStatus(target, e.StatusId, e.DurationTicks, src, absorbOverride: e.Amount);
                     break;
                 case EffectKinds.ClearStatus:
                 {
@@ -416,18 +426,28 @@ namespace RankE.Sim
             }
         }
 
-        void ApplyStatus(Fighter target, string statusId, int durationTicks, int src)
+        void ApplyStatus(Fighter target, string statusId, int durationTicks, int src, int absorbOverride = -1)
         {
             var def = Content.Status(statusId);
+            // Shield effects supply the pool size per-ability; plain statuses use the def default.
+            int absorb = absorbOverride >= 0 ? absorbOverride : def.AbsorbAmount;
 
             StatusInstance existing = null;
             foreach (var s in target.Statuses)
                 if (s.Def.Id == statusId) { existing = s; break; }
 
             if (existing != null)
+            {
                 existing.Remaining = durationTicks; // reapply refreshes (PoC parity)
+                existing.AbsorbRemaining = absorb;  // refresh the absorb pool too
+            }
             else
-                target.Statuses.Add(new StatusInstance { Def = def, Remaining = durationTicks });
+                target.Statuses.Add(new StatusInstance
+                {
+                    Def = def,
+                    Remaining = durationTicks,
+                    AbsorbRemaining = absorb,
+                });
 
             Emit(SimEventType.StatusApplied, src, target: target.Index, status: statusId, amount: durationTicks);
 

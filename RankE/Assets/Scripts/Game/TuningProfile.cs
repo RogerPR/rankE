@@ -29,6 +29,11 @@ namespace RankE.Game
         public FighterBuild Player;
         public FighterBuild Adversary;
 
+        /// <summary>The loaded opponent (build + AI logic + visual) when a scenario references one
+        /// by id; null = use <see cref="Adversary"/> with the default sparring rhythm. Set by
+        /// <see cref="TuningPreset.Apply"/>; read by <c>MatchController.BeginFight</c>.</summary>
+        public OpponentDef Opponent;
+
         static TuningProfile active;
 
         /// <summary>The shared profile the window edits and fights clone from (lazy defaults).</summary>
@@ -53,6 +58,7 @@ namespace RankE.Game
                 Abilities[kv.Key] = kv.Value.Clone();
             Player = FighterBuild.DefaultPlayer();
             Adversary = FighterBuild.DefaultAdversary();
+            Opponent = null;
         }
 
         /// <summary>A fresh clone of the tuned definition for an ability, or null if unknown.</summary>

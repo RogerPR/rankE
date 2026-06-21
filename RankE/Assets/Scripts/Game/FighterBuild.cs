@@ -26,7 +26,9 @@ namespace RankE.Game
         /// <summary>Editable base stat sheet; gear deltas layer on at battle start (Fighter ctor).</summary>
         public StatSheet Stats = new StatSheet();
 
-        public string AutoAttackId = DefaultContent.AutoAttackId;
+        /// <summary>Passive skills this build carries (ids into the passive catalogue). Auto-attack
+        /// is the one wired kind today; an empty list means no auto-attack (tutorial fighters).</summary>
+        public List<string> PassiveIds = new List<string> { DefaultContent.AutoAttackPassiveId };
 
         /// <summary>How many of <see cref="AbilityIds"/> are swappable main slots; the tail
         /// (Parry/Kick) are fixed quick slots.</summary>
@@ -51,13 +53,30 @@ namespace RankE.Game
                     if (def != null) abilities.Add(def);
                 }
             }
+
+            // Resolve passives; the auto-attack passive (if present) also supplies the swing.
+            var passives = new List<PassiveDef>();
+            AbilityDef autoAttack = null;
+            if (PassiveIds != null)
+            {
+                foreach (var pid in PassiveIds)
+                {
+                    var pdef = DefaultContent.Passive(pid);
+                    if (pdef == null) continue;
+                    passives.Add(pdef);
+                    if (autoAttack == null && pdef.Kind == PassiveKinds.AutoAttack)
+                        autoAttack = profile.CloneAbility(pdef.AbilityId);
+                }
+            }
+
             return new FighterConfig
             {
                 Name = Name,
                 MaxHp = MaxHp,
                 SpellGems = SpellGems,
                 Stats = Stats != null ? Stats.Clone() : new StatSheet(),
-                AutoAttack = profile.CloneAbility(AutoAttackId),
+                AutoAttack = autoAttack,
+                Passives = passives,
                 Abilities = abilities,
                 Build = new BuildState
                 {
@@ -130,7 +149,7 @@ namespace RankE.Game
         /// <summary>Abilities pickable in a quick slot (GcdClass.Quick).</summary>
         public static readonly string[] QuickAbilities =
         {
-            DefaultContent.ParryId, DefaultContent.KickId,
+            DefaultContent.ParryId, DefaultContent.KickId, DefaultContent.BlockId,
         };
 
         public static readonly Func<GearDef>[] Stances =

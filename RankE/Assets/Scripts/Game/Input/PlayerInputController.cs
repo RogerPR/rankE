@@ -18,6 +18,9 @@ namespace RankE.Game
         /// <summary>Fired on Start/Esc; MatchController decides what pause means.</summary>
         public event Action PausePressed;
 
+        /// <summary>Main (normal-GCD) slot count; the remaining slots are quick actions.</summary>
+        const int MainSlots = 4;
+
         InputActionMap combat;
         InputActionMap meta;
         readonly string[] slotIds = new string[6];
@@ -51,11 +54,30 @@ namespace RankE.Game
             meta?.Dispose();
         }
 
-        /// <summary>Map the player's loadout (4 abilities + parry + kick) onto the slots.</summary>
+        /// <summary>Map the player's loadout onto the slots <i>by GCD class</i>: main (normal-GCD)
+        /// abilities fill the four main slots (Q/W/E/R) in order, quick actions fill the two quick
+        /// slots (SPC/F). So a build with fewer than four mains still binds its quick actions to the
+        /// quick keys — matching the controller layout and the ability bar's two rows.</summary>
         public void SetLoadout(IReadOnlyList<AbilityDef> abilities)
         {
-            for (int i = 0; i < slotIds.Length; i++)
-                slotIds[i] = i < abilities.Count ? abilities[i].Id : null;
+            for (int i = 0; i < slotIds.Length; i++) slotIds[i] = null;
+            if (abilities == null) return;
+
+            int main = 0, quick = 0;
+            foreach (var a in abilities)
+            {
+                if (a == null) continue;
+                if (a.Gcd == GcdClass.Quick)
+                {
+                    int s = MainSlots + quick++;
+                    if (s < slotIds.Length) slotIds[s] = a.Id;
+                }
+                else
+                {
+                    int s = main++;
+                    if (s < MainSlots) slotIds[s] = a.Id;
+                }
+            }
         }
 
         public void SetCombatEnabled(bool on)

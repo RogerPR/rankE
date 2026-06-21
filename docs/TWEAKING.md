@@ -66,17 +66,25 @@ far apart the fighters stand. Spawn facing is `playerYaw`/`enemyYaw` on **`Fight
 
 Two different things:
 
-- **Which abilities a fighter carries** 🟢 — the six ability slots per fighter in the
-  FIGHT SETUP panel.
-- **The enemy's scripted attack rotation** 🟡🔵 — the enemy does a fixed non-quick
-  rotation on a cadence (with reactive Parry/Kick between beats). Grow the list in
-  `MatchController.cs` (`new[] { DefaultContent.SlashId }` → add more ids); change the cadence
-  via **`EnemyActionIntervalTicks`** (Inspector field on the CombatBootstrap GameObject,
-  default `60` = 3 s) and **`EnemyTelegraphTicks`** (wind-up before each hit, default `10`).
+- **Which abilities a fighter carries** 🟢 — the ability slots per fighter in the
+  FIGHT SETUP panel (4 main + 2 quick). Slots map to keys **by GCD class**: main (normal)
+  abilities → Q/W/E/R, quick actions → SPC/F — so a fighter with only 2 main + 2 quick
+  still binds its quick actions to the quick keys/bumpers.
+- **The enemy's attack rotation** 🟢🟡 — when a scenario references an **opponent** (see §5),
+  the rotation, cadence and telegraph come from that opponent's JSON file (data-driven,
+  weighted steps). With no opponent referenced, the enemy falls back to the default sparring
+  rhythm built in `MatchController.cs` (`new[] { DefaultContent.SlashId }`), with cadence
+  **`EnemyActionIntervalTicks`** and **`EnemyTelegraphTicks`** (Inspector fields on the
+  CombatBootstrap GameObject, defaults `60`/`10`).
 - **Define a brand-new ability** 🟡 — add an `AbilityDef` in `Sim/Data/DefaultContent.cs` (the
   library): a stable `Id`, its `Effects`, and `GcdClass` (None/Normal/Quick). It then shows
   up automatically in the panel slots and the ability-number editor. Keep it data-driven —
   don't branch on the id in logic.
+- **Passive skills** 🟡 — a build carries a list of passive ids (`passiveIds`). Auto-attack
+  is now a passive (`"auto_attack"`), not always-on: a fighter with an empty `passiveIds`
+  makes no auto-attacks (the tutorial fighters do this). Add passive kinds in
+  `Sim/Data/PassiveDef.cs` + `DefaultContent.Passive(...)`; only the auto-attack kind is
+  wired today.
 
 ---
 
@@ -114,6 +122,65 @@ are data-driven.
 
 ---
 
+## 5. Opponents & saved scenarios 🟢🟡
+
+Two on-disk JSON catalogues (siblings of `Assets/`, committed, not Unity-imported):
+
+- **`RankE/TuningPresets/*.json`** — *scenarios*: a full tunable fight (global rules, ability
+  numbers, the **player** build, the chosen visuals, and optionally an `opponentId`). Saved /
+  loaded from the FIGHT SETUP **preset bar**. `Tutorial.json` is the early-game tutorial.
+- **`RankE/Opponents/*.json`** — *opponents*: a reusable enemy = its build (stats, abilities,
+  passives, gear) **and** its AI logic (a telegraphed, weighted rotation). `tutorial.json` is
+  the first one.
+
+A scenario with `"opponentId": "tutorial"` resolves its adversary entirely from
+`Opponents/tutorial.json` (build + AI + visual), overriding any inline `adversary` block. With
+no `opponentId`, the inline adversary build + the default sparring rhythm are used.
+
+**Authoring an opponent** (edit the JSON directly):
+
+```jsonc
+{
+  "id": "tutorial",
+  "displayName": "Sparring Mage",
+  "visualName": "Imp Devil",          // an existing monster model
+  "build": {
+    "maxHp": 120, "spellGems": 8,
+    "passiveIds": [],                  // [] = no auto-attack
+    "mainSlotCount": 2,
+    "abilityIds": ["slash", "fireball", "kick"],
+    "gearIds": []
+  },
+  "behavior": {
+    "intervalTicks": 60,              // one telegraphed beat every 3 s
+    "telegraphTicks": 10,            // wind-up before each beat
+    "steps": [                        // the rotation, repeated; each step = a weighted choice
+      { "options": [ { "id": "slash", "weight": 1.0 } ] },
+      { "options": [ { "id": "slash", "weight": 0.66 }, { "id": "fireball", "weight": 0.34 } ] }
+    ]
+  }
+}
+```
+
+Quick actions (e.g. `kick`) stay **reactive** (used between beats, interrupting casts) and are
+not part of `steps`. A single-option step is a fixed beat; multi-option steps roll by weight
+off the seeded fight RNG (deterministic per seed). The plan/telegraph show the rolled choice.
+
+The opponent's **NEXT** queue is a committed look-ahead: the brain pre-rolls the next several
+beats, so what the HUD lists is exactly what will fire (a weighted Fireball appears in the
+queue *before* it lands, never as a surprise). The queue stacks directly above the opponent
+**cast bar** as one top-right timeline — soonest beat nearest the bar (its bar is the cadence
+countdown), later beats rising upward; the action that is actually telegraphing/casting shows
+only on the cast bar.
+
+**Block & the physical shield** 🟡 — `Block` (quick action) applies two independent,
+**physical-only** layers for 2 s: a −60% damage status (`block_phys`) and a small absorb pool
+(`phys_shield`, size = the Block ability's shield-effect amount, editable in the ability
+editor). Magic (e.g. Fireball) ignores both — Kick (interrupt) is the answer to casts. Tune
+Block's cooldown and the shield amount/duration like any ability number.
+
+---
+
 ## Quick reference: file map
 
 | Area | File |
@@ -124,8 +191,11 @@ are data-driven.
 | Global rule defaults (GCD, break, combo) | `Assets/Scripts/Sim/Data/CombatTuning.cs` |
 | Live tuning state (cloned per fight) | `Assets/Scripts/Game/TuningProfile.cs` |
 | Test fixture numbers | `Assets/Tests/Sim/TestKit.cs` |
-| Enemy rotation / cadence | `Assets/Scripts/Game/MatchController.cs` |
-| Enemy brain | `Assets/Scripts/Sim/AI/ScriptedRhythmBehavior.cs` |
+| Enemy rotation / cadence (default fallback) | `Assets/Scripts/Game/MatchController.cs` |
+| Enemy brains | `Assets/Scripts/Sim/AI/ScriptedRhythmBehavior.cs` · `WeightedRotationBehavior.cs` |
+| Opponent files + store | `RankE/Opponents/*.json` · `Assets/Scripts/Game/Opponents/OpponentStore.cs` |
+| Scenario files + store | `RankE/TuningPresets/*.json` · `Assets/Scripts/Game/Tuning/TuningPresetStore.cs` |
+| Passive defs (auto-attack) | `Assets/Scripts/Sim/Data/PassiveDef.cs` · `DefaultContent.Passive(...)` |
 | Camera / lights / anchors | `Assets/Scenes/CombatScene.unity` (Inspector) |
 | Fighter spawn facing | `Assets/Scripts/Game/View/FighterStage.cs` |
 | HUD panel positions | `HudRoot` component (Inspector) · `Assets/Scripts/UI/HudLayout.cs` |
@@ -136,5 +206,5 @@ are data-driven.
 
 - **Gameplay/tuning numbers:** just play a fight (or run a balance sweep — see `CLAUDE.md`).
 - **After editing any `.cs`:** run the headless EditMode tests with the **editor closed**
-  (command in `CLAUDE.md`). Exit code 0 / `failed="0"` = good. The sim suite (89 tests) must
-  stay green; view-only edits can't affect it, but a clean compile is the gate.
+  (command in `CLAUDE.md`). Exit code 0 / `failed="0"` = good. The whole EditMode suite must
+  stay green; view-only edits can't affect the sim, but a clean compile is the gate.

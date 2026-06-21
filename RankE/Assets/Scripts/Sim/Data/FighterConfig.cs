@@ -12,8 +12,13 @@ namespace RankE.Sim
         /// <summary>Base RPG stat sheet; gear stat deltas are layered on at battle start.</summary>
         public StatSheet Stats = new StatSheet();
 
-        /// <summary>null = no auto-attack (handy in tests). CooldownTicks is the interval.</summary>
+        /// <summary>null = no auto-attack (handy in tests). CooldownTicks is the interval.
+        /// Resolved from <see cref="Passives"/> (the auto-attack passive) on the build side.</summary>
         public AbilityDef AutoAttack;
+
+        /// <summary>Resolved passive skills this fighter carries. Auto-attack is the one wired
+        /// kind today (it also populates <see cref="AutoAttack"/>); other kinds are PROPOSED.</summary>
+        public List<PassiveDef> Passives = new List<PassiveDef>();
 
         /// <summary>Active loadout (ability bar + quick slots), excluding the auto-attack.</summary>
         public List<AbilityDef> Abilities = new List<AbilityDef>();

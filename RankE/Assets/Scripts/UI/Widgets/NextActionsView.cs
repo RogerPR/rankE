@@ -9,11 +9,13 @@ namespace RankE.UI
 {
     /// <summary>
     /// The opponent's upcoming non-quick actions ("Future op actions" in the sketch): a
-    /// top-right stack of three icon+bar rows so the player can read what's coming and decide
-    /// how to fight. Row 0 is imminent — its bar fills as the strike approaches (the cadence
-    /// timer between beats, then the telegraph wind-up just before it lands). Rows 1–2 are the
-    /// queued follow-ups, dimmed. Pure view: reads the enemy's <see cref="IActionPlan"/> and
-    /// telegraph state, never decides anything.
+    /// top-right stack of three icon+bar rows above the opponent cast bar, forming one vertical
+    /// timeline. The <b>bottom</b> row is imminent (nearest the cast bar) — its bar is the
+    /// cadence countdown to the next beat; rows above are the queued follow-ups, dimmer and
+    /// rising into the future. The action that is actually telegraphing/casting shows on the
+    /// cast bar, not here, so this is a pure <i>future</i> list with no duplication. The plan's
+    /// committed look-ahead means what's shown is exactly what will fire. Pure view: reads the
+    /// enemy's <see cref="IActionPlan"/>, never decides anything.
     /// </summary>
     public sealed class NextActionsView : MonoBehaviour
     {
@@ -63,13 +65,15 @@ namespace RankE.UI
 
         Row BuildRow(Transform container, int r)
         {
+            // The imminent (soonest) beat lives in the BOTTOM row, nearest the cast bar below.
+            bool imminent = r == Rows - 1;
             var root = UiFactory.Rect($"Row{r}", container);
             UiFactory.PlaceFixed(root, new Vector2(1f, 1f), new Vector2(0f, -(30f + r * RowH)),
                 new Vector2(width, RowH - 8f));
             var group = root.gameObject.AddComponent<CanvasGroup>();
 
             // Icon on the right edge; the imminent row is largest.
-            float iconSize = r == 0 ? 64f : 52f;
+            float iconSize = imminent ? 64f : 52f;
             var frame = UiFactory.Frame($"IconFrame{r}", root);
             UiFactory.PlaceFixed((RectTransform)frame.transform, new Vector2(1f, 1f),
                 new Vector2(0f, 0f), new Vector2(iconSize, iconSize));
@@ -82,9 +86,9 @@ namespace RankE.UI
             // Countdown bar to the left of the icon.
             float barW = width - iconSize - 14f;
             var fill = UiFactory.Bar($"Bar{r}", root, new Color(0f, 0f, 0f, 0.6f),
-                r == 0 ? ImminentFill : QueuedFill, Image.FillMethod.Horizontal, out var bg);
+                imminent ? ImminentFill : QueuedFill, Image.FillMethod.Horizontal, out var bg);
             UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(1f, 0.5f),
-                new Vector2(-(iconSize + 14f), 0f), new Vector2(barW, r == 0 ? 30f : 20f));
+                new Vector2(-(iconSize + 14f), 0f), new Vector2(barW, imminent ? 30f : 20f));
 
             return new Row { Root = root.gameObject, Icon = icon, NameLabel = name,
                 BarBg = bg, BarFill = fill, Group = group };
@@ -94,56 +98,41 @@ namespace RankE.UI
         {
             var battle = driver != null ? driver.Battle : null;
             var plan = driver != null ? driver.EnemyPlan : null;
-            var tele = driver != null ? driver.EnemyBehavior : null;
             if (battle == null)
             {
                 for (int r = 0; r < Rows; r++) rows[r].Root.SetActive(false);
                 return;
             }
 
-            // Build the displayed queue: the telegraphed (winding-up) action leads, then the
-            // plan's upcoming beats; otherwise the plan straight through.
-            string pending = tele != null ? tele.PendingIntent : null;
-            var ids = new List<string>(Rows);
-            float topFill;
-            if (pending != null)
-            {
-                ids.Add(pending);
-                if (plan != null) ids.AddRange(plan.Upcoming(Rows - 1));
-                int total = Mathf.Max(1, driver.EnemyTelegraphTicksTotal);
-                topFill = 1f - Mathf.Clamp01((float)tele.TicksUntilCommit / total);
-            }
-            else if (plan != null)
-            {
-                ids.AddRange(plan.Upcoming(Rows));
-                topFill = plan.IntervalTicks > 0
-                    ? 1f - Mathf.Clamp01((float)plan.TicksUntilNextAction / plan.IntervalTicks)
-                    : 0f;
-            }
-            else
-            {
-                topFill = 0f;
-            }
+            // Pure future queue: the plan's committed look-ahead, soonest first. The action
+            // that's actually telegraphing/casting is shown on the cast bar below, not here.
+            var ids = plan != null ? plan.Upcoming(Rows) : System.Array.Empty<string>();
+
+            // Cadence countdown to the next beat — rendered on the imminent (bottom) row.
+            float imminentFill = plan != null && plan.IntervalTicks > 0
+                ? 1f - Mathf.Clamp01((float)plan.TicksUntilNextAction / plan.IntervalTicks)
+                : 0f;
 
             var skin = UiFactory.Skin;
             for (int r = 0; r < Rows; r++)
             {
                 var row = rows[r];
-                if (r >= ids.Count)
+                int dataIndex = (Rows - 1) - r; // bottom row = soonest (ids[0]); top = farthest
+                if (dataIndex >= ids.Count)
                 {
                     row.Root.SetActive(false);
                     continue;
                 }
                 row.Root.SetActive(true);
-                row.Group.alpha = r == 0 ? 1f : 0.55f - r * 0.12f;
+                row.Group.alpha = dataIndex == 0 ? 1f : 0.55f - dataIndex * 0.12f;
 
-                string id = ids[r];
+                string id = ids[dataIndex];
                 var sprite = skin != null ? skin.IconFor(id) : null;
                 row.Icon.sprite = sprite;
                 row.Icon.enabled = sprite != null;
                 string display = battle.Content.Abilities.TryGetValue(id, out var def) ? def.Name : id;
                 row.NameLabel.text = sprite != null ? "" : display;
-                row.BarFill.fillAmount = r == 0 ? topFill : 0f;
+                row.BarFill.fillAmount = dataIndex == 0 ? imminentFill : 0f;
             }
 
             UpdateDelayed(battle);

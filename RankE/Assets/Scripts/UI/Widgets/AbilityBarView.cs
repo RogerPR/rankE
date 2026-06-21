@@ -73,6 +73,9 @@ namespace RankE.UI
                 bool quick = def.Gcd == GcdClass.Quick;
                 int row = quick ? 0 : 1;
                 int col = quick ? quickCol++ : mainCol++;
+                // Canonical key-hint slot: mains map to Q/W/E/R (0-3), quick actions to SPC/F (4-5),
+                // matching PlayerInputController's by-GCD-class binding regardless of loadout size.
+                int hintSlot = quick ? 4 + col : col;
                 float x = col * (SlotSize + 12f);
                 float y = row * (SlotSize + 14f);
                 var bg = themed
@@ -118,8 +121,8 @@ namespace RankE.UI
                 UiFactory.PlaceStretch((RectTransform)cdText.transform);
 
                 var hint = UiFactory.Label("Key", bg.transform,
-                    i < PlayerInputController.SlotKeyHints.Length
-                        ? PlayerInputController.SlotKeyHints[i] : "", 16,
+                    hintSlot < PlayerInputController.SlotKeyHints.Length
+                        ? PlayerInputController.SlotKeyHints[hintSlot] : "", 16,
                     new Color(1f, 1f, 0.6f), TextAnchor.UpperLeft);
                 UiFactory.PlaceFixed((RectTransform)hint.transform, new Vector2(0f, 1f),
                     new Vector2(5f, -3f), new Vector2(50f, 18f));

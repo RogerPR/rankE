@@ -8,6 +8,7 @@ namespace RankE.Sim
         CastInterrupted,
         AbilityWhiffed,
         Damaged,
+        ShieldAbsorbed,
         Healed,
         Parried,
         RiposteTriggered,

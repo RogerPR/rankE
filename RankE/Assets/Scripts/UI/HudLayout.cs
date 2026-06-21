@@ -55,6 +55,11 @@ namespace RankE.UI
         public HudPlacement playerCast =
             new HudPlacement(new Vector2(0f, 0.5f), new Vector2(300f, 150f), new Vector2(420f, 56f));
 
+        [Tooltip("Opponent timing bar (telegraph/cast/lock). Stacked directly under the " +
+            "'next actions' queue so the two read as one top-right timeline.")]
+        public HudPlacement enemyCast =
+            new HudPlacement(new Vector2(1f, 1f), new Vector2(-24f, -404f), new Vector2(420f, 56f));
+
         [Tooltip("Player status/buff column (left edge).")]
         public HudPlacement playerStatuses =
             new HudPlacement(new Vector2(0f, 1f), new Vector2(24f, -440f), new Vector2(220f, 420f));

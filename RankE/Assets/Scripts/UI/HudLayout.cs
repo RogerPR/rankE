@@ -39,9 +39,9 @@ namespace RankE.UI
     [Serializable]
     public sealed class HudLayout
     {
-        [Tooltip("Opponent's next-3 non-quick actions (top-right stack).")]
+        [Tooltip("Opponent's next-3 actions (circular row, right of the cast bar).")]
         public HudPlacement nextActions =
-            new HudPlacement(new Vector2(1f, 1f), new Vector2(-24f, -132f), new Vector2(384f, 264f));
+            new HudPlacement(new Vector2(1f, 1f), new Vector2(-24f, -404f), new Vector2(360f, 56f));
 
         [Tooltip("Player ability grid (bottom-left; main row + quick row).")]
         public HudPlacement abilityBar =

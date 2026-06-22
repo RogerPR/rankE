@@ -14,6 +14,7 @@ namespace RankE.UI
     public static class UiFactory
     {
         static Sprite white;
+        static Sprite knob;
         static Font font;
 
         public static Sprite WhiteSprite
@@ -27,6 +28,18 @@ namespace RankE.UI
                         new Vector2(0.5f, 0.5f));
                 }
                 return white;
+            }
+        }
+
+        /// <summary>Unity's built-in round "Knob" sprite — a circular cell background. Always
+        /// available at runtime (built-in resource), so no asset import is needed.</summary>
+        public static Sprite KnobSprite
+        {
+            get
+            {
+                if (knob == null)
+                    knob = Resources.GetBuiltinResource<Sprite>("UI/Skin/Knob.psd");
+                return knob;
             }
         }
 

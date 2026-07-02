@@ -49,6 +49,45 @@ namespace RankE.Sim
             }
         }
 
+        /// <summary>Side-by-side A/B diff of two batches (e.g. two tunings) — win rates,
+        /// durations, event counts and per-ability usage — for eyeballing what a change did.</summary>
+        public static string Compare(string labelA, BattleStats a, string labelB, BattleStats b)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"{"",-22}| {Trim(labelA),-22}| {Trim(labelB),-22}");
+            sb.AppendLine(new string('-', 70));
+            Row(sb, "fights", a.Fights.ToString(), b.Fights.ToString());
+            Row(sb, "wins A (player)", Pct(a.WinsA, a.Fights), Pct(b.WinsA, b.Fights));
+            Row(sb, "wins B (enemy)", Pct(a.WinsB, a.Fights), Pct(b.WinsB, b.Fights));
+            Row(sb, "draws", Pct(a.Draws, a.Fights), Pct(b.Draws, b.Fights));
+            Row(sb, "avg duration", $"{a.AverageSeconds:F1}s", $"{b.AverageSeconds:F1}s");
+            Row(sb, "min/max ticks", $"{a.MinTicks}/{a.MaxTicks}", $"{b.MinTicks}/{b.MaxTicks}");
+            Row(sb, "parries /fight", PerFight(a.Parries, a.Fights), PerFight(b.Parries, b.Fights));
+            Row(sb, "ripostes /fight", PerFight(a.Ripostes, a.Fights), PerFight(b.Ripostes, b.Fights));
+            Row(sb, "breaks /fight", PerFight(a.Breaks, a.Fights), PerFight(b.Breaks, b.Fights));
+            Row(sb, "combos /fight", PerFight(a.CombosCompleted, a.Fights), PerFight(b.CombosCompleted, b.Fights));
+
+            var ids = new SortedSet<string>(a.AbilityUses.Keys);
+            ids.UnionWith(b.AbilityUses.Keys);
+            if (ids.Count > 0) sb.AppendLine("ability uses /fight:");
+            foreach (var id in ids)
+            {
+                a.AbilityUses.TryGetValue(id, out var ua);
+                b.AbilityUses.TryGetValue(id, out var ub);
+                Row(sb, "  " + id, PerFight(ua, a.Fights), PerFight(ub, b.Fights));
+            }
+            return sb.ToString();
+        }
+
+        static void Row(StringBuilder sb, string name, string va, string vb)
+            => sb.AppendLine($"{name,-22}| {va,-22}| {vb,-22}");
+
+        static string Pct(int n, int total) => total == 0 ? "-" : $"{n} ({100f * n / total:F1}%)";
+
+        static string PerFight(int n, int fights) => fights == 0 ? "-" : $"{(float)n / fights:F2}";
+
+        static string Trim(string s) => string.IsNullOrEmpty(s) ? "?" : (s.Length <= 22 ? s : s.Substring(0, 21) + "…");
+
         public string Summary()
         {
             var sb = new StringBuilder();

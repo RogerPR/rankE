@@ -121,13 +121,22 @@ namespace RankE.Game
                     profile.Adversary.Name = profile.Opponent.displayName;
             }
 
-            if (loadout != null)
-            {
-                loadout.SetPlayerVisualByName(playerVisualName);
-                var enemyVisual = profile.Opponent != null && !string.IsNullOrEmpty(profile.Opponent.visualName)
-                    ? profile.Opponent.visualName : enemyVisualName;
-                loadout.SetEnemyVisualByName(enemyVisual);
-            }
+            ApplyVisuals(profile, loadout);
+        }
+
+        /// <summary>
+        /// Apply just the saved visual choices. Split out of <see cref="Apply"/> because the
+        /// startup seeding in <see cref="TuningProfile.Active"/> runs before any
+        /// <see cref="DebugLoadout"/> exists — CombatBootstrap calls this once the match does.
+        /// </summary>
+        public void ApplyVisuals(TuningProfile profile, DebugLoadout loadout)
+        {
+            if (loadout == null) return;
+            loadout.SetPlayerVisualByName(playerVisualName);
+            var opponent = profile != null ? profile.Opponent : null;
+            var enemyVisual = opponent != null && !string.IsNullOrEmpty(opponent.visualName)
+                ? opponent.visualName : enemyVisualName;
+            loadout.SetEnemyVisualByName(enemyVisual);
         }
 
         /// <summary>Overlay a build DTO onto an editable build (shared with opponent loading).</summary>

@@ -18,8 +18,8 @@ namespace RankE.UI
         readonly Text[] hpTexts = new Text[2];
         readonly Text[] gemTexts = new Text[2];
 
-        static readonly Color HpGreen = new Color(0.2f, 0.85f, 0.3f);
-        static readonly Color HpRed = new Color(0.9f, 0.2f, 0.2f);
+        static Color HpGreen => UiSkin.Palette.HpFull;
+        static Color HpRed => UiSkin.Palette.HpDanger;
         static readonly Color Inert = new Color(1f, 1f, 1f, 0.16f);
 
         public void Init(BattleDriver driver, MatchController match, Transform parent, float barHeight)
@@ -52,7 +52,7 @@ namespace RankE.UI
                 new Vector2(nameX, -10f), new Vector2(360f, 32f));
 
             float barX = left ? 24f : -210f;
-            hpFills[i] = UiFactory.Bar($"Hp{i}", parent, new Color(0f, 0f, 0f, 0.6f), HpGreen,
+            hpFills[i] = UiFactory.Bar($"Hp{i}", parent, UiSkin.Palette.BarTrough, HpGreen,
                 Image.FillMethod.Horizontal, out var bg);
             // Mirror the opponent's bar so both deplete toward the screen centre.
             hpFills[i].fillOrigin = (int)(left ? Image.OriginHorizontal.Left : Image.OriginHorizontal.Right);
@@ -64,7 +64,7 @@ namespace RankE.UI
 
             float gemX = left ? 600f : -780f;
             gemTexts[i] = UiFactory.Label($"Gems{i}", parent, "", 22,
-                new Color(0.55f, 0.75f, 1f), align);
+                UiSkin.Palette.StatText, align);
             UiFactory.PlaceFixed((RectTransform)gemTexts[i].transform, new Vector2(left ? 0f : 1f, 1f),
                 new Vector2(gemX, -46f), new Vector2(170f, 28f));
         }

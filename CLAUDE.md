@@ -76,6 +76,16 @@ Doing 3D / animation / skill-VFX / character-picker work? Also read
   Exits by itself (do not pass `-quit`); summary in the log under `[BalanceSweep]`.
   From code/tests, the same sweep is `BattleRunner.RunDefault(fights, seed)`.
 
+  With no scenario args this is the pinned PoC-mirror baseline. Scenario args (combinable;
+  scenario runs use the PoC AI as the "player" — relative comparisons only):
+  - `-preset X` — tuning from `TuningPresets/X.json` (player build vs its adversary/opponent)
+  - `-opponent Y` — force the adversary to `Opponents/Y.json`
+  - `-presetB Z` — A/B mode: also run preset Z, print a side-by-side `BattleStats.Compare` diff
+  - `-param GcdTicks -values 24,30,36` — range mode: one run per value; `-param slash.CooldownTicks`
+    targets an ability field
+  With the editor open, the same sweep runs from `Tools ▸ RANK E ▸ Combat Tuning ▸ Headless
+  sweep` (uses the live profile; from code, `SweepScenario.FromPreset(...).Run(fights, seed)`).
+
 - If the editor is open (project locked for batchmode), compile + tests can run through
   the MCP bridge instead: `refresh_unity`, then `run_tests` (mode `EditMode`) and poll
   `get_test_job`; `read_console` shows compile errors.

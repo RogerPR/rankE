@@ -58,11 +58,63 @@ namespace RankE.UI
         [Tooltip("Tint applied to framed panels (white = the sprite's own colour).")]
         public Color FrameTint = Color.white;
 
+        [Header("HUD palette (tune in the Inspector — no recompile; use Tools ▸ RANK E ▸ "
+            + "Rebuild HUD to see edits mid-fight)")]
+        [Tooltip("HP bar fill at full health (lerps toward danger as HP drops).")]
+        public Color HpFull = new Color(0.2f, 0.85f, 0.3f);
+
+        [Tooltip("HP bar fill at empty health.")]
+        public Color HpDanger = new Color(0.9f, 0.2f, 0.2f);
+
+        [Tooltip("Cast-progress fill on both timing bars.")]
+        public Color CastFill = new Color(0.95f, 0.85f, 0.3f);
+
+        [Tooltip("Enemy telegraph wind-up fill.")]
+        public Color TelegraphFill = new Color(1f, 0.5f, 0.15f);
+
+        [Tooltip("Animation-lock fill on the timing bars.")]
+        public Color LockFill = new Color(0.55f, 0.55f, 0.62f);
+
+        [Tooltip("Break bar fill.")]
+        public Color BreakFill = new Color(1f, 0.6f, 0.1f);
+
+        [Tooltip("Radial ring on the opponent's imminent next action.")]
+        public Color ImminentFill = new Color(0.95f, 0.35f, 0.2f);
+
+        [Tooltip("Gold accent for titles/headers (pause title, …).")]
+        public Color GoldAccent = new Color(1f, 0.86f, 0.5f);
+
+        [Tooltip("Full-screen dim behind overlays (pause).")]
+        public Color OverlayDim = new Color(0f, 0f, 0f, 0.6f);
+
+        [Tooltip("Dark trough drawn behind every bar fill.")]
+        public Color BarTrough = new Color(0f, 0f, 0f, 0.6f);
+
+        [Tooltip("Cool info text: fighter names, spell-gem counters.")]
+        public Color StatText = new Color(0.55f, 0.75f, 1f);
+
         [Header("Ability icons (id → sprite; built by keyword, override here)")]
         public List<AbilityIcon> Icons = new List<AbilityIcon>();
 
         static UiSkin cached;
         static bool tried;
+        static UiSkin fallback;
+
+        /// <summary>
+        /// The palette source widgets read colours from: the built skin asset when present,
+        /// otherwise a plain instance whose field initializers ARE the classic look — so an
+        /// unbuilt skin (or an asset saved before a field existed) changes nothing.
+        /// </summary>
+        public static UiSkin Palette
+        {
+            get
+            {
+                var skin = Load();
+                if (skin != null) return skin;
+                if (fallback == null) fallback = CreateInstance<UiSkin>();
+                return fallback;
+            }
+        }
 
         /// <summary>Load the singleton skin from Resources (null if not built yet).</summary>
         public static UiSkin Load()

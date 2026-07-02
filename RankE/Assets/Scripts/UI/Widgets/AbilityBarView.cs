@@ -103,7 +103,7 @@ namespace RankE.UI
                 if (def.GemCost > 0)
                 {
                     var gems = UiFactory.Label("Gems", bg.transform, $"{def.GemCost}◆", 14,
-                        new Color(0.55f, 0.75f, 1f), TextAnchor.LowerRight);
+                        UiSkin.Palette.StatText, TextAnchor.LowerRight);
                     UiFactory.PlaceFixed((RectTransform)gems.transform, new Vector2(1f, 0f),
                         new Vector2(-4f, 4f), new Vector2(30f, 16f));
                 }

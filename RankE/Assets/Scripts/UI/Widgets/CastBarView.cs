@@ -31,9 +31,9 @@ namespace RankE.UI
         int lockTotal;
         readonly StringBuilder sb = new StringBuilder();
 
-        static readonly Color CastColor = new Color(0.95f, 0.85f, 0.3f);
-        static readonly Color TelegraphColor = new Color(1f, 0.5f, 0.15f);
-        static readonly Color LockColor = new Color(0.55f, 0.55f, 0.62f);
+        static Color CastColor => UiSkin.Palette.CastFill;
+        static Color TelegraphColor => UiSkin.Palette.TelegraphFill;
+        static Color LockColor => UiSkin.Palette.LockFill;
 
         public void Init(BattleDriver driver, Transform parent, int fighterIndex, HudPlacement placement)
         {
@@ -53,7 +53,7 @@ namespace RankE.UI
                 Vector2.zero, new Vector2(44f, 44f));
 
             fill = UiFactory.Bar($"CastBar{fighterIndex}", group,
-                new Color(0f, 0f, 0f, 0.6f), CastColor, Image.FillMethod.Horizontal, out var bg);
+                UiSkin.Palette.BarTrough, CastColor, Image.FillMethod.Horizontal, out var bg);
             UiFactory.PlaceFixed((RectTransform)bg.transform, new Vector2(left ? 0f : 1f, 0.5f),
                 new Vector2(left ? 66f : -66f, 0f), new Vector2(354f, 28f));
 

@@ -48,8 +48,7 @@ namespace RankE.Game
             // Combat Tuning window edits). Cloning keeps the running fight deterministic —
             // editing the profile mid-fight lands on the next Begin (Rematch), not this one.
             var profile = TuningProfile.Active;
-            var content = DefaultContent.CreateContent();
-            ApplyProfileToContent(profile, content);
+            var content = profile.CreateContentDb();
             ApplyProfileToConfig(profile, player);
             ApplyProfileToConfig(profile, enemy);
 
@@ -60,17 +59,6 @@ namespace RankE.Game
             accumulator = 0f;
             eventCursor = 0;
             Running = false; // MatchController flips this when the countdown ends
-        }
-
-        /// <summary>Overwrite content ability entries (e.g. riposte lookup) with tuned clones.</summary>
-        static void ApplyProfileToContent(TuningProfile profile, ContentDb content)
-        {
-            var ids = new List<string>(content.Abilities.Keys);
-            foreach (var id in ids)
-            {
-                var tuned = profile.CloneAbility(id);
-                if (tuned != null) content.Abilities[id] = tuned;
-            }
         }
 
         /// <summary>Overwrite a fighter's loadout + auto-attack with tuned clones.</summary>

@@ -164,6 +164,26 @@ now map slots by GCD class (mains→Q/W/E/R, quick→SPC/F). Shipped data: `Oppo
 + `TuningPresets/Tutorial.json`. 100 EditMode tests green; seed-42 sweep unchanged
 (default path untouched). Owed: in-panel opponent picker/save UI; play-and-tune the tutorial pace.
 
+DX/tooling pass (2026-07-02) — "not a PoC anymore" foundations, all three tweak loops:
+**Tuning persists**: `TuningProfile.Active` now seeds from the startup preset
+(`TuningPresets/Default.json`) on every boot/domain reload — "SET STARTUP" in the panel /
+"Save as startup" in the tuning window write it; corrupt/missing file degrades to code
+defaults with a console note. The C#-paste-back workflow is retired (`DefaultContent` stays
+schema + fallback). In-panel **opponent picker** added (cycles `Opponents/*.json` +
+"(inline adversary)") — closes the owed item. **Sweep tooling**: `SweepScenario`
+(hermetic preset/opponent resolution, same content path as a played fight via
+`TuningProfile.CreateContentDb`), `BattleStats.Compare` A/B diffs, `BalanceSweepRunner`
+args `-preset/-opponent/-presetB/-param -values`, plus an in-editor "Headless sweep"
+foldout in the Combat Tuning window (no more closing the editor for quick sweeps); PoC-AI
+caveat printed on every scenario run. **UI iteration**: `Tools ▸ RANK E ▸ Rebuild HUD`
+(Cmd/Ctrl+Shift+H) tears down/rebuilds the HUD mid-fight so HudLayout/UiSkin inspector
+edits show instantly; curated HUD palette (HP/cast/telegraph/break/gold/dim/trough/…)
+moved into `UiSkin` with code-default fallbacks; pause box now a `HudLayout` placement.
+**Hygiene**: build scene list fixed (was shipping only SampleScene!), SampleScene deleted,
+shared `JsonFileStore` for repo JSON catalogues (StreamingAssets switch noted for Phase 7).
+Owed: play-mode pass on Rebuild HUD + SET STARTUP round-trip; new `SweepScenarioTests`
+green headless (editor was open this session — compile-verified via csc only).
+
 Next-session candidates (decide at session start): remaining parry juice (hitstop /
 camera shake / slow-mo riposte), BROKEN payoff, combo tracker + finisher UI, an SFX
 layer (AbilitySfxRegistry + FighterSfx), the in-fight HUD redesign with the wooden kit,

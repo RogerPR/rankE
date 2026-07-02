@@ -88,15 +88,16 @@ namespace RankE.UI
             h.spacing = 10f;
             h.childAlignment = TextAnchor.MiddleCenter;
 
-            BarLabel(bar, "Preset:", 120);
+            BarLabel(bar, "Preset:", 100);
             BarButton(bar, "<", 56, () => CyclePreset(-1));
-            nameField = BuildNameField(bar, 360);
+            nameField = BuildNameField(bar, 320);
             BarButton(bar, ">", 56, () => CyclePreset(+1));
-            BarButton(bar, "SAVE", 150, SavePreset);
-            BarButton(bar, "LOAD", 150, LoadPreset);
-            BarButton(bar, "DELETE", 160, DeletePreset);
-            BarButton(bar, "NEW", 130, NewPreset);
-            presetStatus = BarLabel(bar, "", 360);
+            BarButton(bar, "SAVE", 120, SavePreset);
+            BarButton(bar, "LOAD", 120, LoadPreset);
+            BarButton(bar, "DELETE", 140, DeletePreset);
+            BarButton(bar, "NEW", 110, NewPreset);
+            BarButton(bar, "SET STARTUP", 190, SaveAsStartup);
+            presetStatus = BarLabel(bar, "", 320);
             presetStatus.alignment = TextAnchor.MiddleLeft;
             presetStatus.color = new Color(0.7f, 0.85f, 1f);
         }
@@ -180,11 +181,22 @@ namespace RankE.UI
             SetStatus("Deleted \"" + name + "\".");
         }
 
+        // Saves under the well-known startup name — that preset auto-applies every boot
+        // (see TuningProfile.Active), so this is the one-tap "keep these numbers" action.
+        void SaveAsStartup()
+        {
+            TuningPresetStore.Save(TuningPresetStore.StartupName, TuningPreset.Capture(TuningProfile.Active, loadout));
+            RefreshPresetList();
+            SetStatus("Saved as startup — auto-loads every boot.");
+        }
+
         void NewPreset()
         {
             TuningProfile.Active.ResetToDefaults();
             RefreshAfterProfileChange();
-            SetStatus("Reset to defaults.");
+            SetStatus(TuningPresetStore.Exists(TuningPresetStore.StartupName)
+                ? "Reset (startup preset still applies at boot)."
+                : "Reset to defaults.");
         }
 
         void SetStatus(string s) { if (presetStatus != null) presetStatus.text = s; }
@@ -203,9 +215,43 @@ namespace RankE.UI
                 dir => { loadout.UseCustomAppearance = false; loadout.CyclePlayerVisual(dir); });
 
             w.AddHeader(parent, "Opponent (enemy)");
+            w.AddCycler(parent, "Opponent",
+                "Authored opponent (build + AI rotation + visual) from Opponents/*.json. Inline = hand-edit the build below.",
+                OpponentLabel, CycleOpponent);
             BuildFighterBlock(parent, () => TuningProfile.Active.Adversary, "Monster",
                 () => loadout.EnemyVisualName,
                 dir => loadout.CycleEnemyVisual(dir));
+        }
+
+        // --- opponent picker (cursor -1 = inline adversary, otherwise an Opponents/*.json id) ---
+
+        const string InlineOpponentName = "(inline adversary)";
+
+        string OpponentLabel()
+        {
+            var o = TuningProfile.Active.Opponent;
+            if (o == null) return InlineOpponentName;
+            return string.IsNullOrEmpty(o.displayName) ? o.id : o.displayName;
+        }
+
+        void CycleOpponent(int dir)
+        {
+            var profile = TuningProfile.Active;
+            var ids = OpponentStore.List();
+            int cur = profile.Opponent == null ? -1 : ids.IndexOf(profile.Opponent.id);
+            int next = LoadoutPools.Wrap(cur + 1 + dir, ids.Count + 1) - 1;
+            if (next < 0)
+            {
+                profile.SetOpponent(null);
+            }
+            else
+            {
+                var opponent = OpponentStore.Load(ids[next]);
+                profile.SetOpponent(opponent);
+                if (opponent != null && !string.IsNullOrEmpty(opponent.visualName))
+                    loadout.SetEnemyVisualByName(opponent.visualName);
+            }
+            RefreshAfterProfileChange();
         }
 
         void BuildFighterBlock(Transform parent, Func<FighterBuild> get, string visualLabel,

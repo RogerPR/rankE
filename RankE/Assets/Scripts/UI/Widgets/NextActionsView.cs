@@ -32,7 +32,7 @@ namespace RankE.UI
         BattleDriver driver;
         readonly Cell[] cells = new Cell[CellCount];
 
-        static readonly Color ImminentFill = new Color(0.95f, 0.35f, 0.2f);
+        static Color ImminentFill => UiSkin.Palette.ImminentFill;
         static readonly Color KnobTint = new Color(0.12f, 0.12f, 0.16f, 0.92f);
 
         public void Init(BattleDriver driver, Transform parent, HudPlacement placement)

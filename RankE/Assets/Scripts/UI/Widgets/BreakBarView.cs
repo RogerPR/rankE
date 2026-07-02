@@ -17,7 +17,7 @@ namespace RankE.UI
         readonly RectTransform[] roots = new RectTransform[2];
         readonly float[] flash = new float[2];
 
-        static readonly Color BarColor = new Color(1f, 0.6f, 0.1f);
+        static Color BarColor => UiSkin.Palette.BreakFill;
 
         public void Init(BattleDriver driver, Transform parent, Transform[] fighterBodies)
         {
@@ -27,7 +27,7 @@ namespace RankE.UI
             for (int i = 0; i < 2; i++)
             {
                 fills[i] = UiFactory.Bar($"BreakBar{i}", parent,
-                    new Color(0f, 0f, 0f, 0.6f), BarColor, Image.FillMethod.Horizontal, out var bg);
+                    UiSkin.Palette.BarTrough, BarColor, Image.FillMethod.Horizontal, out var bg);
                 roots[i] = (RectTransform)bg.transform;
                 roots[i].sizeDelta = new Vector2(130f, 14f);
             }

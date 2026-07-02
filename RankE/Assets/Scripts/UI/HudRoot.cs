@@ -20,6 +20,7 @@ namespace RankE.UI
         MatchController match;
         BattleDriver driver;
 
+        GameObject canvasGo;
         GameObject hudGroup;
         AbilityBarView abilityBar;
         FloatingCombatTextSpawner floatingText;
@@ -41,9 +42,46 @@ namespace RankE.UI
             }
             match = bootstrap.Match;
             driver = match.Driver;
+            Build();
+        }
 
+        /// <summary>
+        /// Dev tool (Tools ▸ RANK E ▸ Rebuild HUD): tear the whole UI down and rebuild it in
+        /// place, so inspector edits to <see cref="HudLayout"/>/UiSkin show mid-fight without
+        /// restarting. The fight itself is untouched — only view objects are recreated.
+        /// (Code edits still need a play-exit: a domain reload wipes the running battle.)
+        /// </summary>
+        public void Rebuild()
+        {
+            Teardown();
+            Build();
+        }
+
+        void Teardown()
+        {
+            if (match != null) match.StateChanged -= OnStateChanged;
+            // Everything lives on/under the canvas (widgets on hudGroup, screens on the canvas
+            // GO), so one immediate destroy runs every widget's OnDestroy unsubscribe now,
+            // before Build() subscribes fresh instances. The EventSystem GO survives.
+            if (canvasGo != null) DestroyImmediate(canvasGo);
+            canvasGo = null;
+            hudGroup = null;
+            abilityBar = null;
+            floatingText = null;
+            controlPanel = null;
+            abilities = null;
+            creator = null;
+            countdown = null;
+            result = null;
+            pauseOverlay = null;
+            pauseFirstButton = null;
+        }
+
+        void Build()
+        {
             UiFactory.EnsureEventSystem();
             var canvas = UiFactory.CreateCanvas("HUD Canvas");
+            canvasGo = canvas.gameObject;
 
             var playerGo = GameObject.Find("PlayerCapsule");
             var enemyGo = GameObject.Find("EnemyCapsule");
@@ -96,19 +134,22 @@ namespace RankE.UI
 
             match.StateChanged += OnStateChanged;
             OnStateChanged(match.State);
+            // A rebuild can land mid-fight; the normal ability-bar rebind only happens on
+            // Countdown, so bind the fresh bar to the running battle here.
+            if (match.State == MatchState.Fighting || match.State == MatchState.Paused)
+                abilityBar.Rebind();
         }
 
         GameObject BuildPauseOverlay(Transform parent)
         {
-            var panel = UiFactory.Panel("PauseOverlay", parent, new Color(0f, 0f, 0f, 0.6f));
+            var panel = UiFactory.Panel("PauseOverlay", parent, UiSkin.Palette.OverlayDim);
             panel.raycastTarget = true; // swallow clicks so they don't reach HUD widgets behind
             UiFactory.PlaceStretch((RectTransform)panel.transform);
             var box = UiFactory.Frame("PauseBox", panel.transform);
-            UiFactory.PlaceFixed((RectTransform)box.transform, new Vector2(0.5f, 0.5f),
-                Vector2.zero, new Vector2(620f, 560f));
+            layout.pauseBox.Apply((RectTransform)box.transform);
 
             var title = UiFactory.Label("Title", box.transform, "PAUSED", 56,
-                new Color(1f, 0.86f, 0.5f));
+                UiSkin.Palette.GoldAccent);
             UiFactory.PlaceFixed((RectTransform)title.transform, new Vector2(0.5f, 1f),
                 new Vector2(0f, -40f), new Vector2(500f, 70f));
 

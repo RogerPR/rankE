@@ -18,6 +18,7 @@ namespace RankE.Game
             var input = gameObject.AddComponent<PlayerInputController>();
             Match = gameObject.AddComponent<MatchController>();
             Match.Init(driver, input);
+            ApplyStartupVisuals();
 
             var playerGo = GameObject.Find("PlayerCapsule");
             var enemyGo = GameObject.Find("EnemyCapsule");
@@ -31,6 +32,22 @@ namespace RankE.Game
             // under them per fight and binds the body/animation views.
             var stage = gameObject.AddComponent<FighterStage>();
             stage.Init(driver, Match, playerGo.transform, enemyGo.transform);
+        }
+
+        /// <summary>
+        /// The startup preset's numbers seed <see cref="TuningProfile.Active"/> on first touch,
+        /// but its visual choices need a loadout — apply them here, where one finally exists.
+        /// </summary>
+        void ApplyStartupVisuals()
+        {
+            try
+            {
+                TuningPresetStore.LoadStartup()?.ApplyVisuals(TuningProfile.Active, Match.Loadout);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("CombatBootstrap: startup preset visuals skipped — " + e.Message);
+            }
         }
     }
 }

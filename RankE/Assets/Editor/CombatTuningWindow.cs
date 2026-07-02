@@ -17,9 +17,9 @@ namespace RankE.Editor
     /// Sim edits apply on the NEXT fight (each fight clones the profile — see
     /// <c>BattleDriver.Begin</c>), keeping every fight a clean deterministic replay-from-seed;
     /// finish the fight / press Rematch to feel a change. Presentation knobs apply live (the
-    /// view reads the assets per spawn) and persist (they're assets). The profile itself is
-    /// in-memory and resets on a domain reload / play-exit — "Copy values" dumps the current
-    /// numbers so good ones can be pasted back into <c>DefaultContent</c>.
+    /// view reads the assets per spawn) and persist (they're assets). The profile re-seeds on a
+    /// domain reload / play-exit from the startup preset (<c>TuningPresets/Default.json</c>) —
+    /// "Save as startup" persists the current numbers there, so no C# paste-back is needed.
     /// </summary>
     public sealed class CombatTuningWindow : EditorWindow
     {
@@ -30,6 +30,10 @@ namespace RankE.Editor
         bool showGlobals = true;
         bool showAbilities = true;
         bool showPresentation = true;
+        bool showSweep;
+        int sweepFights = 1000;
+        int sweepSeed = 42;
+        string sweepResult;
         string presetName = "";
         readonly HashSet<string> expandedAbilities = new HashSet<string>();
 
@@ -59,6 +63,10 @@ namespace RankE.Editor
             showPresentation = EditorGUILayout.Foldout(showPresentation, "Presentation knobs (live)", true);
             if (showPresentation) DrawPresentation();
 
+            EditorGUILayout.Space();
+            showSweep = EditorGUILayout.Foldout(showSweep, "Headless sweep", true);
+            if (showSweep) DrawSweep(profile);
+
             EditorGUILayout.EndScrollView();
             DrawPresets(profile);
             DrawFooter(profile);
@@ -86,6 +94,8 @@ namespace RankE.Editor
                         }
                 }
             }
+            if (GUILayout.Button($"Save as startup (\"{TuningPresetStore.StartupName}\" — auto-loads every boot)"))
+                TuningPresetStore.Save(TuningPresetStore.StartupName, TuningPreset.Capture(profile, loadout));
             var names = TuningPresetStore.List();
             if (names.Count > 0)
                 EditorGUILayout.LabelField("Saved: " + string.Join(", ", names), EditorStyles.miniLabel);
@@ -95,8 +105,8 @@ namespace RankE.Editor
         {
             EditorGUILayout.HelpBox(
                 Application.isPlaying
-                    ? "Sim edits apply on the NEXT fight — press Restart fight. Presentation knobs apply live."
-                    : "Enter Play to tune a running fight. Values reset on domain reload — use Copy values to keep good ones.",
+                    ? "Sim edits apply on the NEXT fight — press Restart fight. Presentation knobs apply live. Save as startup to keep good numbers."
+                    : "Enter Play to tune a running fight. Values re-seed from the startup preset (TuningPresets/Default.json) on domain reload — Save as startup to persist.",
                 Application.isPlaying ? MessageType.Info : MessageType.Warning);
         }
 
@@ -154,6 +164,27 @@ namespace RankE.Editor
                 }
                 EditorGUI.indentLevel--;
             }
+            EditorGUI.indentLevel--;
+        }
+
+        // Run an AI-vs-AI batch with the numbers currently in the window, without closing the
+        // editor (the CLI sweep needs the project unlocked). Blocks the UI for a few seconds.
+        void DrawSweep(TuningProfile profile)
+        {
+            EditorGUI.indentLevel++;
+            sweepFights = EditorGUILayout.IntField("Fights", sweepFights);
+            sweepSeed = EditorGUILayout.IntField("Seed", sweepSeed);
+            if (GUILayout.Button("Run with current profile (blocks a few seconds)"))
+            {
+                var sw = System.Diagnostics.Stopwatch.StartNew();
+                var stats = SweepScenario.FromProfile(profile).Run(sweepFights, sweepSeed);
+                sw.Stop();
+                sweepResult = $"{sweepFights} fights, seed {sweepSeed}, {sw.ElapsedMilliseconds} ms "
+                    + "(PoC AI as player — relative comparison only)\n" + stats.Summary();
+                Debug.Log("[BalanceSweep] " + sweepResult);
+            }
+            if (!string.IsNullOrEmpty(sweepResult))
+                EditorGUILayout.HelpBox(sweepResult, MessageType.None);
             EditorGUI.indentLevel--;
         }
 

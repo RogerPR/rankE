@@ -68,6 +68,10 @@ namespace RankE.UI
         public HudPlacement enemyStatuses =
             new HudPlacement(new Vector2(1f, 1f), new Vector2(-24f, -440f), new Vector2(220f, 420f));
 
+        [Tooltip("Pause menu box (centre of the dim overlay).")]
+        public HudPlacement pauseBox =
+            new HudPlacement(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(620f, 560f));
+
         [Tooltip("Height in pixels of the full-width top status strip.")]
         public float topBarHeight = 112f;
     }
